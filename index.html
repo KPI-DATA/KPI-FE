@@ -43,7 +43,6 @@ body { background: var(--ln-gray); color: var(--ln-text); }
 .header-right { display: flex; gap: 15px; align-items: center; flex-wrap: wrap; }
 .user-info { font-size: 14px; font-weight: 600; }
 
-/* HELP MENU - TEXTO CLICKABLE */
 .help-menu-text {
   color: white;
   font-size: 14px;
@@ -66,7 +65,6 @@ body { background: var(--ln-gray); color: var(--ln-text); }
 }
 .btn-logout:hover, .btn-admin-login:hover { background: var(--ln-orange-pale); }
 
-/* MODAL ABOUT - ESTILO NETWORK PINGER */
 .about-modal {
   display: none;
   position: fixed;
@@ -230,7 +228,7 @@ body { background: var(--ln-gray); color: var(--ln-text); }
 .tab { padding: 15px 20px; cursor: pointer; border: none; background: none; font-size: 14px; font-weight: 700; color: var(--ln-gray-dark); border-bottom: 3px solid transparent; transition: all 0.3s; white-space: nowrap; }
 .tab:hover { color: var(--ln-orange); }
 .tab.active { color: var(--ln-orange); border-bottom-color: var(--ln-orange); }
-.tab.locked::after { content: " "; font-size: 12px; }
+.tab.locked::after { content: " 🔒"; font-size: 12px; }
 
 .content { padding: 25px; }
 .section { display: none; }
@@ -441,16 +439,16 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
   </h1>
   <div class="header-right">
     <button class="status-btn connecting" id="statusBtn">
-      <span class="status-icon"></span>
+      <span class="status-icon">🔄</span>
       <span class="status-text" id="statusText">Conectando...</span>
     </button>
     <span class="help-menu-text" onclick="showAboutModal()">Help</span>
-    <button class="btn-admin-login" id="btnAdminLogin" onclick="showAdminLogin()"> Acceso Admin</button>
-    <button class="btn-logout hidden" id="btnLogout" onclick="logoutAdmin()">🚪 Salir Admin</button>
+    <button class="btn-admin-login" id="btnAdminLogin" onclick="showAdminLogin()">🔐 Acceso Admin</button>
+    <button class="btn-logout hidden" id="btnLogout" onclick="logoutAdmin()"> Salir Admin</button>
   </div>
 </div>
 
-<!-- MODAL ABOUT - ESTILO NETWORK PINGER -->
+<!-- MODAL ABOUT -->
 <div class="about-modal" id="aboutModal">
   <div class="about-content">
     <div class="about-header">
@@ -476,7 +474,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
         </div>
 
         <div class="about-section">
-          <h4> Licencia y Derechos</h4>
+          <h4>📋 Licencia y Derechos</h4>
           <p><strong>"Author"</strong> herein refers to <strong>Lenin Justiniano</strong> (the creator of KPI Field Engineers System).</p>
           <p><strong>"Software"</strong> refers to all files included with KPI Field Engineers (typically installed by the installer or extracted from a .zip archive).</p>
           <p style="margin-top: 10px;">Except where otherwise noted, all rights reserved. This software is proprietary and confidential.</p>
@@ -503,9 +501,9 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
   <button class="tab active" onclick="showSection('registro', this)">➕ Registrar Actividad</button>
   <button class="tab" onclick="showSection('dashboard', this)">📈 Dashboard</button>
   <button class="tab" onclick="showSection('actividades', this)">📋 Actividades</button>
-  <button class="tab" onclick="showSection('horasExtras', this)">🔴 Horas Extras</button>
+  <button class="tab" onclick="showSection('horasExtras', this)"> Horas Extras</button>
   <button class="tab" onclick="showSection('ingeniero', this)">👷 Por Ingeniero</button>
-  <button class="tab locked" id="tabAdmin" onclick="showSection('admin', this)">⚙️ Admin</button>
+  <button class="tab locked" id="tabAdmin" onclick="showSection('admin', this)">️ Admin</button>
 </div>
 
 <div class="content">
@@ -537,7 +535,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
             <select id="fIngeniero" required><option value="">-- Seleccione --</option></select>
           </div>
           <div class="form-group">
-            <label> Tipo de Actividad *</label>
+            <label>🔧 Tipo de Actividad *</label>
             <select id="fTipo" required><option value="">-- Seleccione --</option></select>
           </div>
           <div class="form-group">
@@ -552,7 +550,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
             </select>
           </div>
           <div class="form-group full">
-            <label>📝 Descripción de la Actividad *</label>
+            <label> Descripción de la Actividad *</label>
             <textarea id="fDescripcion" required placeholder="Detalle del cliente/servicio..."></textarea>
           </div>
           <div class="form-group full">
@@ -563,8 +561,8 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
             <label>✅ Estado</label>
             <div class="estado-group">
               <button type="button" class="estado-btn completo active" onclick="setEstado('COMPLETO', this)">✅ COMPLETO</button>
-              <button type="button" class="estado-btn incompleto" onclick="setEstado('INCOMPLETO', this)">❌ INCOMPLETO</button>
-              <button type="button" class="estado-btn pendiente" onclick="setEstado('ACT-PENDIENTE', this)">⏳ ACT-PENDIENTE</button>
+              <button type="button" class="estado-btn incompleto" onclick="setEstado('INCOMPLETO', this)"> INCOMPLETO</button>
+              <button type="button" class="estado-btn pendiente" onclick="setEstado('ACT-PENDIENTE', this)"> ACT-PENDIENTE</button>
             </div>
             <input type="hidden" id="fEstado" value="COMPLETO">
           </div>
@@ -580,7 +578,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
           </div>
         </div>
         <div class="btn-group">
-          <button type="submit" class="btn btn-primary"> Guardar Actividad</button>
+          <button type="submit" class="btn btn-primary">💾 Guardar Actividad</button>
           <button type="reset" class="btn btn-secondary" onclick="setFechaActual()">🔄 Limpiar</button>
         </div>
       </form>
@@ -655,8 +653,8 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
     </div>
 
     <div class="charts-grid">
-      <div class="chart-box"><h3>👷 Actividades por Ingeniero</h3><div class="chart-container"><canvas id="chartIng"></canvas></div></div>
-      <div class="chart-box"><h3> Horas Extras por Ingeniero</h3><div class="chart-container"><canvas id="chartOT"></canvas></div></div>
+      <div class="chart-box"><h3> Actividades por Ingeniero</h3><div class="chart-container"><canvas id="chartIng"></canvas></div></div>
+      <div class="chart-box"><h3>🔴 Horas Extras por Ingeniero</h3><div class="chart-container"><canvas id="chartOT"></canvas></div></div>
     </div>
 
     <div class="charts-grid">
@@ -676,7 +674,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
       <div class="table-header">
         <h3>📋 Listado de Actividades</h3>
         <div class="filters">
-          <input type="text" id="filterBuscar" placeholder=" Buscar..." oninput="renderTabla()">
+          <input type="text" id="filterBuscar" placeholder="🔍 Buscar..." oninput="renderTabla()">
           <select id="filterIng" onchange="renderTabla()"><option value="">Todos los ingenieros</option></select>
           <select id="filterTipo" onchange="renderTabla()"><option value="">Todos los tipos</option></select>
           <select id="filterMes" onchange="renderTabla()">
@@ -715,15 +713,15 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
   <!-- HORAS EXTRAS -->
   <div class="section" id="horasExtras">
     <div class="ot-highlight">
-      <h3> Control de Horas Extras (Actividades después de 5:00 PM)</h3>
+      <h3>🔴 Control de Horas Extras (Actividades después de 5:00 PM)</h3>
       <p>Las actividades que inician o finalizan después de las 17:00 se marcan automáticamente como Horas Extras.</p>
     </div>
 
     <div class="global-filters">
-      <h3>🔍 Filtros de Horas Extras</h3>
+      <h3> Filtros de Horas Extras</h3>
       <div class="filters-row">
         <div class="filter-group">
-          <label>👷 Ingeniero</label>
+          <label> Ingeniero</label>
           <select id="otIng" onchange="renderOT()"><option value="">Todos</option></select>
         </div>
         <div class="filter-group">
@@ -812,7 +810,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
         <input type="text" id="adminUser" placeholder="admin" autocomplete="off">
         <label><strong>Contraseña:</strong></label>
         <input type="password" id="adminPass" placeholder="••••••••" autocomplete="off">
-        <button class="btn btn-primary" style="margin-top:10px;width:100%;" onclick="doAdminLogin()"> Acceder</button>
+        <button class="btn btn-primary" style="margin-top:10px;width:100%;" onclick="doAdminLogin()">🔓 Acceder</button>
         <div class="login-error" id="adminError">❌ Credenciales incorrectas</div>
       </div>
     </div>
@@ -834,7 +832,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
           </div>
 
           <div class="import-options" id="importOptions" style="display:none;">
-            <h4>️ Opciones de Importación</h4>
+            <h4>⚙️ Opciones de Importación</h4>
             <label><input type="checkbox" id="optAutoDetect" checked> Auto-detectar formato de fechas</label>
             <label><input type="checkbox" id="optNormalizeNames" checked> Normalizar nombres de ingenieros</label>
             <label><input type="checkbox" id="optFixYears" checked> Corregir años cruzados</label>
@@ -889,7 +887,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
                 <button class="btn btn-primary" onclick="copySQLToClipboard()" style="flex:1;">📋 Copiar SQL</button>
                 <button class="btn btn-secondary" onclick="downloadSQL()" style="flex:1;">💾 Descargar .sql</button>
               </div>
-              <button class="btn btn-secondary" onclick="resetSQLGenerator()" style="width:100%; margin-top:10px;">🔄 Cargar Otro Archivo</button>
+              <button class="btn btn-secondary" onclick="resetSQLGenerator()" style="width:100%; margin-top:10px;"> Cargar Otro Archivo</button>
             </div>
           </div>
         </div>
@@ -898,7 +896,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
       <h3 style="color:var(--ln-orange-dark); margin-bottom:15px; font-size:18px; font-weight:700; border-bottom: 2px solid var(--ln-orange-pale); padding-bottom: 10px;">📚 Gestión de Catálogos</h3>
       <div class="catalog-grid">
         <div class="catalog-item">
-          <h4> Ingenieros</h4>
+          <h4>👷 Ingenieros</h4>
           <div style="display:flex;gap:5px;margin-bottom:10px;">
             <input type="text" id="newIng" placeholder="Nombre..." style="flex:1;padding:8px;border:1px solid #ccc;border-radius:6px;font-size:13px;">
             <button class="btn btn-primary" style="padding:8px 12px;font-size:12px;" onclick="addIngeniero()">➕</button>
@@ -926,7 +924,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
       </div>
 
       <div class="admin-card" style="margin-top:30px; max-width: 500px; margin-left: auto; margin-right: auto;">
-        <h3> Cambiar Contraseña Admin</h3>
+        <h3>🔑 Cambiar Contraseña Admin</h3>
         <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;">
           <input type="password" id="newPass" placeholder="Nueva contraseña (mín. 6 caracteres)" style="flex:1;padding:10px;border:2px solid #e0e0e0;border-radius:8px;">
           <button class="btn btn-primary" onclick="changePass()">🔒 Cambiar</button>
@@ -942,7 +940,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
 <div class="modal" id="modalAdmin">
   <div class="modal-content">
     <button class="modal-close" onclick="closeModal('modalAdmin')">&times;</button>
-    <h3> Acceso de Administrador</h3>
+    <h3>🔐 Acceso de Administrador</h3>
     <p style="margin-bottom:15px;">Ingrese las credenciales para gestionar el sistema.</p>
     <div class="login-box-inline">
       <label><strong>Usuario:</strong></label>
@@ -964,7 +962,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
       <input type="hidden" id="editId">
       <div class="form-grid">
         <div class="form-group">
-          <label>📅 Fecha Inicio *</label>
+          <label> Fecha Inicio *</label>
           <input type="date" id="editInicioDate" required>
         </div>
         <div class="form-group">
@@ -976,7 +974,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
           <input type="date" id="editFinDate" required>
         </div>
         <div class="form-group">
-          <label>🕒 Hora Fin *</label>
+          <label> Hora Fin *</label>
           <input type="time" id="editFinTime" required>
         </div>
         <div class="form-group">
@@ -988,7 +986,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
           <select id="editTipo" required></select>
         </div>
         <div class="form-group">
-          <label>👤 Responsable *</label>
+          <label> Responsable *</label>
           <input type="text" id="editResponsable" required>
         </div>
         <div class="form-group">
@@ -1022,7 +1020,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
           </select>
         </div>
         <div class="form-group full">
-          <label>📋 Detalle Error</label>
+          <label> Detalle Error</label>
           <textarea id="editDetalleError"></textarea>
         </div>
       </div>
@@ -1044,7 +1042,6 @@ function closeAboutModal() {
   document.getElementById('aboutModal').classList.remove('active');
 }
 
-// Cerrar modal al hacer clic fuera
 document.getElementById('aboutModal').addEventListener('click', function(e) {
   if (e.target === this) closeAboutModal();
 });
@@ -1341,13 +1338,609 @@ function showSection(id, btn) {
 
 function clearFilters() {
   ['gIng','gTipo','gMes','gAnio','gHorario','gEstado'].forEach(id => {
-    document.getElementById(id).value = '';
+    const el = document.getElementById(id);
+    if (el) el.value = '';
   });
   renderDashboard();
 }
 
 /* ============================================
-   PROCESADOR CSV INTELIGENTE
+   FILTRADO DE DATOS - CORREGIDO 100%
+   ============================================ */
+function getFilteredData() {
+  const fIng = document.getElementById('gIng').value.trim();
+  const fTipo = document.getElementById('gTipo').value.trim();
+  const fMes = document.getElementById('gMes').value.trim();
+  const fAnio = document.getElementById('gAnio').value.trim();
+  const fHorario = document.getElementById('gHorario').value.trim();
+  const fEstado = document.getElementById('gEstado').value.trim();
+
+  return todasActividades.filter(a => {
+    if (!a.inicio) return false;
+    const ini = new Date(a.inicio);
+    
+    // Filtro por Ingeniero
+    if (fIng && a.ingeniero !== fIng) return false;
+    
+    // Filtro por Tipo de Actividad
+    if (fTipo && a.tipo !== fTipo) return false;
+    
+    // Filtro por Mes
+    if (fMes && fMes !== "" && ini.getMonth() !== parseInt(fMes)) return false;
+    
+    // Filtro por Año
+    if (fAnio && fAnio !== "" && ini.getFullYear() !== parseInt(fAnio)) return false;
+    
+    // Filtro por Horario
+    if (fHorario === 'Extra' && !esHorasExtra(a)) return false;
+    if (fHorario === 'Laboral' && esHorasExtra(a)) return false;
+    
+    // Filtro por Estado
+    if (fEstado && fEstado !== "" && a.estado !== fEstado) return false;
+    
+    return true;
+  });
+}
+
+/* ============================================
+   RENDERIZADO DASHBOARD
+   ============================================ */
+function renderDashboard() {
+  const filtradas = getFilteredData();
+  
+  const total = filtradas.length;
+  const completadas = filtradas.filter(a => a.estado === 'COMPLETO').length;
+  const pendientes = filtradas.filter(a => a.estado === 'ACT-PENDIENTE').length;
+  const otActs = filtradas.filter(esHorasExtra);
+  
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statComp').textContent = completadas;
+  document.getElementById('statPend').textContent = pendientes;
+  document.getElementById('statOT').textContent = otActs.length;
+  document.getElementById('statOTHrs').textContent = otActs.reduce((s, a) => s + calcularHorasExtra(a), 0).toFixed(1) + 'h';
+  document.getElementById('statIng').textContent = new Set(filtradas.map(a => a.ingeniero)).size;
+
+  const tasa = total > 0 ? ((completadas / total) * 100).toFixed(1) + '%' : '0%';
+  document.getElementById('statTasa').textContent = tasa;
+
+  const conErrores = filtradas.filter(a => a.tipo_error || a.tipoError).length;
+  document.getElementById('statErrores').textContent = conErrores;
+
+  const duraciones = filtradas.map(a => parseFloat(calcularDuracion(a))).filter(d => !isNaN(d));
+  const promDur = duraciones.length > 0 ? (duraciones.reduce((a,b)=>a+b, 0) / duraciones.length).toFixed(2) + 'h' : '0h';
+  document.getElementById('statPromDur').textContent = promDur;
+
+  const ingCounts = {};
+  filtradas.forEach(a => { if(a.estado === 'COMPLETO') ingCounts[a.ingeniero] = (ingCounts[a.ingeniero]||0) + 1; });
+  let topIng = '-', maxCount = 0;
+  for (const [ing, count] of Object.entries(ingCounts)) {
+    if (count > maxCount) { maxCount = count; topIng = ing; }
+  }
+  document.getElementById('statTopIng').textContent = topIng !== '-' ? `${topIng} (${maxCount})` : '-';
+
+  const meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  const dataMes = new Array(12).fill(0);
+  filtradas.forEach(a => { if (a.inicio) dataMes[new Date(a.inicio).getMonth()]++; });
+  
+  if (chartMes) chartMes.destroy();
+  chartMes = new Chart(document.getElementById('chartMes'), {
+    type: 'bar',
+    data: { labels: meses, datasets: [{ label: 'Actividades', data: dataMes, backgroundColor: CHART_COLORS }] },
+    options: { responsive: true, maintainAspectRatio: false }
+  });
+
+  const tipos = {};
+  filtradas.forEach(a => { tipos[a.tipo] = (tipos[a.tipo]||0) + 1; });
+  if (chartTipo) chartTipo.destroy();
+  chartTipo = new Chart(document.getElementById('chartTipo'), {
+    type: 'doughnut',
+    data: { labels: Object.keys(tipos), datasets: [{ data: Object.values(tipos), backgroundColor: CHART_COLORS }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { font: { size: 10 } } } } }
+  });
+
+  const ingsObj = {};
+  filtradas.forEach(a => { ingsObj[a.ingeniero] = (ingsObj[a.ingeniero]||0) + 1; });
+  if (chartIng) chartIng.destroy();
+  chartIng = new Chart(document.getElementById('chartIng'), {
+    type: 'bar',
+    data: { labels: Object.keys(ingsObj), datasets: [{ label: 'Actividades', data: Object.values(ingsObj), backgroundColor: CHART_COLORS[0] }] },
+    options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y' }
+  });
+
+  const otIng = {};
+  filtradas.filter(esHorasExtra).forEach(a => { otIng[a.ingeniero] = (otIng[a.ingeniero]||0) + calcularHorasExtra(a); });
+  if (chartOT) chartOT.destroy();
+  chartOT = new Chart(document.getElementById('chartOT'), {
+    type: 'bar',
+    data: { labels: Object.keys(otIng), datasets: [{ label: 'Horas Extra', data: Object.values(otIng).map(v => +v.toFixed(2)), backgroundColor: CHART_COLORS.slice(2, 6) }] },
+    options: { responsive: true, maintainAspectRatio: false }
+  });
+
+  const errs = {};
+  filtradas.filter(a => a.tipo_error || a.tipoError).forEach(a => { 
+    const err = a.tipo_error || a.tipoError;
+    if (err) errs[err] = (errs[err]||0) + 1; 
+  });
+  if (chartErrores) chartErrores.destroy();
+  chartErrores = new Chart(document.getElementById('chartErrores'), {
+    type: 'polarArea',
+    data: { labels: Object.keys(errs), datasets: [{ data: Object.values(errs), backgroundColor: CHART_COLORS.slice(0, 10) }] },
+    options: { responsive: true, maintainAspectRatio: false }
+  });
+
+  const estados = { COMPLETO: 0, INCOMPLETO: 0, 'ACT-PENDIENTE': 0 };
+  filtradas.forEach(a => { if (estados[a.estado] !== undefined) estados[a.estado]++; });
+  if (chartEstado) chartEstado.destroy();
+  chartEstado = new Chart(document.getElementById('chartEstado'), {
+    type: 'pie',
+    data: { labels: ['Completas','Incompletas','Pendientes'], datasets: [{ data: [estados.COMPLETO, estados.INCOMPLETO, estados['ACT-PENDIENTE']], backgroundColor: ['#2ecc71','#e74c3c','#f1c40f'] }] },
+    options: { responsive: true, maintainAspectRatio: false }
+  });
+
+  const aniosObj = {};
+  filtradas.forEach(a => { if (a.inicio) { const anio = new Date(a.inicio).getFullYear(); aniosObj[anio] = (aniosObj[anio]||0) + 1; } });
+  const aniosOrdenados = Object.keys(aniosObj).sort();
+  if (chartAnual) chartAnual.destroy();
+  chartAnual = new Chart(document.getElementById('chartAnual'), {
+    type: 'line',
+    data: { labels: aniosOrdenados, datasets: [{ label: 'Actividades', data: aniosOrdenados.map(a => aniosObj[a]), borderColor: CHART_COLORS[0], backgroundColor: 'rgba(52, 152, 219, 0.1)', fill: true, tension: 0.3 }] },
+    options: { responsive: true, maintainAspectRatio: false }
+  });
+}
+
+/* ============================================
+   CÁLCULOS Y FILTROS
+   ============================================ */
+function esHorasExtra(act) {
+  if (!act.inicio || !act.fin) return false;
+  const ini = new Date(act.inicio);
+  const fin = new Date(act.fin);
+  return ini.getHours() >= 17 || fin.getHours() >= 17 || (ini.getHours() < 17 && fin.getHours() >= 17);
+}
+
+function calcularHorasExtra(act) {
+  if (!act.inicio || !act.fin) return 0;
+  const ini = new Date(act.inicio);
+  const fin = new Date(act.fin);
+  let horasExtra = 0;
+  if (ini.getHours() >= 17) {
+    horasExtra = (fin - ini) / (1000*60*60);
+  } else if (fin.getHours() >= 17 || fin.getDate() !== ini.getDate()) {
+    const limite = new Date(ini);
+    limite.setHours(17, 0, 0, 0);
+    horasExtra = (fin - limite) / (1000*60*60);
+  }
+  return Math.max(0, horasExtra);
+}
+
+function calcularDuracion(act) {
+  if (!act.inicio || !act.fin) return '0.00';
+  return ((new Date(act.fin) - new Date(act.inicio)) / (1000*60*60)).toFixed(2);
+}
+
+/* ============================================
+   EXPORTAR A EXCEL
+   ============================================ */
+function exportarExcel() {
+  const datos = getFilteredData();
+  if (datos.length === 0) { alert('⚠️ No hay datos para exportar'); return; }
+  const datosExportar = datos.map(a => ({
+    'Fecha Inicio': a.inicio ? new Date(a.inicio).toLocaleString('es-DO') : '',
+    'Fecha Fin': a.fin ? new Date(a.fin).toLocaleString('es-DO') : '',
+    'Horario': esHorasExtra(a) ? 'EXTRA' : 'Laboral',
+    'Ingeniero': a.ingeniero || '', 'Tipo de Actividad': a.tipo || '',
+    'Descripción': a.descripcion || '', 'Responsable': a.responsable || '',
+    'Observaciones': a.observaciones || '', 'Estado': a.estado || '',
+    'Duración (horas)': calcularDuracion(a),
+    'Horas Extra': esHorasExtra(a) ? calcularHorasExtra(a).toFixed(2) : '0',
+    'Tipo Error': a.tipo_error || a.tipoError || '', 'Detalle Error': a.detalle_error || a.detalleError || ''
+  }));
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.json_to_sheet(datosExportar);
+  XLSX.utils.book_append_sheet(wb, ws, "Actividades");
+  XLSX.writeFile(wb, `Reporte_Actividades_${new Date().toISOString().slice(0,10)}.xlsx`);
+  alert(`✅ Exportado! Total: ${datos.length}`);
+}
+
+function exportarExcelOT() {
+  const fIng = document.getElementById('otIng').value;
+  const fMes = document.getElementById('otMes').value;
+  const fAnio = document.getElementById('otAnio').value;
+  let otActs = todasActividades.filter(esHorasExtra).filter(a => {
+    if (!a.inicio) return false;
+    const ini = new Date(a.inicio);
+    if (fIng && a.ingeniero !== fIng) return false;
+    if (fMes !== '' && ini.getMonth() !== parseInt(fMes)) return false;
+    if (fAnio && ini.getFullYear() !== parseInt(fAnio)) return false;
+    return true;
+  });
+  if (otActs.length === 0) { alert('⚠️ No hay horas extras para exportar'); return; }
+  const datosExportar = otActs.map(a => ({
+    'Fecha': a.inicio ? new Date(a.inicio).toLocaleDateString('es-DO') : '',
+    'Ingeniero': a.ingeniero || '', 'Tipo': a.tipo || '', 'Descripción': a.descripcion || '',
+    'Hora Inicio': a.inicio ? new Date(a.inicio).toLocaleTimeString('es-DO', {hour:'2-digit', minute:'2-digit'}) : '',
+    'Hora Fin': a.fin ? new Date(a.fin).toLocaleTimeString('es-DO', {hour:'2-digit', minute:'2-digit'}) : '',
+    'Horas Extra': calcularHorasExtra(a).toFixed(2), 'Responsable': a.responsable || '', 'Estado': a.estado || ''
+  }));
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(datosExportar), "Horas Extras");
+  XLSX.writeFile(wb, `Reporte_Horas_Extras_${new Date().toISOString().slice(0,10)}.xlsx`);
+}
+
+function exportarExcelIngeniero() {
+  const ing = document.getElementById('ingSelect').value;
+  const mes = document.getElementById('ingMes').value;
+  const anio = document.getElementById('ingAnio').value;
+  if (!ing) { alert('⚠️ Seleccione un ingeniero'); return; }
+  const filtradas = todasActividades.filter(a => {
+    if (a.ingeniero !== ing) return false;
+    if (!a.inicio) return false;
+    const ini = new Date(a.inicio);
+    if (mes !== '' && ini.getMonth() !== parseInt(mes)) return false;
+    if (anio && ini.getFullYear() !== parseInt(anio)) return false;
+    return true;
+  });
+  if (filtradas.length === 0) { alert('⚠️ No hay actividades'); return; }
+  const datosExportar = filtradas.map(a => ({
+    'Fecha Inicio': a.inicio ? new Date(a.inicio).toLocaleString('es-DO') : '',
+    'Fecha Fin': a.fin ? new Date(a.fin).toLocaleString('es-DO') : '',
+    'Horario': esHorasExtra(a) ? 'EXTRA' : 'Laboral', 'Tipo': a.tipo || '',
+    'Descripción': a.descripcion || '', 'Responsable': a.responsable || '',
+    'Estado': a.estado || '', 'Duración': calcularDuracion(a),
+    'Horas Extra': esHorasExtra(a) ? calcularHorasExtra(a).toFixed(2) : '0'
+  }));
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(datosExportar), ing);
+  XLSX.writeFile(wb, `Reporte_${ing.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0,10)}.xlsx`);
+}
+
+/* ============================================
+   GUARDAR / EDITAR / ELIMINAR
+   ============================================ */
+function setEstado(estado, btn) {
+  document.querySelectorAll('#formActividad .estado-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('fEstado').value = estado;
+}
+
+function setEditEstado(estado, btn) {
+  document.querySelectorAll('#formEditar .estado-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('editEstado').value = estado;
+}
+
+function toggleDetalleError() {
+  document.getElementById('detalleErrorGroup').style.display = document.getElementById('fTipoError').value ? 'block' : 'none';
+}
+
+async function guardarActividad(e) {
+  e.preventDefault();
+  const nueva = {
+    inicio: combineDateTime(document.getElementById('fInicioDate').value, document.getElementById('fInicioTime').value),
+    fin: combineDateTime(document.getElementById('fFinDate').value, document.getElementById('fFinTime').value),
+    ingeniero: document.getElementById('fIngeniero').value, tipo: document.getElementById('fTipo').value,
+    descripcion: document.getElementById('fDescripcion').value, responsable: document.getElementById('fResponsable').value,
+    observaciones: document.getElementById('fObservaciones').value, horario: document.getElementById('fHorario').value,
+    estado: document.getElementById('fEstado').value, tipo_error: document.getElementById('fTipoError').value,
+    detalle_error: document.getElementById('fDetalleError').value
+  };
+  try {
+    setStatus('Guardando...', 'connecting');
+    const { data, error } = await supabaseClient.from('actividades').insert([nueva]).select();
+    if (error) throw error;
+    todasActividades.unshift(data[0]);
+    setStatus('✅ Guardada', 'ok');
+    alert('✅ Actividad guardada');
+    document.getElementById('formActividad').reset();
+    setFechaActual();
+    setEstado('COMPLETO', document.querySelector('#formActividad .estado-btn.completo'));
+    cargarSelects(); renderTabla(); renderDashboard();
+  } catch (error) {
+    console.error('Error:', error);
+    setStatus('Error: ' + error.message, 'error');
+    alert('❌ Error: ' + error.message);
+  }
+}
+
+function abrirEditar(id) {
+  const a = todasActividades.find(x => x.id === id);
+  if (!a) { alert('No encontrada'); return; }
+  document.getElementById('editId').value = a.id;
+  const startSplit = splitDateTime(a.inicio);
+  const endSplit = splitDateTime(a.fin);
+  document.getElementById('editInicioDate').value = startSplit.date;
+  document.getElementById('editInicioTime').value = startSplit.time;
+  document.getElementById('editFinDate').value = endSplit.date;
+  document.getElementById('editFinTime').value = endSplit.time;
+  document.getElementById('editIngeniero').value = a.ingeniero || '';
+  document.getElementById('editTipo').value = a.tipo || '';
+  document.getElementById('editResponsable').value = a.responsable || '';
+  document.getElementById('editHorario').value = a.horario || 'Laboral';
+  document.getElementById('editDescripcion').value = a.descripcion || '';
+  document.getElementById('editObservaciones').value = a.observaciones || '';
+  document.getElementById('editTipoError').value = a.tipo_error || a.tipoError || '';
+  document.getElementById('editDetalleError').value = a.detalle_error || a.detalleError || '';
+  setEditEstado(a.estado || 'COMPLETO', document.querySelector(`#formEditar .estado-btn.${a.estado === 'COMPLETO' ? 'completo' : a.estado === 'INCOMPLETO' ? 'incompleto' : 'pendiente'}`));
+  document.getElementById('editModal').classList.add('active');
+}
+
+async function guardarEdicion(e) {
+  e.preventDefault();
+  const id = document.getElementById('editId').value;
+  const editada = {
+    inicio: combineDateTime(document.getElementById('editInicioDate').value, document.getElementById('editInicioTime').value),
+    fin: combineDateTime(document.getElementById('editFinDate').value, document.getElementById('editFinTime').value),
+    ingeniero: document.getElementById('editIngeniero').value, tipo: document.getElementById('editTipo').value,
+    descripcion: document.getElementById('editDescripcion').value, responsable: document.getElementById('editResponsable').value,
+    observaciones: document.getElementById('editObservaciones').value, horario: document.getElementById('editHorario').value,
+    estado: document.getElementById('editEstado').value, tipo_error: document.getElementById('editTipoError').value,
+    detalle_error: document.getElementById('editDetalleError').value
+  };
+  try {
+    const { error } = await supabaseClient.from('actividades').update(editada).eq('id', id).select();
+    if (error) throw error;
+    const idx = todasActividades.findIndex(a => a.id == id);
+    if (idx !== -1) todasActividades[idx] = { ...todasActividades[idx], ...editada };
+    alert('✅ Actualizada');
+    closeModal('editModal');
+    renderTabla(); renderDashboard(); renderOT();
+  } catch (error) {
+    alert('❌ Error: ' + error.message);
+  }
+}
+
+async function eliminarActividad(id) {
+  if (!confirm('¿Eliminar esta actividad?')) return;
+  try {
+    const { error } = await supabaseClient.from('actividades').delete().eq('id', id);
+    if (error) throw error;
+    todasActividades = todasActividades.filter(a => a.id !== id);
+    renderTabla(); renderDashboard(); renderOT();
+    alert('✅ Eliminada');
+  } catch (error) {
+    alert(' Error: ' + error.message);
+  }
+}
+
+/* ============================================
+   RENDERIZADO TABLA
+   ============================================ */
+function renderTabla() {
+  const buscar = document.getElementById('filterBuscar').value.toLowerCase();
+  const fIng = document.getElementById('filterIng').value;
+  const fTipo = document.getElementById('filterTipo').value;
+  const fMes = document.getElementById('filterMes').value;
+  const fAnio = document.getElementById('filterAnio').value;
+  const fEstado = document.getElementById('filterEstado').value;
+  const fOT = document.getElementById('filterOT').checked;
+
+  let filtradas = todasActividades.filter(a => {
+    if (!a.inicio) return false;
+    const ini = new Date(a.inicio);
+    if (buscar && !Object.values(a).some(v => String(v).toLowerCase().includes(buscar))) return false;
+    if (fIng && a.ingeniero !== fIng) return false;
+    if (fTipo && a.tipo !== fTipo) return false;
+    if (fMes !== '' && ini.getMonth() !== parseInt(fMes)) return false;
+    if (fAnio && ini.getFullYear() !== parseInt(fAnio)) return false;
+    if (fEstado && a.estado !== fEstado) return false;
+    if (fOT && !esHorasExtra(a)) return false;
+    return true;
+  });
+
+  filtradas.sort((a,b) => new Date(b.inicio) - new Date(a.inicio));
+  const tbody = document.getElementById('tbodyActividades');
+  
+  if (filtradas.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:30px;color:#666;">No hay actividades</td></tr>';
+    return;
+  }
+  
+  tbody.innerHTML = filtradas.slice(0, 100).map(a => {
+    const ot = esHorasExtra(a);
+    const ini = new Date(a.inicio);
+    const fin = new Date(a.fin);
+    let estadoBadge = '';
+    if (a.estado === 'COMPLETO') estadoBadge = '<span class="badge badge-success">COMPLETO</span>';
+    else if (a.estado === 'INCOMPLETO') estadoBadge = '<span class="badge badge-danger">INCOMPLETO</span>';
+    else if (a.estado === 'ACT-PENDIENTE') estadoBadge = '<span class="badge badge-pendiente">PENDIENTE</span>';
+    else estadoBadge = `<span class="badge badge-warning">${a.estado || 'N/A'}</span>`;
+    
+    return `<tr class="${ot ? 'horas-extras' : ''}">
+      <td>${ini.toLocaleString('es-DO', {dateStyle:'short', timeStyle:'short'})}</td>
+      <td>${fin ? fin.toLocaleString('es-DO', {dateStyle:'short', timeStyle:'short'}) : 'N/A'}</td>
+      <td>${ot ? '<span class="badge-extra-sleek">EXTRA</span>' : '<span class="badge badge-laboral">Laboral</span>'}</td>
+      <td>${a.ingeniero || 'N/A'}</td>
+      <td>${a.tipo || 'N/A'}</td>
+      <td title="${a.descripcion || ''}">${(a.descripcion || '').substring(0,40)}${(a.descripcion||'').length>40?'...':''}</td>
+      <td>${a.responsable || 'N/A'}</td>
+      <td>${estadoBadge}</td>
+      <td>${calcularDuracion(a)}h</td>
+      <td>
+        <button class="action-btn btn-edit" onclick="abrirEditar(${a.id})">✏️</button>
+        <button class="action-btn btn-danger" onclick="eliminarActividad(${a.id})">🗑️</button>
+      </td>
+    </tr>`;
+  }).join('');
+  
+  if (filtradas.length > 100) {
+    tbody.innerHTML += `<tr><td colspan="10" style="text-align:center;padding:15px;color:#666;">Mostrando 100 de ${filtradas.length}. Usa filtros.</td></tr>`;
+  }
+}
+
+/* ============================================
+   RENDERIZADO HORAS EXTRAS
+   ============================================ */
+function renderOT() {
+  const fIng = document.getElementById('otIng').value;
+  const fMes = document.getElementById('otMes').value;
+  const fAnio = document.getElementById('otAnio').value;
+
+  let otActs = todasActividades.filter(esHorasExtra).filter(a => {
+    if (!a.inicio) return false;
+    const ini = new Date(a.inicio);
+    if (fIng && a.ingeniero !== fIng) return false;
+    if (fMes !== '' && ini.getMonth() !== parseInt(fMes)) return false;
+    if (fAnio && ini.getFullYear() !== parseInt(fAnio)) return false;
+    return true;
+  });
+
+  document.getElementById('otTotal').textContent = otActs.length;
+  document.getElementById('otHoras').textContent = otActs.reduce((s,a) => s + calcularHorasExtra(a), 0).toFixed(1) + 'h';
+  document.getElementById('otIngs').textContent = new Set(otActs.map(a => a.ingeniero)).size;
+
+  const tbody = document.getElementById('tbodyOT');
+  if (otActs.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:20px;color:#666;">No hay horas extras</td></tr>';
+    return;
+  }
+  
+  tbody.innerHTML = otActs.sort((a,b) => new Date(b.inicio) - new Date(a.inicio)).map(a => {
+    const ini = new Date(a.inicio);
+    const fin = new Date(a.fin);
+    return `<tr class="horas-extras">
+      <td>${ini.toLocaleDateString('es-DO')}</td>
+      <td>${a.ingeniero}</td>
+      <td>${a.tipo}</td>
+      <td>${(a.descripcion||'').substring(0,50)}</td>
+      <td>${ini.toLocaleTimeString('es-DO', {hour:'2-digit', minute:'2-digit'})}</td>
+      <td>${fin ? fin.toLocaleTimeString('es-DO', {hour:'2-digit', minute:'2-digit'}) : 'N/A'}</td>
+      <td><strong>${calcularHorasExtra(a).toFixed(2)}h</strong></td>
+    </tr>`;
+  }).join('');
+
+  const otIng = {};
+  otActs.forEach(a => {
+    if (!otIng[a.ingeniero]) otIng[a.ingeniero] = { acts: 0, hrs: 0 };
+    otIng[a.ingeniero].acts++;
+    otIng[a.ingeniero].hrs += calcularHorasExtra(a);
+  });
+
+  if (chartOTDetail) chartOTDetail.destroy();
+  chartOTDetail = new Chart(document.getElementById('chartOTDetail'), {
+    type: 'bar',
+    data: {
+      labels: Object.keys(otIng),
+      datasets: [
+        { label: 'Actividades OT', data: Object.values(otIng).map(v => v.acts), backgroundColor: CHART_COLORS[3] },
+        { label: 'Horas Extra', data: Object.values(otIng).map(v => +v.hrs.toFixed(2)), backgroundColor: CHART_COLORS[2] }
+      ]
+    },
+    options: { responsive: true, maintainAspectRatio: false }
+  });
+}
+
+/* ============================================
+   ESTADÍSTICAS POR INGENIERO
+   ============================================ */
+function cargarStatsIngeniero() {
+  const ing = document.getElementById('ingSelect').value;
+  const mes = document.getElementById('ingMes').value;
+  const anio = document.getElementById('ingAnio').value;
+  
+  if (!ing) { document.getElementById('statsIngeniero').style.display = 'none'; return; }
+  document.getElementById('statsIngeniero').style.display = 'block';
+
+  const filtradas = todasActividades.filter(a => {
+    if (a.ingeniero !== ing) return false;
+    if (!a.inicio) return false;
+    const ini = new Date(a.inicio);
+    if (mes !== '' && ini.getMonth() !== parseInt(mes)) return false;
+    if (anio && ini.getFullYear() !== parseInt(anio)) return false;
+    return true;
+  });
+
+  document.getElementById('ingTotal').textContent = filtradas.length;
+  document.getElementById('ingComp').textContent = filtradas.filter(a => a.estado === 'COMPLETO').length;
+  document.getElementById('ingPend').textContent = filtradas.filter(a => a.estado === 'ACT-PENDIENTE').length;
+  const ot = filtradas.filter(esHorasExtra);
+  document.getElementById('ingOT').textContent = ot.length;
+  document.getElementById('ingOTHrs').textContent = ot.reduce((s,a) => s + calcularHorasExtra(a), 0).toFixed(1) + 'h';
+
+  const tipos = {};
+  filtradas.forEach(a => { tipos[a.tipo] = (tipos[a.tipo]||0) + 1; });
+  if (chartIngTipo) chartIngTipo.destroy();
+  chartIngTipo = new Chart(document.getElementById('chartIngTipo'), {
+    type: 'pie',
+    data: { labels: Object.keys(tipos), datasets: [{ data: Object.values(tipos), backgroundColor: CHART_COLORS }] },
+    options: { responsive: true, maintainAspectRatio: false }
+  });
+
+  const meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  const dataMes = new Array(12).fill(0);
+  filtradas.forEach(a => { if (a.inicio) dataMes[new Date(a.inicio).getMonth()]++; });
+  if (chartIngMes) chartIngMes.destroy();
+  chartIngMes = new Chart(document.getElementById('chartIngMes'), {
+    type: 'line',
+    data: { labels: meses, datasets: [{ label: 'Actividades', data: dataMes, borderColor: CHART_COLORS[0], backgroundColor: 'rgba(52, 152, 219, 0.1)', fill: true, tension: 0.3 }] },
+    options: { responsive: true, maintainAspectRatio: false }
+  });
+}
+
+/* ============================================
+   ADMIN - GESTIÓN DE CATÁLOGOS
+   ============================================ */
+function renderAdmin() {
+  document.getElementById('listIngs').innerHTML = ingenieros.map((i, idx) => `<div class="admin-item"><span> ${i}</span><button class="action-btn btn-danger" onclick="delIngeniero(${idx})">🗑️</button></div>`).join('');
+  document.getElementById('listTipos').innerHTML = tiposActividad.map((t, idx) => `<div class="admin-item"><span>🔧 ${t}</span><button class="action-btn btn-danger" onclick="delTipo(${idx})">🗑️</button></div>`).join('');
+  document.getElementById('listErrors').innerHTML = tiposError.map((e, idx) => `<div class="admin-item"><span>⚠️ ${e}</span><button class="action-btn btn-danger" onclick="delError(${idx})">🗑️</button></div>`).join('');
+}
+
+async function addIngeniero() {
+  const val = document.getElementById('newIng').value.trim();
+  if (!val) return;
+  try { await supabaseClient.from('ingenieros').insert([{ nombre: val }]); ingenieros.push(val); } catch (e) { alert('Error: ' + e.message); return; }
+  document.getElementById('newIng').value = '';
+  cargarSelects(); renderAdmin();
+}
+
+async function delIngeniero(idx) {
+  if (!confirm('¿Eliminar?')) return;
+  const val = ingenieros[idx];
+  try { await supabaseClient.from('ingenieros').delete().eq('nombre', val); ingenieros.splice(idx, 1); } catch (e) { alert('Error: ' + e.message); return; }
+  cargarSelects(); renderAdmin();
+}
+
+async function addTipo() {
+  const val = document.getElementById('newTipo').value.trim();
+  if (!val) return;
+  try { await supabaseClient.from('tipos_actividad').insert([{ nombre: val }]); tiposActividad.push(val); } catch (e) { alert('Error: ' + e.message); return; }
+  document.getElementById('newTipo').value = '';
+  cargarSelects(); renderAdmin();
+}
+
+async function delTipo(idx) {
+  if (!confirm('¿Eliminar?')) return;
+  const val = tiposActividad[idx];
+  try { await supabaseClient.from('tipos_actividad').delete().eq('nombre', val); tiposActividad.splice(idx, 1); } catch (e) { alert('Error: ' + e.message); return; }
+  cargarSelects(); renderAdmin();
+}
+
+async function addError() {
+  const val = document.getElementById('newError').value.trim();
+  if (!val) return;
+  try { await supabaseClient.from('tipos_error').insert([{ nombre: val }]); tiposError.push(val); } catch (e) { alert('Error: ' + e.message); return; }
+  document.getElementById('newError').value = '';
+  cargarSelects(); renderAdmin();
+}
+
+async function delError(idx) {
+  if (!confirm('¿Eliminar?')) return;
+  const val = tiposError[idx];
+  try { await supabaseClient.from('tipos_error').delete().eq('nombre', val); tiposError.splice(idx, 1); } catch (e) { alert('Error: ' + e.message); return; }
+  cargarSelects(); renderAdmin();
+}
+
+async function changePass() {
+  const newPass = document.getElementById('newPass').value;
+  if (newPass.length < 6) { alert('Mínimo 6 caracteres'); return; }
+  if (!confirm('¿Cambiar contraseña?')) return;
+  localStorage.setItem('adminPassHash', await sha256(newPass));
+  alert('✅ Contraseña cambiada exitosamente');
+  document.getElementById('newPass').value = '';
+}
+
+/* ============================================
+   PROCESADOR CSV Y GENERADOR SQL
    ============================================ */
 function setupDragDrop() {
   const zone = document.getElementById('importZone');
@@ -1648,7 +2241,7 @@ async function confirmarImportacion() {
       const { error } = await supabaseClient.from('actividades').insert(batch);
       if (error) { logImport(`❌ Lote ${Math.floor(i/batchSize)+1}: ${error.message}`, 'error'); errores += batch.length; } 
       else { importados += batch.length; logImport(`✅ Lote ${Math.floor(i/batchSize)+1}: ${batch.length} importadas`, 'success'); }
-    } catch (err) { logImport(` Error: ${err.message}`, 'error'); errores += batch.length; }
+    } catch (err) { logImport(`❌ Error: ${err.message}`, 'error'); errores += batch.length; }
     logDiv.scrollTop = logDiv.scrollHeight;
   }
 
@@ -1678,574 +2271,7 @@ function cancelarImportacion() {
 }
 
 /* ============================================
-   EXPORTAR A EXCEL
-   ============================================ */
-function exportarExcel() {
-  const datos = getFilteredData();
-  if (datos.length === 0) { alert('⚠️ No hay datos para exportar'); return; }
-  const datosExportar = datos.map(a => ({
-    'Fecha Inicio': a.inicio ? new Date(a.inicio).toLocaleString('es-DO') : '',
-    'Fecha Fin': a.fin ? new Date(a.fin).toLocaleString('es-DO') : '',
-    'Horario': esHorasExtra(a) ? 'EXTRA' : 'Laboral',
-    'Ingeniero': a.ingeniero || '', 'Tipo de Actividad': a.tipo || '',
-    'Descripción': a.descripcion || '', 'Responsable': a.responsable || '',
-    'Observaciones': a.observaciones || '', 'Estado': a.estado || '',
-    'Duración (horas)': calcularDuracion(a),
-    'Horas Extra': esHorasExtra(a) ? calcularHorasExtra(a).toFixed(2) : '0',
-    'Tipo Error': a.tipo_error || a.tipoError || '', 'Detalle Error': a.detalle_error || a.detalleError || ''
-  }));
-  const wb = XLSX.utils.book_new();
-  const ws = XLSX.utils.json_to_sheet(datosExportar);
-  XLSX.utils.book_append_sheet(wb, ws, "Actividades");
-  XLSX.writeFile(wb, `Reporte_Actividades_${new Date().toISOString().slice(0,10)}.xlsx`);
-  alert(`✅ Exportado! Total: ${datos.length}`);
-}
-
-function exportarExcelOT() {
-  const fIng = document.getElementById('otIng').value;
-  const fMes = document.getElementById('otMes').value;
-  const fAnio = document.getElementById('otAnio').value;
-  let otActs = todasActividades.filter(esHorasExtra).filter(a => {
-    if (!a.inicio) return false;
-    const ini = new Date(a.inicio);
-    if (fIng && a.ingeniero !== fIng) return false;
-    if (fMes !== '' && ini.getMonth() !== parseInt(fMes)) return false;
-    if (fAnio && ini.getFullYear() !== parseInt(fAnio)) return false;
-    return true;
-  });
-  if (otActs.length === 0) { alert('️ No hay horas extras para exportar'); return; }
-  const datosExportar = otActs.map(a => ({
-    'Fecha': a.inicio ? new Date(a.inicio).toLocaleDateString('es-DO') : '',
-    'Ingeniero': a.ingeniero || '', 'Tipo': a.tipo || '', 'Descripción': a.descripcion || '',
-    'Hora Inicio': a.inicio ? new Date(a.inicio).toLocaleTimeString('es-DO', {hour:'2-digit', minute:'2-digit'}) : '',
-    'Hora Fin': a.fin ? new Date(a.fin).toLocaleTimeString('es-DO', {hour:'2-digit', minute:'2-digit'}) : '',
-    'Horas Extra': calcularHorasExtra(a).toFixed(2), 'Responsable': a.responsable || '', 'Estado': a.estado || ''
-  }));
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(datosExportar), "Horas Extras");
-  XLSX.writeFile(wb, `Reporte_Horas_Extras_${new Date().toISOString().slice(0,10)}.xlsx`);
-}
-
-function exportarExcelIngeniero() {
-  const ing = document.getElementById('ingSelect').value;
-  const mes = document.getElementById('ingMes').value;
-  const anio = document.getElementById('ingAnio').value;
-  if (!ing) { alert('⚠️ Seleccione un ingeniero'); return; }
-  const filtradas = todasActividades.filter(a => {
-    if (a.ingeniero !== ing) return false;
-    if (!a.inicio) return false;
-    const ini = new Date(a.inicio);
-    if (mes !== '' && ini.getMonth() !== parseInt(mes)) return false;
-    if (anio && ini.getFullYear() !== parseInt(anio)) return false;
-    return true;
-  });
-  if (filtradas.length === 0) { alert('⚠️ No hay actividades'); return; }
-  const datosExportar = filtradas.map(a => ({
-    'Fecha Inicio': a.inicio ? new Date(a.inicio).toLocaleString('es-DO') : '',
-    'Fecha Fin': a.fin ? new Date(a.fin).toLocaleString('es-DO') : '',
-    'Horario': esHorasExtra(a) ? 'EXTRA' : 'Laboral', 'Tipo': a.tipo || '',
-    'Descripción': a.descripcion || '', 'Responsable': a.responsable || '',
-    'Estado': a.estado || '', 'Duración': calcularDuracion(a),
-    'Horas Extra': esHorasExtra(a) ? calcularHorasExtra(a).toFixed(2) : '0'
-  }));
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(datosExportar), ing);
-  XLSX.writeFile(wb, `Reporte_${ing.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0,10)}.xlsx`);
-}
-
-/* ============================================
-   GUARDAR / EDITAR / ELIMINAR
-   ============================================ */
-function setEstado(estado, btn) {
-  document.querySelectorAll('#formActividad .estado-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('fEstado').value = estado;
-}
-
-function setEditEstado(estado, btn) {
-  document.querySelectorAll('#formEditar .estado-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('editEstado').value = estado;
-}
-
-function toggleDetalleError() {
-  document.getElementById('detalleErrorGroup').style.display = document.getElementById('fTipoError').value ? 'block' : 'none';
-}
-
-async function guardarActividad(e) {
-  e.preventDefault();
-  const nueva = {
-    inicio: combineDateTime(document.getElementById('fInicioDate').value, document.getElementById('fInicioTime').value),
-    fin: combineDateTime(document.getElementById('fFinDate').value, document.getElementById('fFinTime').value),
-    ingeniero: document.getElementById('fIngeniero').value, tipo: document.getElementById('fTipo').value,
-    descripcion: document.getElementById('fDescripcion').value, responsable: document.getElementById('fResponsable').value,
-    observaciones: document.getElementById('fObservaciones').value, horario: document.getElementById('fHorario').value,
-    estado: document.getElementById('fEstado').value, tipo_error: document.getElementById('fTipoError').value,
-    detalle_error: document.getElementById('fDetalleError').value
-  };
-  try {
-    setStatus('Guardando...', 'connecting');
-    const { data, error } = await supabaseClient.from('actividades').insert([nueva]).select();
-    if (error) throw error;
-    todasActividades.unshift(data[0]);
-    setStatus('✅ Guardada', 'ok');
-    alert('✅ Actividad guardada');
-    document.getElementById('formActividad').reset();
-    setFechaActual();
-    setEstado('COMPLETO', document.querySelector('#formActividad .estado-btn.completo'));
-    cargarSelects(); renderTabla(); renderDashboard();
-  } catch (error) {
-    console.error('Error:', error);
-    setStatus('Error: ' + error.message, 'error');
-    alert('❌ Error: ' + error.message);
-  }
-}
-
-function abrirEditar(id) {
-  const a = todasActividades.find(x => x.id === id);
-  if (!a) { alert('No encontrada'); return; }
-  document.getElementById('editId').value = a.id;
-  const startSplit = splitDateTime(a.inicio);
-  const endSplit = splitDateTime(a.fin);
-  document.getElementById('editInicioDate').value = startSplit.date;
-  document.getElementById('editInicioTime').value = startSplit.time;
-  document.getElementById('editFinDate').value = endSplit.date;
-  document.getElementById('editFinTime').value = endSplit.time;
-  document.getElementById('editIngeniero').value = a.ingeniero || '';
-  document.getElementById('editTipo').value = a.tipo || '';
-  document.getElementById('editResponsable').value = a.responsable || '';
-  document.getElementById('editHorario').value = a.horario || 'Laboral';
-  document.getElementById('editDescripcion').value = a.descripcion || '';
-  document.getElementById('editObservaciones').value = a.observaciones || '';
-  document.getElementById('editTipoError').value = a.tipo_error || a.tipoError || '';
-  document.getElementById('editDetalleError').value = a.detalle_error || a.detalleError || '';
-  setEditEstado(a.estado || 'COMPLETO', document.querySelector(`#formEditar .estado-btn.${a.estado === 'COMPLETO' ? 'completo' : a.estado === 'INCOMPLETO' ? 'incompleto' : 'pendiente'}`));
-  document.getElementById('editModal').classList.add('active');
-}
-
-async function guardarEdicion(e) {
-  e.preventDefault();
-  const id = document.getElementById('editId').value;
-  const editada = {
-    inicio: combineDateTime(document.getElementById('editInicioDate').value, document.getElementById('editInicioTime').value),
-    fin: combineDateTime(document.getElementById('editFinDate').value, document.getElementById('editFinTime').value),
-    ingeniero: document.getElementById('editIngeniero').value, tipo: document.getElementById('editTipo').value,
-    descripcion: document.getElementById('editDescripcion').value, responsable: document.getElementById('editResponsable').value,
-    observaciones: document.getElementById('editObservaciones').value, horario: document.getElementById('editHorario').value,
-    estado: document.getElementById('editEstado').value, tipo_error: document.getElementById('editTipoError').value,
-    detalle_error: document.getElementById('editDetalleError').value
-  };
-  try {
-    const { error } = await supabaseClient.from('actividades').update(editada).eq('id', id).select();
-    if (error) throw error;
-    const idx = todasActividades.findIndex(a => a.id == id);
-    if (idx !== -1) todasActividades[idx] = { ...todasActividades[idx], ...editada };
-    alert('✅ Actualizada');
-    closeModal('editModal');
-    renderTabla(); renderDashboard(); renderOT();
-  } catch (error) {
-    alert('❌ Error: ' + error.message);
-  }
-}
-
-async function eliminarActividad(id) {
-  if (!confirm('¿Eliminar esta actividad?')) return;
-  try {
-    const { error } = await supabaseClient.from('actividades').delete().eq('id', id);
-    if (error) throw error;
-    todasActividades = todasActividades.filter(a => a.id !== id);
-    renderTabla(); renderDashboard(); renderOT();
-    alert('✅ Eliminada');
-  } catch (error) {
-    alert('❌ Error: ' + error.message);
-  }
-}
-
-/* ============================================
-   CÁLCULOS Y FILTROS
-   ============================================ */
-function esHorasExtra(act) {
-  if (!act.inicio || !act.fin) return false;
-  const ini = new Date(act.inicio);
-  const fin = new Date(act.fin);
-  return ini.getHours() >= 17 || fin.getHours() >= 17 || (ini.getHours() < 17 && fin.getHours() >= 17);
-}
-
-function calcularHorasExtra(act) {
-  if (!act.inicio || !act.fin) return 0;
-  const ini = new Date(act.inicio);
-  const fin = new Date(act.fin);
-  let horasExtra = 0;
-  if (ini.getHours() >= 17) {
-    horasExtra = (fin - ini) / (1000*60*60);
-  } else if (fin.getHours() >= 17 || fin.getDate() !== ini.getDate()) {
-    const limite = new Date(ini);
-    limite.setHours(17, 0, 0, 0);
-    horasExtra = (fin - limite) / (1000*60*60);
-  }
-  return Math.max(0, horasExtra);
-}
-
-function calcularDuracion(act) {
-  if (!act.inicio || !act.fin) return '0.00';
-  return ((new Date(act.fin) - new Date(act.inicio)) / (1000*60*60)).toFixed(2);
-}
-
-function getFilteredData() {
-  const fIng = document.getElementById('gIng').value;
-  const fTipo = document.getElementById('gTipo').value;
-  const fMes = document.getElementById('gMes').value;
-  const fAnio = document.getElementById('gAnio').value;
-  const fHorario = document.getElementById('gHorario').value;
-  const fEstado = document.getElementById('gEstado').value;
-
-  return todasActividades.filter(a => {
-    if (!a.inicio) return false;
-    const ini = new Date(a.inicio);
-    if (fIng && a.ingeniero !== fIng) return false;
-    if (fTipo && a.tipo !== fTipo) return false;
-    if (fMes !== '' && ini.getMonth() !== parseInt(fMes)) return false;
-    if (fAnio && ini.getFullYear() !== parseInt(fAnio)) return false;
-    if (fHorario === 'Extra' && !esHorasExtra(a)) return false;
-    if (fHorario === 'Laboral' && esHorasExtra(a)) return false;
-    if (fEstado && a.estado !== fEstado) return false;
-    return true;
-  });
-}
-
-/* ============================================
-   RENDERIZADO DASHBOARD
-   ============================================ */
-function renderDashboard() {
-  const filtradas = getFilteredData();
-  
-  const total = filtradas.length;
-  const completadas = filtradas.filter(a => a.estado === 'COMPLETO').length;
-  const pendientes = filtradas.filter(a => a.estado === 'ACT-PENDIENTE').length;
-  const otActs = filtradas.filter(esHorasExtra);
-  
-  document.getElementById('statTotal').textContent = total;
-  document.getElementById('statComp').textContent = completadas;
-  document.getElementById('statPend').textContent = pendientes;
-  document.getElementById('statOT').textContent = otActs.length;
-  document.getElementById('statOTHrs').textContent = otActs.reduce((s, a) => s + calcularHorasExtra(a), 0).toFixed(1) + 'h';
-  document.getElementById('statIng').textContent = new Set(filtradas.map(a => a.ingeniero)).size;
-
-  const tasa = total > 0 ? ((completadas / total) * 100).toFixed(1) + '%' : '0%';
-  document.getElementById('statTasa').textContent = tasa;
-
-  const conErrores = filtradas.filter(a => a.tipo_error || a.tipoError).length;
-  document.getElementById('statErrores').textContent = conErrores;
-
-  const duraciones = filtradas.map(a => parseFloat(calcularDuracion(a))).filter(d => !isNaN(d));
-  const promDur = duraciones.length > 0 ? (duraciones.reduce((a,b)=>a+b, 0) / duraciones.length).toFixed(2) + 'h' : '0h';
-  document.getElementById('statPromDur').textContent = promDur;
-
-  const ingCounts = {};
-  filtradas.forEach(a => { if(a.estado === 'COMPLETO') ingCounts[a.ingeniero] = (ingCounts[a.ingeniero]||0) + 1; });
-  let topIng = '-', maxCount = 0;
-  for (const [ing, count] of Object.entries(ingCounts)) {
-    if (count > maxCount) { maxCount = count; topIng = ing; }
-  }
-  document.getElementById('statTopIng').textContent = topIng !== '-' ? `${topIng} (${maxCount})` : '-';
-
-  const meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
-  const dataMes = new Array(12).fill(0);
-  filtradas.forEach(a => { if (a.inicio) dataMes[new Date(a.inicio).getMonth()]++; });
-  
-  if (chartMes) chartMes.destroy();
-  chartMes = new Chart(document.getElementById('chartMes'), {
-    type: 'bar',
-    data: { labels: meses, datasets: [{ label: 'Actividades', data: dataMes, backgroundColor: CHART_COLORS }] },
-    options: { responsive: true, maintainAspectRatio: false }
-  });
-
-  const tipos = {};
-  filtradas.forEach(a => { tipos[a.tipo] = (tipos[a.tipo]||0) + 1; });
-  if (chartTipo) chartTipo.destroy();
-  chartTipo = new Chart(document.getElementById('chartTipo'), {
-    type: 'doughnut',
-    data: { labels: Object.keys(tipos), datasets: [{ data: Object.values(tipos), backgroundColor: CHART_COLORS }] },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { font: { size: 10 } } } } }
-  });
-
-  const ingsObj = {};
-  filtradas.forEach(a => { ingsObj[a.ingeniero] = (ingsObj[a.ingeniero]||0) + 1; });
-  if (chartIng) chartIng.destroy();
-  chartIng = new Chart(document.getElementById('chartIng'), {
-    type: 'bar',
-    data: { labels: Object.keys(ingsObj), datasets: [{ label: 'Actividades', data: Object.values(ingsObj), backgroundColor: CHART_COLORS[0] }] },
-    options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y' }
-  });
-
-  const otIng = {};
-  filtradas.filter(esHorasExtra).forEach(a => { otIng[a.ingeniero] = (otIng[a.ingeniero]||0) + calcularHorasExtra(a); });
-  if (chartOT) chartOT.destroy();
-  chartOT = new Chart(document.getElementById('chartOT'), {
-    type: 'bar',
-    data: { labels: Object.keys(otIng), datasets: [{ label: 'Horas Extra', data: Object.values(otIng).map(v => +v.toFixed(2)), backgroundColor: CHART_COLORS.slice(2, 6) }] },
-    options: { responsive: true, maintainAspectRatio: false }
-  });
-
-  const errs = {};
-  filtradas.filter(a => a.tipo_error || a.tipoError).forEach(a => { 
-    const err = a.tipo_error || a.tipoError;
-    if (err) errs[err] = (errs[err]||0) + 1; 
-  });
-  if (chartErrores) chartErrores.destroy();
-  chartErrores = new Chart(document.getElementById('chartErrores'), {
-    type: 'polarArea',
-    data: { labels: Object.keys(errs), datasets: [{ data: Object.values(errs), backgroundColor: CHART_COLORS.slice(0, 10) }] },
-    options: { responsive: true, maintainAspectRatio: false }
-  });
-
-  const estados = { COMPLETO: 0, INCOMPLETO: 0, 'ACT-PENDIENTE': 0 };
-  filtradas.forEach(a => { if (estados[a.estado] !== undefined) estados[a.estado]++; });
-  if (chartEstado) chartEstado.destroy();
-  chartEstado = new Chart(document.getElementById('chartEstado'), {
-    type: 'pie',
-    data: { labels: ['Completas','Incompletas','Pendientes'], datasets: [{ data: [estados.COMPLETO, estados.INCOMPLETO, estados['ACT-PENDIENTE']], backgroundColor: ['#2ecc71','#e74c3c','#f1c40f'] }] },
-    options: { responsive: true, maintainAspectRatio: false }
-  });
-
-  const aniosObj = {};
-  filtradas.forEach(a => { if (a.inicio) { const anio = new Date(a.inicio).getFullYear(); aniosObj[anio] = (aniosObj[anio]||0) + 1; } });
-  const aniosOrdenados = Object.keys(aniosObj).sort();
-  if (chartAnual) chartAnual.destroy();
-  chartAnual = new Chart(document.getElementById('chartAnual'), {
-    type: 'line',
-    data: { labels: aniosOrdenados, datasets: [{ label: 'Actividades', data: aniosOrdenados.map(a => aniosObj[a]), borderColor: CHART_COLORS[0], backgroundColor: 'rgba(52, 152, 219, 0.1)', fill: true, tension: 0.3 }] },
-    options: { responsive: true, maintainAspectRatio: false }
-  });
-}
-
-function renderTabla() {
-  const buscar = document.getElementById('filterBuscar').value.toLowerCase();
-  const fIng = document.getElementById('filterIng').value;
-  const fTipo = document.getElementById('filterTipo').value;
-  const fMes = document.getElementById('filterMes').value;
-  const fAnio = document.getElementById('filterAnio').value;
-  const fEstado = document.getElementById('filterEstado').value;
-  const fOT = document.getElementById('filterOT').checked;
-
-  let filtradas = todasActividades.filter(a => {
-    if (!a.inicio) return false;
-    const ini = new Date(a.inicio);
-    if (buscar && !Object.values(a).some(v => String(v).toLowerCase().includes(buscar))) return false;
-    if (fIng && a.ingeniero !== fIng) return false;
-    if (fTipo && a.tipo !== fTipo) return false;
-    if (fMes !== '' && ini.getMonth() !== parseInt(fMes)) return false;
-    if (fAnio && ini.getFullYear() !== parseInt(fAnio)) return false;
-    if (fEstado && a.estado !== fEstado) return false;
-    if (fOT && !esHorasExtra(a)) return false;
-    return true;
-  });
-
-  filtradas.sort((a,b) => new Date(b.inicio) - new Date(a.inicio));
-  const tbody = document.getElementById('tbodyActividades');
-  
-  if (filtradas.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:30px;color:#666;">No hay actividades</td></tr>';
-    return;
-  }
-  
-  tbody.innerHTML = filtradas.slice(0, 100).map(a => {
-    const ot = esHorasExtra(a);
-    const ini = new Date(a.inicio);
-    const fin = new Date(a.fin);
-    let estadoBadge = '';
-    if (a.estado === 'COMPLETO') estadoBadge = '<span class="badge badge-success">COMPLETO</span>';
-    else if (a.estado === 'INCOMPLETO') estadoBadge = '<span class="badge badge-danger">INCOMPLETO</span>';
-    else if (a.estado === 'ACT-PENDIENTE') estadoBadge = '<span class="badge badge-pendiente">PENDIENTE</span>';
-    else estadoBadge = `<span class="badge badge-warning">${a.estado || 'N/A'}</span>`;
-    
-    return `<tr class="${ot ? 'horas-extras' : ''}">
-      <td>${ini.toLocaleString('es-DO', {dateStyle:'short', timeStyle:'short'})}</td>
-      <td>${fin ? fin.toLocaleString('es-DO', {dateStyle:'short', timeStyle:'short'}) : 'N/A'}</td>
-      <td>${ot ? '<span class="badge-extra-sleek">EXTRA</span>' : '<span class="badge badge-laboral">Laboral</span>'}</td>
-      <td>${a.ingeniero || 'N/A'}</td>
-      <td>${a.tipo || 'N/A'}</td>
-      <td title="${a.descripcion || ''}">${(a.descripcion || '').substring(0,40)}${(a.descripcion||'').length>40?'...':''}</td>
-      <td>${a.responsable || 'N/A'}</td>
-      <td>${estadoBadge}</td>
-      <td>${calcularDuracion(a)}h</td>
-      <td>
-        <button class="action-btn btn-edit" onclick="abrirEditar(${a.id})">✏️</button>
-        <button class="action-btn btn-danger" onclick="eliminarActividad(${a.id})">🗑️</button>
-      </td>
-    </tr>`;
-  }).join('');
-  
-  if (filtradas.length > 100) {
-    tbody.innerHTML += `<tr><td colspan="10" style="text-align:center;padding:15px;color:#666;">Mostrando 100 de ${filtradas.length}. Usa filtros.</td></tr>`;
-  }
-}
-
-function renderOT() {
-  const fIng = document.getElementById('otIng').value;
-  const fMes = document.getElementById('otMes').value;
-  const fAnio = document.getElementById('otAnio').value;
-
-  let otActs = todasActividades.filter(esHorasExtra).filter(a => {
-    if (!a.inicio) return false;
-    const ini = new Date(a.inicio);
-    if (fIng && a.ingeniero !== fIng) return false;
-    if (fMes !== '' && ini.getMonth() !== parseInt(fMes)) return false;
-    if (fAnio && ini.getFullYear() !== parseInt(fAnio)) return false;
-    return true;
-  });
-
-  document.getElementById('otTotal').textContent = otActs.length;
-  document.getElementById('otHoras').textContent = otActs.reduce((s,a) => s + calcularHorasExtra(a), 0).toFixed(1) + 'h';
-  document.getElementById('otIngs').textContent = new Set(otActs.map(a => a.ingeniero)).size;
-
-  const tbody = document.getElementById('tbodyOT');
-  if (otActs.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:20px;color:#666;">No hay horas extras</td></tr>';
-    return;
-  }
-  
-  tbody.innerHTML = otActs.sort((a,b) => new Date(b.inicio) - new Date(a.inicio)).map(a => {
-    const ini = new Date(a.inicio);
-    const fin = new Date(a.fin);
-    return `<tr class="horas-extras">
-      <td>${ini.toLocaleDateString('es-DO')}</td>
-      <td>${a.ingeniero}</td>
-      <td>${a.tipo}</td>
-      <td>${(a.descripcion||'').substring(0,50)}</td>
-      <td>${ini.toLocaleTimeString('es-DO', {hour:'2-digit', minute:'2-digit'})}</td>
-      <td>${fin ? fin.toLocaleTimeString('es-DO', {hour:'2-digit', minute:'2-digit'}) : 'N/A'}</td>
-      <td><strong>${calcularHorasExtra(a).toFixed(2)}h</strong></td>
-    </tr>`;
-  }).join('');
-
-  const otIng = {};
-  otActs.forEach(a => {
-    if (!otIng[a.ingeniero]) otIng[a.ingeniero] = { acts: 0, hrs: 0 };
-    otIng[a.ingeniero].acts++;
-    otIng[a.ingeniero].hrs += calcularHorasExtra(a);
-  });
-
-  if (chartOTDetail) chartOTDetail.destroy();
-  chartOTDetail = new Chart(document.getElementById('chartOTDetail'), {
-    type: 'bar',
-    data: {
-      labels: Object.keys(otIng),
-      datasets: [
-        { label: 'Actividades OT', data: Object.values(otIng).map(v => v.acts), backgroundColor: CHART_COLORS[3] },
-        { label: 'Horas Extra', data: Object.values(otIng).map(v => +v.hrs.toFixed(2)), backgroundColor: CHART_COLORS[2] }
-      ]
-    },
-    options: { responsive: true, maintainAspectRatio: false }
-  });
-}
-
-function cargarStatsIngeniero() {
-  const ing = document.getElementById('ingSelect').value;
-  const mes = document.getElementById('ingMes').value;
-  const anio = document.getElementById('ingAnio').value;
-  
-  if (!ing) { document.getElementById('statsIngeniero').style.display = 'none'; return; }
-  document.getElementById('statsIngeniero').style.display = 'block';
-
-  const filtradas = todasActividades.filter(a => {
-    if (a.ingeniero !== ing) return false;
-    if (!a.inicio) return false;
-    const ini = new Date(a.inicio);
-    if (mes !== '' && ini.getMonth() !== parseInt(mes)) return false;
-    if (anio && ini.getFullYear() !== parseInt(anio)) return false;
-    return true;
-  });
-
-  document.getElementById('ingTotal').textContent = filtradas.length;
-  document.getElementById('ingComp').textContent = filtradas.filter(a => a.estado === 'COMPLETO').length;
-  document.getElementById('ingPend').textContent = filtradas.filter(a => a.estado === 'ACT-PENDIENTE').length;
-  const ot = filtradas.filter(esHorasExtra);
-  document.getElementById('ingOT').textContent = ot.length;
-  document.getElementById('ingOTHrs').textContent = ot.reduce((s,a) => s + calcularHorasExtra(a), 0).toFixed(1) + 'h';
-
-  const tipos = {};
-  filtradas.forEach(a => { tipos[a.tipo] = (tipos[a.tipo]||0) + 1; });
-  if (chartIngTipo) chartIngTipo.destroy();
-  chartIngTipo = new Chart(document.getElementById('chartIngTipo'), {
-    type: 'pie',
-    data: { labels: Object.keys(tipos), datasets: [{ data: Object.values(tipos), backgroundColor: CHART_COLORS }] },
-    options: { responsive: true, maintainAspectRatio: false }
-  });
-
-  const meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
-  const dataMes = new Array(12).fill(0);
-  filtradas.forEach(a => { if (a.inicio) dataMes[new Date(a.inicio).getMonth()]++; });
-  if (chartIngMes) chartIngMes.destroy();
-  chartIngMes = new Chart(document.getElementById('chartIngMes'), {
-    type: 'line',
-    data: { labels: meses, datasets: [{ label: 'Actividades', data: dataMes, borderColor: CHART_COLORS[0], backgroundColor: 'rgba(52, 152, 219, 0.1)', fill: true, tension: 0.3 }] },
-    options: { responsive: true, maintainAspectRatio: false }
-  });
-}
-
-function renderAdmin() {
-  document.getElementById('listIngs').innerHTML = ingenieros.map((i, idx) => `<div class="admin-item"><span>👷 ${i}</span><button class="action-btn btn-danger" onclick="delIngeniero(${idx})">🗑️</button></div>`).join('');
-  document.getElementById('listTipos').innerHTML = tiposActividad.map((t, idx) => `<div class="admin-item"><span> ${t}</span><button class="action-btn btn-danger" onclick="delTipo(${idx})">️</button></div>`).join('');
-  document.getElementById('listErrors').innerHTML = tiposError.map((e, idx) => `<div class="admin-item"><span>⚠️ ${e}</span><button class="action-btn btn-danger" onclick="delError(${idx})">🗑️</button></div>`).join('');
-}
-
-async function addIngeniero() {
-  const val = document.getElementById('newIng').value.trim();
-  if (!val) return;
-  try { await supabaseClient.from('ingenieros').insert([{ nombre: val }]); ingenieros.push(val); } catch (e) { alert('Error: ' + e.message); return; }
-  document.getElementById('newIng').value = '';
-  cargarSelects(); renderAdmin();
-}
-
-async function delIngeniero(idx) {
-  if (!confirm('¿Eliminar?')) return;
-  const val = ingenieros[idx];
-  try { await supabaseClient.from('ingenieros').delete().eq('nombre', val); ingenieros.splice(idx, 1); } catch (e) { alert('Error: ' + e.message); return; }
-  cargarSelects(); renderAdmin();
-}
-
-async function addTipo() {
-  const val = document.getElementById('newTipo').value.trim();
-  if (!val) return;
-  try { await supabaseClient.from('tipos_actividad').insert([{ nombre: val }]); tiposActividad.push(val); } catch (e) { alert('Error: ' + e.message); return; }
-  document.getElementById('newTipo').value = '';
-  cargarSelects(); renderAdmin();
-}
-
-async function delTipo(idx) {
-  if (!confirm('¿Eliminar?')) return;
-  const val = tiposActividad[idx];
-  try { await supabaseClient.from('tipos_actividad').delete().eq('nombre', val); tiposActividad.splice(idx, 1); } catch (e) { alert('Error: ' + e.message); return; }
-  cargarSelects(); renderAdmin();
-}
-
-async function addError() {
-  const val = document.getElementById('newError').value.trim();
-  if (!val) return;
-  try { await supabaseClient.from('tipos_error').insert([{ nombre: val }]); tiposError.push(val); } catch (e) { alert('Error: ' + e.message); return; }
-  document.getElementById('newError').value = '';
-  cargarSelects(); renderAdmin();
-}
-
-async function delError(idx) {
-  if (!confirm('¿Eliminar?')) return;
-  const val = tiposError[idx];
-  try { await supabaseClient.from('tipos_error').delete().eq('nombre', val); tiposError.splice(idx, 1); } catch (e) { alert('Error: ' + e.message); return; }
-  cargarSelects(); renderAdmin();
-}
-
-async function changePass() {
-  const newPass = document.getElementById('newPass').value;
-  if (newPass.length < 6) { alert('Mínimo 6 caracteres'); return; }
-  if (!confirm('¿Cambiar contraseña?')) return;
-  localStorage.setItem('adminPassHash', await sha256(newPass));
-  alert('✅ Contraseña cambiada exitosamente');
-  document.getElementById('newPass').value = '';
-}
-
-/* ============================================
-   FUNCIONES DEL GENERADOR SQL
+   GENERADOR SQL
    ============================================ */
 function setupSQLDragDrop() {
   const zone = document.getElementById('sqlImportZone');
