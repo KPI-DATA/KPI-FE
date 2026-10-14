@@ -360,42 +360,6 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
 .login-box-inline input { width: 100%; padding: 10px; margin: 5px 0; border: 2px solid #ddd; border-radius: 6px; font-weight: 600; }
 .login-error { color: #e74c3c; margin-top: 10px; display: none; font-size: 13px; font-weight: 700; }
 
-.csv-processor { background: linear-gradient(135deg, var(--ln-orange) 0%, var(--ln-orange-dark) 100%); padding: 25px; border-radius: 12px; color: white; box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3); }
-.csv-processor h3 { color: white; margin-bottom: 15px; font-size: 20px; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-.csv-processor p { margin-bottom: 15px; font-size: 14px; opacity: 0.95; font-weight: 600; }
-.csv-processor .import-zone { background: white; color: var(--ln-text); border: 3px dashed white; padding: 20px; border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.3s; }
-.csv-processor .import-zone:hover { background: var(--ln-orange-pale); transform: translateY(-2px); }
-.csv-processor .import-zone h4 { color: var(--ln-orange-dark); font-weight: 800; font-size: 16px; margin-bottom: 5px; }
-.csv-processor .import-zone p { color: var(--ln-gray-dark); font-weight: 600; margin-bottom: 0; }
-
-.import-options { background: white; padding: 20px; border-radius: 8px; margin: 15px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-.import-options h4 { color: var(--ln-orange-dark); font-weight: 800; font-size: 16px; margin-bottom: 15px; }
-.import-options label { display: flex; align-items: center; gap: 10px; margin: 12px 0; cursor: pointer; font-size: 14px; font-weight: 700; color: var(--ln-text); transition: all 0.3s; }
-.import-options label:hover { color: var(--ln-orange); }
-.import-options input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; accent-color: var(--ln-orange); }
-
-.stats-preview { background: white; padding: 20px; border-radius: 8px; margin: 15px 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-.stats-preview .stat { text-align: center; padding: 15px; background: var(--ln-orange-pale); border-radius: 8px; border-left: 4px solid var(--ln-orange); }
-.stats-preview .stat .label { font-size: 11px; color: var(--ln-gray-dark); text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; }
-.stats-preview .stat .value { font-size: 24px; font-weight: 800; color: var(--ln-orange); margin-top: 8px; }
-.stats-preview .stat.error .value { color: #e74c3c; }
-.stats-preview .stat.success .value { color: #27ae60; }
-
-.mapping-info { background: white; color: var(--ln-text); padding: 20px; border-radius: 8px; margin: 15px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-.mapping-info h4 { color: var(--ln-orange-dark); font-weight: 800; font-size: 16px; margin-bottom: 15px; }
-.mapping-info table { width: 100%; font-size: 13px; border-collapse: collapse; }
-.mapping-info th { background: var(--ln-orange); color: white; font-weight: 800; padding: 10px; text-align: left; }
-.mapping-info td { padding: 10px; border-bottom: 1px solid #eee; font-weight: 700; color: var(--ln-text); }
-
-.import-progress { background: white; padding: 15px; border-radius: 8px; margin-top: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-.progress-bar { background: #e0e0e0; border-radius: 10px; height: 25px; overflow: hidden; margin: 10px 0; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
-.progress-fill { background: linear-gradient(90deg, var(--ln-orange), var(--ln-orange-light)); height: 100%; transition: width 0.3s; display: flex; align-items: center; justify-content: center; color: white; font-size: 13px; font-weight: 800; }
-.import-log { background: var(--ln-gray); padding: 15px; border-radius: 8px; max-height: 200px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 12px; margin-top: 10px; border-left: 4px solid var(--ln-orange); }
-.import-log .success { color: #27ae60; font-weight: 700; }
-.import-log .error { color: #e74c3c; font-weight: 700; }
-.import-log .info { color: var(--ln-orange-dark); font-weight: 700; }
-.import-log .warning { color: #f39c12; font-weight: 700; }
-
 .table-scroll { overflow-x: auto; }
 .hidden { display: none !important; }
 
@@ -405,18 +369,6 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
 
 .ln-logo { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 18px; }
 .ln-logo-icon { background: white; color: var(--ln-orange); padding: 4px 8px; border-radius: 4px; font-weight: 900; font-size: 14px; }
-
-.sql-generator-inner { background: var(--ln-gray); padding: 20px; border-radius: 12px; border: 2px solid #e0e0e0; }
-.sql-generator-inner h3 { color: var(--ln-orange-dark); margin-bottom: 15px; font-size: 18px; font-weight: 700; }
-.sql-output {
-    background: #1e1e1e; color: #d4d4d4; padding: 20px; border-radius: 8px;
-    font-family: 'Consolas', 'Monaco', monospace; font-size: 12px; max-height: 350px;
-    overflow-y: auto; white-space: pre-wrap; line-height: 1.6; border: 1px solid #333;
-}
-.sql-output .keyword { color: #569cd6; font-weight: 700; }
-.sql-output .string { color: #ce9178; }
-.sql-output .number { color: #b5cea8; }
-.sql-output .comment { color: #6a9955; }
 
 @media (max-width: 900px) { 
   .admin-grid { grid-template-columns: 1fr; } 
@@ -457,7 +409,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
     </div>
     <div class="about-body">
       <div class="about-photo">
-        <img src="lenin-photo.jpg" alt="Lenin Justiniano" onerror="this.src='https://via.placeholder.com/200x280/FF6B00/FFFFFF?text=Lenin+Justiniano'">
+        <img src="pr.jpg" alt="Lenin Justiniano" onerror="this.src='https://via.placeholder.com/200x280/FF6B00/FFFFFF?text=Lenin+Justiniano'">
       </div>
       <div class="about-info">
         <h3>KPI Field Engineers - Liberty Networks</h3>
@@ -474,7 +426,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
         </div>
 
         <div class="about-section">
-          <h4>📋 Licencia y Derechos</h4>
+          <h4> Licencia y Derechos</h4>
           <p><strong>"Author"</strong> herein refers to <strong>Lenin Justiniano</strong> (the creator of KPI Field Engineers System).</p>
           <p><strong>"Software"</strong> refers to all files included with KPI Field Engineers (typically installed by the installer or extracted from a .zip archive).</p>
           <p style="margin-top: 10px;">Except where otherwise noted, all rights reserved. This software is proprietary and confidential.</p>
@@ -488,6 +440,28 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
             <li>Sistema desarrollado exclusivamente para Liberty Networks</li>
             <li>Uso autorizado solo para personal autorizado</li>
           </ul>
+        </div>
+
+        <div class="about-section" style="margin-top: 20px; border-left-color: #9b59b6;">
+          <h4 style="color: #8e44ad;">🔑 Cambiar Contraseña de Administrador</h4>
+          <p style="font-size: 11px; margin-bottom: 10px; color: var(--ln-gray-dark);">
+            Para cambiar la contraseña, primero debe verificar su identidad con la contraseña actual.
+          </p>
+          <div class="form-group" style="margin-bottom: 10px;">
+            <label style="font-size: 11px;">Contraseña Actual *</label>
+            <input type="password" id="currentAdminPass" placeholder="Ingrese contraseña actual" style="padding: 8px; font-size: 12px;">
+          </div>
+          <div class="form-group" style="margin-bottom: 10px;">
+            <label style="font-size: 11px;">Nueva Contraseña * (mín. 6 caracteres)</label>
+            <input type="password" id="newAdminPass" placeholder="Nueva contraseña" style="padding: 8px; font-size: 12px;">
+          </div>
+          <div class="form-group" style="margin-bottom: 15px;">
+            <label style="font-size: 11px;">Confirmar Nueva Contraseña *</label>
+            <input type="password" id="confirmNewAdminPass" placeholder="Confirme nueva contraseña" style="padding: 8px; font-size: 12px;">
+          </div>
+          <button class="btn btn-primary" onclick="changeAdminPasswordFromModal()" style="width: 100%; padding: 10px; font-size: 12px;">
+            🔒 Cambiar Contraseña
+          </button>
         </div>
       </div>
     </div>
@@ -523,7 +497,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
             <input type="time" id="fInicioTime" required>
           </div>
           <div class="form-group">
-            <label>📅 Fecha Fin *</label>
+            <label> Fecha Fin *</label>
             <input type="date" id="fFinDate" required>
           </div>
           <div class="form-group">
@@ -588,7 +562,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
   <!-- DASHBOARD -->
   <div class="section" id="dashboard">
     <div class="global-filters">
-      <h3>🎯 Filtros Interactivos del Dashboard</h3>
+      <h3> Filtros Interactivos del Dashboard</h3>
       <div class="filters-row">
         <div class="filter-group">
           <label>👷 Ingeniero</label>
@@ -725,7 +699,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
           <select id="otIng" onchange="renderOT()"><option value="">Todos</option></select>
         </div>
         <div class="filter-group">
-          <label>📅 Mes</label>
+          <label> Mes</label>
           <select id="otMes" onchange="renderOT()">
             <option value="">Todos</option>
             <option value="0">Enero</option><option value="1">Febrero</option><option value="2">Marzo</option>
@@ -810,88 +784,13 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
         <input type="text" id="adminUser" placeholder="admin" autocomplete="off">
         <label><strong>Contraseña:</strong></label>
         <input type="password" id="adminPass" placeholder="••••••••" autocomplete="off">
-        <button class="btn btn-primary" style="margin-top:10px;width:100%;" onclick="doAdminLogin()">🔓 Acceder</button>
+        <button class="btn btn-primary" style="margin-top:10px;width:100%;" onclick="doAdminLogin()"> Acceder</button>
         <div class="login-error" id="adminError">❌ Credenciales incorrectas</div>
       </div>
     </div>
 
     <div id="adminPanel" class="form-container hidden">
       <h2 style="text-align:center; margin-bottom:30px;">⚙️ Panel de Administración</h2>
-
-      <div class="admin-grid">
-        <div class="admin-card">
-          <h3>📥 Procesador Inteligente CSV/Excel</h3>
-          <p style="font-size:13px; color:var(--ln-gray-dark); margin-bottom:15px;">Convierte y limpia tu archivo automáticamente. Detecta formatos concatenados y normaliza datos.</p>
-          
-          <div class="csv-processor">
-            <div class="import-zone" id="importZone" onclick="document.getElementById('csvFile').click()">
-              <h4>📁 Haz clic o arrastra tu archivo</h4>
-              <p>.csv, .xlsx, .xls</p>
-              <input type="file" id="csvFile" accept=".csv,.xlsx,.xls" style="display:none" onchange="handleFileUpload(event)">
-            </div>
-          </div>
-
-          <div class="import-options" id="importOptions" style="display:none;">
-            <h4>⚙️ Opciones de Importación</h4>
-            <label><input type="checkbox" id="optAutoDetect" checked> Auto-detectar formato de fechas</label>
-            <label><input type="checkbox" id="optNormalizeNames" checked> Normalizar nombres de ingenieros</label>
-            <label><input type="checkbox" id="optFixYears" checked> Corregir años cruzados</label>
-            <label><input type="checkbox" id="optSkipInvalid" checked> Omitir filas con errores críticos</label>
-            <label><input type="checkbox" id="optForceImport"> Forzar importación de filas problemáticas</label>
-          </div>
-
-          <div class="stats-preview" id="statsPreview" style="display:none;">
-            <div class="stat success"><div class="label">Válidas</div><div class="value" id="statValidas">0</div></div>
-            <div class="stat error"><div class="label">Omitidas</div><div class="value" id="statOmitidas">0</div></div>
-            <div class="stat"><div class="label">Ingenieros</div><div class="value" id="statIngenieros">0</div></div>
-          </div>
-
-          <div class="mapping-info" id="mappingInfo" style="display:none;">
-            <h4>🔍 Columnas Detectadas:</h4>
-            <div id="mappingDetails"></div>
-          </div>
-
-          <div class="import-progress" id="importProgress" style="display:none;">
-            <div class="progress-bar">
-              <div class="progress-fill" id="progressFill" style="width: 0%;">0%</div>
-            </div>
-            <div class="import-log" id="importLog"></div>
-          </div>
-
-          <div class="btn-group" id="importActions" style="display:none; margin-top: 20px;">
-            <button class="btn btn-primary" onclick="confirmarImportacion()">✅ Confirmar Importación</button>
-            <button class="btn btn-secondary" onclick="cancelarImportacion()">❌ Cancelar</button>
-          </div>
-        </div>
-
-        <div class="admin-card">
-          <h3>🗄️ Generador de SQL desde Excel</h3>
-          <p style="font-size:13px; color:var(--ln-gray-dark); margin-bottom:15px;">Carga tu archivo Excel. El sistema corregirá las fechas y generará sentencias INSERT listas para copiar.</p>
-          
-          <div class="sql-generator-inner">
-            <div class="import-zone" id="sqlImportZone" onclick="document.getElementById('sqlFile').click()" style="border: 2px dashed var(--ln-orange); background: white; padding: 20px; border-radius: 8px; text-align: center; cursor: pointer; margin-bottom: 15px;">
-              <h4 style="color: var(--ln-orange-dark); margin-bottom: 5px;">📁 Cargar Excel para SQL</h4>
-              <p style="font-size: 12px; color: var(--ln-gray-dark);">Formato: m/d/yyyy h:mm AM/PM</p>
-              <input type="file" id="sqlFile" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleSQLFileUpload(event)">
-            </div>
-
-            <div id="sqlPreview" style="display:none;">
-              <div class="stats-preview" style="margin-bottom:15px;">
-                <div class="stat success"><div class="label">Válidos</div><div class="value" id="sqlValidCount" style="font-size:20px;">0</div></div>
-                <div class="stat error"><div class="label">Errores</div><div class="value" id="sqlErrorCount" style="font-size:20px;">0</div></div>
-              </div>
-              <h4 style="font-size:14px; margin-bottom:10px; color:var(--ln-text);">📝 Sentencias SQL Generadas:</h4>
-              <div class="sql-output" id="sqlOutput"></div>
-              
-              <div class="btn-group" style="margin-top:15px;">
-                <button class="btn btn-primary" onclick="copySQLToClipboard()" style="flex:1;">📋 Copiar SQL</button>
-                <button class="btn btn-secondary" onclick="downloadSQL()" style="flex:1;">💾 Descargar .sql</button>
-              </div>
-              <button class="btn btn-secondary" onclick="resetSQLGenerator()" style="width:100%; margin-top:10px;"> Cargar Otro Archivo</button>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <h3 style="color:var(--ln-orange-dark); margin-bottom:15px; font-size:18px; font-weight:700; border-bottom: 2px solid var(--ln-orange-pale); padding-bottom: 10px;">📚 Gestión de Catálogos</h3>
       <div class="catalog-grid">
@@ -920,14 +819,6 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
             <button class="btn btn-primary" style="padding:8px 12px;font-size:12px;" onclick="addError()">➕</button>
           </div>
           <div class="admin-list" id="listErrors"></div>
-        </div>
-      </div>
-
-      <div class="admin-card" style="margin-top:30px; max-width: 500px; margin-left: auto; margin-right: auto;">
-        <h3>🔑 Cambiar Contraseña Admin</h3>
-        <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;">
-          <input type="password" id="newPass" placeholder="Nueva contraseña (mín. 6 caracteres)" style="flex:1;padding:10px;border:2px solid #e0e0e0;border-radius:8px;">
-          <button class="btn btn-primary" onclick="changePass()">🔒 Cambiar</button>
         </div>
       </div>
 
@@ -1045,6 +936,54 @@ function closeAboutModal() {
 document.getElementById('aboutModal').addEventListener('click', function(e) {
   if (e.target === this) closeAboutModal();
 });
+
+// Función para cambiar contraseña desde el modal Help
+async function changeAdminPasswordFromModal() {
+  const currentPass = document.getElementById('currentAdminPass').value;
+  const newPass = document.getElementById('newAdminPass').value;
+  const confirmPass = document.getElementById('confirmNewAdminPass').value;
+  
+  if (!currentPass || !newPass || !confirmPass) {
+    alert('⚠️ Todos los campos son obligatorios');
+    return;
+  }
+  
+  if (newPass.length < 6) {
+    alert('⚠️ La nueva contraseña debe tener al menos 6 caracteres');
+    return;
+  }
+  
+  if (newPass !== confirmPass) {
+    alert('⚠️ Las nuevas contraseñas no coinciden');
+    return;
+  }
+  
+  // Verificar contraseña actual
+  const storedHash = localStorage.getItem('adminPassHash') || DEFAULT_PASS_HASH;
+  const currentPassHash = await sha256(currentPass);
+  
+  if (currentPassHash !== storedHash) {
+    alert('❌ La contraseña actual es incorrecta. No se realizó ningún cambio.');
+    // Limpiar campos
+    document.getElementById('currentAdminPass').value = '';
+    document.getElementById('newAdminPass').value = '';
+    document.getElementById('confirmNewAdminPass').value = '';
+    return;
+  }
+  
+  // Cambiar contraseña
+  if (!confirm('¿Está seguro que desea cambiar la contraseña de administrador?')) return;
+  
+  const newPassHash = await sha256(newPass);
+  localStorage.setItem('adminPassHash', newPassHash);
+  
+  alert('✅ Contraseña cambiada exitosamente');
+  
+  // Limpiar campos
+  document.getElementById('currentAdminPass').value = '';
+  document.getElementById('newAdminPass').value = '';
+  document.getElementById('confirmNewAdminPass').value = '';
+}
 
 /* ============================================
    CONFIGURACIÓN SUPABASE
@@ -1259,8 +1198,6 @@ async function initApp() {
   renderTabla();
   renderDashboard();
   renderOT();
-  setupDragDrop();
-  setupSQLDragDrop();
 }
 
 function combineDateTime(dateStr, timeStr) {
@@ -1523,7 +1460,7 @@ function calcularDuracion(act) {
    ============================================ */
 function exportarExcel() {
   const datos = getFilteredData();
-  if (datos.length === 0) { alert('⚠️ No hay datos para exportar'); return; }
+  if (datos.length === 0) { alert('️ No hay datos para exportar'); return; }
   const datosExportar = datos.map(a => ({
     'Fecha Inicio': a.inicio ? new Date(a.inicio).toLocaleString('es-DO') : '',
     'Fecha Fin': a.fin ? new Date(a.fin).toLocaleString('es-DO') : '',
@@ -1571,7 +1508,7 @@ function exportarExcelIngeniero() {
   const ing = document.getElementById('ingSelect').value;
   const mes = document.getElementById('ingMes').value;
   const anio = document.getElementById('ingAnio').value;
-  if (!ing) { alert('⚠️ Seleccione un ingeniero'); return; }
+  if (!ing) { alert('️ Seleccione un ingeniero'); return; }
   const filtradas = todasActividades.filter(a => {
     if (a.ingeniero !== ing) return false;
     if (!a.inicio) return false;
@@ -1881,8 +1818,8 @@ function cargarStatsIngeniero() {
    ============================================ */
 function renderAdmin() {
   document.getElementById('listIngs').innerHTML = ingenieros.map((i, idx) => `<div class="admin-item"><span> ${i}</span><button class="action-btn btn-danger" onclick="delIngeniero(${idx})">🗑️</button></div>`).join('');
-  document.getElementById('listTipos').innerHTML = tiposActividad.map((t, idx) => `<div class="admin-item"><span>🔧 ${t}</span><button class="action-btn btn-danger" onclick="delTipo(${idx})">🗑️</button></div>`).join('');
-  document.getElementById('listErrors').innerHTML = tiposError.map((e, idx) => `<div class="admin-item"><span>⚠️ ${e}</span><button class="action-btn btn-danger" onclick="delError(${idx})">🗑️</button></div>`).join('');
+  document.getElementById('listTipos').innerHTML = tiposActividad.map((t, idx) => `<div class="admin-item"><span> ${t}</span><button class="action-btn btn-danger" onclick="delTipo(${idx})">🗑️</button></div>`).join('');
+  document.getElementById('listErrors').innerHTML = tiposError.map((e, idx) => `<div class="admin-item"><span>⚠️ ${e}</span><button class="action-btn btn-danger" onclick="delError(${idx})">️</button></div>`).join('');
 }
 
 async function addIngeniero() {
@@ -1928,484 +1865,6 @@ async function delError(idx) {
   const val = tiposError[idx];
   try { await supabaseClient.from('tipos_error').delete().eq('nombre', val); tiposError.splice(idx, 1); } catch (e) { alert('Error: ' + e.message); return; }
   cargarSelects(); renderAdmin();
-}
-
-async function changePass() {
-  const newPass = document.getElementById('newPass').value;
-  if (newPass.length < 6) { alert('Mínimo 6 caracteres'); return; }
-  if (!confirm('¿Cambiar contraseña?')) return;
-  localStorage.setItem('adminPassHash', await sha256(newPass));
-  alert('✅ Contraseña cambiada exitosamente');
-  document.getElementById('newPass').value = '';
-}
-
-/* ============================================
-   PROCESADOR CSV Y GENERADOR SQL
-   ============================================ */
-function setupDragDrop() {
-  const zone = document.getElementById('importZone');
-  if (!zone) return;
-  zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.style.background = 'var(--ln-orange-pale)'; });
-  zone.addEventListener('dragleave', () => { zone.style.background = 'white'; });
-  zone.addEventListener('drop', (e) => { 
-    e.preventDefault(); 
-    zone.style.background = 'white';
-    if (e.dataTransfer.files[0]) procesarArchivoCSV(e.dataTransfer.files[0]); 
-  });
-}
-
-function handleFileUpload(event) { 
-  if (event.target.files[0]) procesarArchivoCSV(event.target.files[0]); 
-}
-
-function logImport(msg, type = 'info') {
-  const logDiv = document.getElementById('importLog');
-  logDiv.innerHTML += `<div class="${type}">${msg}</div>`;
-  logDiv.scrollTop = logDiv.scrollHeight;
-}
-
-async function procesarArchivoCSV(file) {
-  try {
-    setStatus('Procesando archivo...', 'connecting');
-    document.getElementById('importProgress').style.display = 'block';
-    
-    const data = await file.arrayBuffer();
-    const workbook = XLSX.read(data, { type: 'array', cellDates: true });
-    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-    const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1, raw: false, dateNF: 'mm/dd/yyyy hh:mm AM/PM' });
-
-    logImport(`📊 Total filas leídas: ${jsonData.length}`, 'info');
-    
-    if (jsonData.length < 2) {
-      logImport('⚠️ El archivo está vacío o no tiene el formato correcto', 'error');
-      return;
-    }
-
-    const primeraFila = jsonData[0];
-    const esConcatenado = jsonData.length <= 3 && primeraFila && primeraFila.length > 50;
-    
-    let actividadesValidas = [];
-    let actividadesOmitidas = [];
-    const ingenierosUnicos = new Set();
-
-    const optAutoDetect = document.getElementById('optAutoDetect').checked;
-    const optNormalizeNames = document.getElementById('optNormalizeNames').checked;
-    const optFixYears = document.getElementById('optFixYears').checked;
-    const optSkipInvalid = document.getElementById('optSkipInvalid').checked;
-    const optForceImport = document.getElementById('optForceImport').checked;
-
-    if (esConcatenado) {
-      logImport('⚠️ Detectado formato CONCATENADO. Procesando...', 'warning');
-      const valores = primeraFila;
-      const COLUMNAS_POR_REGISTRO = 18;
-      let idx = COLUMNAS_POR_REGISTRO;
-      
-      while (idx + COLUMNAS_POR_REGISTRO <= valores.length) {
-        const reg = {
-          tipo: (valores[idx] || '').trim(),
-          inicio: (valores[idx + 1] || '').trim(),
-          fin: (valores[idx + 2] || '').trim(),
-          horario: (valores[idx + 3] || '').trim(),
-          ingeniero: (valores[idx + 11] || '').trim(),
-          descripcion: (valores[idx + 12] || '').trim(),
-          responsable: (valores[idx + 13] || '').trim(),
-          observaciones: (valores[idx + 14] || '').trim(),
-          estado: (valores[idx + 15] || '').trim(),
-          tipo_error: (valores[idx + 16] || '').trim(),
-          detalle_error: (valores[idx + 17] || '').trim()
-        };
-
-        procesarRegistro(reg, optAutoDetect, optNormalizeNames, optFixYears, optSkipInvalid, optForceImport, actividadesValidas, actividadesOmitidas, ingenierosUnicos, Math.floor(idx / COLUMNAS_POR_REGISTRO) + 1);
-        idx += COLUMNAS_POR_REGISTRO;
-      }
-    } else {
-      logImport('✅ Detectado formato NORMAL.', 'success');
-      const esHeader = primeraFila.some(cell => 
-        typeof cell === 'string' && 
-        (cell.toLowerCase().includes('actividad') || cell.toLowerCase().includes('fecha') || cell.toLowerCase().includes('ingeniero'))
-      );
-
-      let headers, dataStartIndex;
-      if (esHeader) {
-        headers = primeraFila.map(h => String(h).toLowerCase().trim());
-        dataStartIndex = 1;
-      } else {
-        headers = [];
-        dataStartIndex = 0;
-      }
-
-      const mapping = mapearColumnasCSV(headers);
-
-      document.getElementById('mappingInfo').style.display = 'block';
-      document.getElementById('mappingDetails').innerHTML = `
-        <table>
-          <tr><th>Columna</th><th>Índice</th></tr>
-          ${Object.entries(mapping).map(([key, idx]) => `<tr><td>${key}</td><td>${idx !== undefined ? idx : 'N/A'}</td></tr>`).join('')}
-        </table>
-      `;
-
-      for (let i = dataStartIndex; i < jsonData.length; i++) {
-        const row = jsonData[i];
-        if (!row || row.length < 8) {
-          if (optSkipInvalid) actividadesOmitidas.push({ fila: i + 1, razon: 'Fila incompleta' });
-          continue;
-        }
-
-        const reg = {
-          tipo: String(row[mapping.tipo] || '').trim(),
-          inicio: String(row[mapping.inicio] || '').trim(),
-          fin: mapping.fin !== undefined ? String(row[mapping.fin] || '').trim() : '',
-          horario: mapping.horario !== undefined ? String(row[mapping.horario] || 'Laboral').trim() : 'Laboral',
-          ingeniero: String(row[mapping.ingeniero] || '').trim(),
-          descripcion: mapping.descripcion !== undefined ? String(row[mapping.descripcion] || '').trim() : '',
-          responsable: mapping.responsable !== undefined ? String(row[mapping.responsable] || '').trim() : '',
-          observaciones: mapping.observaciones !== undefined ? String(row[mapping.observaciones] || '').trim() : '',
-          estado: mapping.estado !== undefined ? String(row[mapping.estado] || 'COMPLETO').trim().toUpperCase() : 'COMPLETO',
-          tipo_error: mapping.tipo_error !== undefined ? String(row[mapping.tipo_error] || '').trim() : '',
-          detalle_error: mapping.detalle_error !== undefined ? String(row[mapping.detalle_error] || '').trim() : ''
-        };
-
-        procesarRegistro(reg, optAutoDetect, optNormalizeNames, optFixYears, optSkipInvalid, optForceImport, actividadesValidas, actividadesOmitidas, ingenierosUnicos, i + 1);
-      }
-    }
-
-    document.getElementById('statsPreview').style.display = 'grid';
-    document.getElementById('statValidas').textContent = actividadesValidas.length;
-    document.getElementById('statOmitidas').textContent = actividadesOmitidas.length;
-    document.getElementById('statIngenieros').textContent = ingenierosUnicos.size;
-
-    logImport(`✅ Procesamiento: ${actividadesValidas.length} válidas, ${actividadesOmitidas.length} omitidas`, 'success');
-
-    csvDataProcesada = actividadesValidas;
-    document.getElementById('importActions').style.display = 'flex';
-    document.getElementById('importOptions').style.display = 'block';
-    setStatus(`${actividadesValidas.length} actividades listas`, 'ok');
-
-  } catch (error) {
-    console.error('Error procesando archivo:', error);
-    logImport(`❌ Error: ${error.message}`, 'error');
-    setStatus('Error: ' + error.message, 'error');
-  }
-}
-
-function procesarRegistro(reg, optAutoDetect, optNormalizeNames, optFixYears, optSkipInvalid, optForceImport, actividadesValidas, actividadesOmitidas, ingenierosUnicos, filaNum) {
-  if (!reg.tipo || !reg.inicio || !reg.ingeniero) {
-    if (optSkipInvalid && !optForceImport) {
-      actividadesOmitidas.push({ fila: filaNum, razon: `Campos vacíos` });
-    } else if (optForceImport) {
-      reg.tipo = reg.tipo || 'Implementacion';
-      reg.inicio = reg.inicio || new Date().toISOString().slice(0, 16);
-      reg.ingeniero = reg.ingeniero || 'Sin asignar';
-    } else {
-      actividadesOmitidas.push({ fila: filaNum, razon: 'Campos obligatorios vacíos' });
-    }
-    if (!optForceImport) return;
-  }
-
-  let inicio = parseFechaAmericanaMejorada(reg.inicio, optAutoDetect);
-  let fin = reg.fin ? parseFechaAmericanaMejorada(reg.fin, optAutoDetect) : null;
-
-  if (!inicio) {
-    if (optForceImport) {
-      inicio = new Date().toISOString().slice(0, 16);
-    } else if (optSkipInvalid) {
-      actividadesOmitidas.push({ fila: filaNum, razon: `Fecha inválida` });
-      return;
-    }
-  }
-
-  if (!fin) fin = inicio;
-
-  let ingenieroNorm = reg.ingeniero;
-  if (optNormalizeNames) {
-    ingenieroNorm = normalizarNombreIngeniero(ingenieroNorm);
-  }
-
-  const estadoNorm = ['COMPLETO', 'INCOMPLETO', 'ACT-PENDIENTE'].includes(reg.estado) ? reg.estado : 'COMPLETO';
-
-  ingenierosUnicos.add(ingenieroNorm);
-
-  actividadesValidas.push({
-    tipo: reg.tipo, inicio: inicio, fin: fin, horario: reg.horario, ingeniero: ingenieroNorm,
-    descripcion: reg.descripcion, responsable: reg.responsable, observaciones: reg.observaciones,
-    estado: estadoNorm, tipo_error: reg.tipo_error, detalle_error: reg.detalle_error
-  });
-}
-
-function parseFechaAmericanaMejorada(fechaStr, autoDetect = true) {
-  if (!fechaStr) return null;
-  if (typeof fechaStr === 'number') {
-    const excelEpoch = new Date(1899, 11, 30);
-    const date = new Date(excelEpoch.getTime() + fechaStr * 86400000);
-    if (date.getFullYear() < 1900 || date.getFullYear() > 2100) return null;
-    return ajustarZonaHorariaRD(date);
-  }
-  
-  fechaStr = String(fechaStr).trim().replace(/#/g, '');
-  if (!fechaStr) return null;
-  
-  const matchAmericano = fechaStr.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})\s+(\d{1,2}):(\d{2})(?::(\d{2}))?\s*(AM|PM)?$/i);
-  if (matchAmericano) {
-    let [, mes, dia, anio, hora, min, seg, ampm] = matchAmericano;
-    mes = parseInt(mes); dia = parseInt(dia); anio = parseInt(anio); hora = parseInt(hora); min = parseInt(min); seg = seg ? parseInt(seg) : 0;
-    if (anio < 100) anio += 2000;
-    if (ampm) {
-      ampm = ampm.toUpperCase();
-      if (ampm === 'PM' && hora !== 12) hora += 12;
-      if (ampm === 'AM' && hora === 12) hora = 0;
-    }
-    const dateUTC = new Date(Date.UTC(anio, mes - 1, dia, hora, min, seg));
-    return ajustarZonaHorariaRD(dateUTC);
-  }
-  
-  const d = new Date(fechaStr);
-  if (!isNaN(d.getTime()) && d.getFullYear() >= 2020 && d.getFullYear() <= 2030) {
-    return ajustarZonaHorariaRD(d);
-  }
-  return null;
-}
-
-function ajustarZonaHorariaRD(date) {
-  const dateRD = new Date(date.getTime() - (4 * 60 * 60 * 1000));
-  const year = dateRD.getUTCFullYear();
-  const month = String(dateRD.getUTCMonth() + 1).padStart(2, '0');
-  const day = String(dateRD.getUTCDate()).padStart(2, '0');
-  const hours = String(dateRD.getUTCHours()).padStart(2, '0');
-  const minutes = String(dateRD.getUTCMinutes()).padStart(2, '0');
-  return `${year}-${month}-${day}T${hours}:${minutes}`;
-}
-
-function normalizarNombreIngeniero(nombre) {
-  const mapa = {
-    'lenin justiniano': 'Lenin Justiniano', 'lenin': 'Lenin Justiniano',
-    'luis gomez': 'Luis Gomez', 'eric de los santos': 'Eric De Los Santos',
-    'miguel baez': 'Miguel Baez', 'ezequiel medrano': 'Ezequiel Medrano',
-    'jose noboa': 'Jose Noboa', 'carlos suriel': 'Carlos Suriel',
-    'welington del jesus': 'Welington Del Jesus', 'welington de jesus': 'Welington Del Jesus', 'welington': 'Welington Del Jesus',
-    'john castillo': 'John Castillo', 'junior diaz': 'Junior Diaz',
-    'mario medina': 'Mario Medina', 'alexis de los santos': 'Alexis de los Santos'
-  };
-  return mapa[nombre.toLowerCase()] || nombre;
-}
-
-function mapearColumnasCSV(headers) {
-  const mapping = {};
-  if (!headers || headers.length === 0 || headers[0] === '') {
-    return { tipo: 0, inicio: 1, fin: 2, horario: 3, ingeniero: 11, descripcion: 12, responsable: 13, observaciones: 14, estado: 15, tipo_error: 16, detalle_error: 17 };
-  }
-  const reglas = [
-    { nombres: ['actividades', 'tipo', 'tipo actividad', 'activity'], campo: 'tipo' },
-    { nombres: ['fecha inicio', 'fechainicio', 'inicio', 'start'], campo: 'inicio' },
-    { nombres: ['fecha fin', 'fecha finalizacion', 'fechafinalizacion', 'fin', 'end'], campo: 'fin' },
-    { nombres: ['horario', 'schedule'], campo: 'horario' },
-    { nombres: ['ingeniero', 'ingeniero asignado', 'field engineer'], campo: 'ingeniero' },
-    { nombres: ['descripción', 'descripcion', 'description', 'actividad'], campo: 'descripcion' },
-    { nombres: ['responsable', 'actividad de:', 'actividad de', 'assigned by'], campo: 'responsable' },
-    { nombres: ['observaciones', 'observations', 'notes'], campo: 'observaciones' },
-    { nombres: ['estado', 'status', 'state'], campo: 'estado' },
-    { nombres: ['tipo error', 'tipoerror', 'error type'], campo: 'tipo_error' },
-    { nombres: ['detalle error', 'detalleerror', 'error detail'], campo: 'detalle_error' }
-  ];
-  headers.forEach((header, idx) => {
-    const h = String(header).toLowerCase().trim();
-    for (const regla of reglas) {
-      if (regla.nombres.some(n => h.includes(n) || n.includes(h))) {
-        if (!mapping[regla.campo]) mapping[regla.campo] = idx;
-        break;
-      }
-    }
-  });
-  return mapping;
-}
-
-async function confirmarImportacion() {
-  if (csvDataProcesada.length === 0) { alert('⚠️ No hay datos para importar'); return; }
-  if (!confirm(`¿Importar ${csvDataProcesada.length} actividades a Supabase?`)) return;
-
-  const progressDiv = document.getElementById('importProgress');
-  const progressFill = document.getElementById('progressFill');
-  const logDiv = document.getElementById('importLog');
-  progressDiv.style.display = 'block';
-  logDiv.innerHTML = '';
-
-  const batchSize = 50;
-  let importados = 0, errores = 0;
-
-  for (let i = 0; i < csvDataProcesada.length; i += batchSize) {
-    const batch = csvDataProcesada.slice(i, i + batchSize);
-    const progress = Math.min(100, Math.round(((i + batch.length) / csvDataProcesada.length) * 100));
-    progressFill.style.width = progress + '%';
-    progressFill.textContent = progress + '%';
-
-    try {
-      const { error } = await supabaseClient.from('actividades').insert(batch);
-      if (error) { logImport(`❌ Lote ${Math.floor(i/batchSize)+1}: ${error.message}`, 'error'); errores += batch.length; } 
-      else { importados += batch.length; logImport(`✅ Lote ${Math.floor(i/batchSize)+1}: ${batch.length} importadas`, 'success'); }
-    } catch (err) { logImport(`❌ Error: ${err.message}`, 'error'); errores += batch.length; }
-    logDiv.scrollTop = logDiv.scrollHeight;
-  }
-
-  logImport(`\n📊 Resumen: ${importados} importadas, ${errores} errores`, importados > 0 ? 'success' : 'error');
-  await cargarDatosSupabase();
-  cargarSelects(); renderTabla(); renderDashboard(); renderOT();
-  setStatus(`✅ ${importados} actividades importadas`, 'ok');
-  alert(`✅ Importación completada!\n\n✅ Importadas: ${importados}\n❌ Errores: ${errores}`);
-
-  csvDataProcesada = [];
-  document.getElementById('importActions').style.display = 'none';
-  document.getElementById('statsPreview').style.display = 'none';
-  document.getElementById('mappingInfo').style.display = 'none';
-  document.getElementById('importOptions').style.display = 'none';
-}
-
-function cancelarImportacion() {
-  csvDataProcesada = [];
-  document.getElementById('importActions').style.display = 'none';
-  document.getElementById('statsPreview').style.display = 'none';
-  document.getElementById('mappingInfo').style.display = 'none';
-  document.getElementById('importOptions').style.display = 'none';
-  document.getElementById('importProgress').style.display = 'none';
-  document.getElementById('importLog').innerHTML = '';
-  document.getElementById('csvFile').value = '';
-  setStatus('Importación cancelada', 'connecting');
-}
-
-/* ============================================
-   GENERADOR SQL
-   ============================================ */
-function setupSQLDragDrop() {
-  const zone = document.getElementById('sqlImportZone');
-  if (!zone) return;
-  zone.addEventListener('dragover', (e) => { e.preventDefault(); });
-  zone.addEventListener('drop', (e) => { 
-    e.preventDefault(); 
-    if (e.dataTransfer.files[0]) handleSQLFileUpload({target: {files: e.dataTransfer.files}}); 
-  });
-}
-
-function handleSQLFileUpload(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    const data = new Uint8Array(e.target.result);
-    const workbook = XLSX.read(data, { type: 'array', cellDates: true });
-    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-    const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1, raw: false, dateNF: 'm/d/yyyy h:mm:ss AM/PM' });
-    processSQLData(jsonData);
-  };
-  reader.readAsArrayBuffer(file);
-}
-
-function parseSQLDate(dateStr) {
-  if (!dateStr) return null;
-  dateStr = String(dateStr).trim();
-  const match = dateStr.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(\d{1,2}):(\d{2})(?::(\d{2}))?\s*(AM|PM)?$/i);
-  if (match) {
-    let [, mes, dia, anio, hora, min, seg, ampm] = match;
-    mes = parseInt(mes); dia = parseInt(dia); anio = parseInt(anio); hora = parseInt(hora); min = parseInt(min); seg = seg ? parseInt(seg) : 0;
-    if (ampm) {
-      ampm = ampm.toUpperCase();
-      if (ampm === 'PM' && hora !== 12) hora += 12;
-      if (ampm === 'AM' && hora === 12) hora = 0;
-    }
-    const date = new Date(anio, mes - 1, dia, hora, min, seg);
-    return date.toISOString().slice(0, 16);
-  }
-  const d = new Date(dateStr);
-  if (!isNaN(d.getTime())) return d.toISOString().slice(0, 16);
-  return null;
-}
-
-function processSQLData(jsonData) {
-  let validRecords = [];
-  let errors = 0;
-  const ingenierosSet = new Set();
-  const headers = jsonData[0].map(h => String(h).toLowerCase().trim());
-  
-  const mapping = {
-    tipo: headers.findIndex(h => h.includes('tipo') || h.includes('actividad')),
-    inicio: headers.findIndex(h => h.includes('inicio') || h.includes('start')),
-    fin: headers.findIndex(h => h.includes('fin') || h.includes('end')),
-    horario: headers.findIndex(h => h.includes('horario')),
-    ingeniero: headers.findIndex(h => h.includes('ingeniero')),
-    descripcion: headers.findIndex(h => h.includes('descripci') || h.includes('description')),
-    responsable: headers.findIndex(h => h.includes('responsable')),
-    observaciones: headers.findIndex(h => h.includes('observaci')),
-    estado: headers.findIndex(h => h.includes('estado') || h.includes('status')),
-    tipo_error: headers.findIndex(h => h.includes('tipo error') || h.includes('error')),
-    detalle_error: headers.findIndex(h => h.includes('detalle'))
-  };
-
-  for (let i = 1; i < jsonData.length; i++) {
-    const row = jsonData[i];
-    if (!row || row.length < 5) { errors++; continue; }
-    const inicio = parseSQLDate(row[mapping.inicio]);
-    const fin = parseSQLDate(row[mapping.fin]);
-    if (!inicio) { errors++; continue; }
-
-    const record = {
-      tipo: String(row[mapping.tipo] || '').trim(), inicio: inicio, fin: fin || inicio,
-      horario: String(row[mapping.horario] || 'Laboral').trim(), ingeniero: String(row[mapping.ingeniero] || '').trim(),
-      descripcion: String(row[mapping.descripcion] || '').trim(), responsable: String(row[mapping.responsable] || '').trim(),
-      observaciones: String(row[mapping.observaciones] || '').trim(), estado: String(row[mapping.estado] || 'COMPLETO').trim().toUpperCase(),
-      tipo_error: String(row[mapping.tipo_error] || '').trim(), detalle_error: String(row[mapping.detalle_error] || '').trim()
-    };
-
-    if (!record.tipo || !record.ingeniero) { errors++; continue; }
-    validRecords.push(record);
-    ingenierosSet.add(record.ingeniero);
-  }
-
-  generatedSQL = generateSQLStatements(validRecords);
-  document.getElementById('sqlValidCount').textContent = validRecords.length;
-  document.getElementById('sqlErrorCount').textContent = errors;
-  document.getElementById('sqlOutput').innerHTML = highlightSQL(generatedSQL);
-  document.getElementById('sqlPreview').style.display = 'block';
-}
-
-function generateSQLStatements(records) {
-  let sql = '-- Generado automáticamente desde Excel\n';
-  sql += '-- Formato de fecha corregido: m/d/yyyy h:mm AM/PM → ISO 8601\n';
-  sql += '-- ' + records.length + ' registros procesados\n\n';
-  records.forEach((rec) => {
-    sql += `INSERT INTO actividades (tipo, inicio, fin, horario, ingeniero, descripcion, responsable, observaciones, estado, tipo_error, detalle_error)\n`;
-    sql += `VALUES ('${escapeSQL(rec.tipo)}', '${rec.inicio}', '${rec.fin}', '${escapeSQL(rec.horario)}', '${escapeSQL(rec.ingeniero)}', '${escapeSQL(rec.descripcion)}', '${escapeSQL(rec.responsable)}', '${escapeSQL(rec.observaciones)}', '${escapeSQL(rec.estado)}', '${escapeSQL(rec.tipo_error)}', '${escapeSQL(rec.detalle_error)}');\n`;
-  });
-  return sql;
-}
-
-function escapeSQL(str) {
-  if (!str) return '';
-  return String(str).replace(/'/g, "''").replace(/\n/g, ' ').replace(/\r/g, '');
-}
-
-function highlightSQL(sql) {
-  return sql.replace(/(INSERT INTO|VALUES)/g, '<span class="keyword">$1</span>')
-            .replace(/'([^']*)'/g, '<span class="string">\'$1\'</span>')
-            .replace(/--(.+)/g, '<span class="comment">--$1</span>')
-            .replace(/\b(\d+)\b/g, '<span class="number">$1</span>');
-}
-
-function copySQLToClipboard() {
-  navigator.clipboard.writeText(generatedSQL).then(() => alert('✅ SQL copiado al portapapeles'));
-}
-
-function downloadSQL() {
-  const blob = new Blob([generatedSQL], { type: 'text/sql' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `actividades_${new Date().toISOString().slice(0,10)}.sql`;
-  a.click();
-  URL.revokeObjectURL(url);
-}
-
-function resetSQLGenerator() {
-  document.getElementById('sqlFile').value = '';
-  document.getElementById('sqlPreview').style.display = 'none';
-  generatedSQL = '';
 }
 
 document.addEventListener('keypress', e => {
