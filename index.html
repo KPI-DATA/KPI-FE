@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KPI Field Engineers - Liberty Networks</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 <style>
@@ -18,11 +19,366 @@
   --ln-gray-dark: #666666;
   --ln-text: #333333;
   --ln-shadow: 0 2px 10px rgba(255, 107, 0, 0.15);
+  --color-primary: #FF6B00;
+  --color-secondary: #4ECDC4;
+  --color-success: #2ECC71;
+  --color-danger: #FF4757;
+  --color-info: #A55EEA;
+  --color-warning: #F9CA24;
+  --color-cyan: #00D2D3;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
 body { background: var(--ln-gray); color: var(--ln-text); }
 
+/* ============================================
+   BOTONES MEJORADOS - COLORES ARMONIOSOS
+   ============================================ */
+.btn-primary, .btn-naranja {
+  background: linear-gradient(135deg, #FF6B00 0%, #FF8C33 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(255, 107, 0, 0.3);
+}
+.btn-primary:hover, .btn-naranja:hover {
+  background: linear-gradient(135deg, #FF8C33 0%, #FFA94D 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(255, 107, 0, 0.4);
+}
+
+.btn-edit, .btn-azul {
+  background: linear-gradient(135deg, #4ECDC4 0%, #44A3AA 100%);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(78, 205, 196, 0.3);
+}
+.btn-edit:hover, .btn-azul:hover {
+  background: linear-gradient(135deg, #44A3AA 0%, #3D8B8F 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(78, 205, 196, 0.4);
+}
+
+.btn-danger, .btn-rojo {
+  background: linear-gradient(135deg, #FF4757 0%, #FF3838 100%);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(255, 71, 87, 0.3);
+}
+.btn-danger:hover, .btn-rojo:hover {
+  background: linear-gradient(135deg, #FF3838 0%, #E84118 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(255, 71, 87, 0.4);
+}
+
+.btn-info, .btn-ver, .btn-purple {
+  background: linear-gradient(135deg, #A55EEA 0%, #8B5CF6 100%);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(139, 92, 246, 0.3);
+}
+.btn-info:hover, .btn-ver:hover, .btn-purple:hover {
+  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(139, 92, 246, 0.4);
+}
+
+.btn-secondary, .btn-gris {
+  background: linear-gradient(135deg, #95A5A6 0%, #7F8C8D 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(149, 165, 166, 0.3);
+}
+.btn-secondary:hover, .btn-gris:hover {
+  background: linear-gradient(135deg, #7F8C8D 0%, #6C7A7D 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(149, 165, 166, 0.4);
+}
+
+.btn-success, .btn-verde {
+  background: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(46, 204, 113, 0.3);
+}
+.btn-success:hover, .btn-verde:hover {
+  background: linear-gradient(135deg, #27AE60 0%, #229954 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(46, 204, 113, 0.4);
+}
+
+.btn-export, .btn-cyan {
+  background: linear-gradient(135deg, #00D2D3 0%, #01A3A4 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 210, 211, 0.3);
+}
+.btn-export:hover, .btn-cyan:hover {
+  background: linear-gradient(135deg, #01A3A4 0%, #008081 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 210, 211, 0.4);
+}
+
+/* BOTONES DE ACCIÓN EN TABLA - CORREGIDOS */
+.action-btn {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+}
+
+.action-btn.btn-edit {
+  background: linear-gradient(135deg, #4ECDC4 0%, #44A3AA 100%);
+  color: white;
+  box-shadow: 0 2px 4px rgba(78, 205, 196, 0.3);
+}
+.action-btn.btn-edit:hover {
+  background: linear-gradient(135deg, #44A3AA 0%, #3D8B8F 100%);
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(78, 205, 196, 0.4);
+}
+
+.action-btn.btn-danger {
+  background: linear-gradient(135deg, #FF4757 0%, #FF3838 100%);
+  color: white;
+  box-shadow: 0 2px 4px rgba(255, 71, 87, 0.3);
+}
+.action-btn.btn-danger:hover {
+  background: linear-gradient(135deg, #FF3838 0%, #E84118 100%);
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(255, 71, 87, 0.4);
+}
+
+.action-btn.btn-info {
+  background: linear-gradient(135deg, #A55EEA 0%, #8B5CF6 100%);
+  color: white;
+  box-shadow: 0 2px 4px rgba(139, 92, 246, 0.3);
+}
+.action-btn.btn-info:hover {
+  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(139, 92, 246, 0.4);
+}
+
+.btn-add, .btn-plus {
+  background: linear-gradient(135deg, #2ECC71 0%, #27AE60 100%);
+  color: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(46, 204, 113, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-add:hover, .btn-plus:hover {
+  background: linear-gradient(135deg, #27AE60 0%, #229954 100%);
+  transform: scale(1.1) rotate(90deg);
+  box-shadow: 0 4px 8px rgba(46, 204, 113, 0.4);
+}
+
+/* ============================================
+   NUEVO: TARJETAS DE INGENIEROS (TIQUETS)
+   ============================================ */
+.fe-ticket-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.fe-ticket-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--ln-shadow);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.fe-ticket-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(255, 107, 0, 0.25);
+  border-color: var(--ln-orange);
+}
+
+.fe-ticket-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--ln-orange), var(--ln-orange-light));
+}
+
+.fe-ticket-card.has-pending::before {
+  background: linear-gradient(90deg, #FF4757, #FF3838);
+}
+
+.fe-ticket-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.fe-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--ln-orange), var(--ln-orange-light));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 800;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.fe-ticket-card.has-pending .fe-avatar {
+  background: linear-gradient(135deg, #FF4757, #FF3838);
+}
+
+.fe-ticket-name {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ln-text);
+  line-height: 1.3;
+}
+
+.fe-ticket-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.fe-stat-box {
+  background: var(--ln-gray);
+  padding: 8px 10px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.fe-stat-box .stat-number {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--ln-orange-dark);
+  display: block;
+}
+
+.fe-stat-box .stat-label {
+  font-size: 10px;
+  color: var(--ln-gray-dark);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.fe-stat-box.pending .stat-number {
+  color: #FF4757;
+}
+
+.fe-stat-box.completed .stat-number {
+  color: #2ECC71;
+}
+
+.fe-ticket-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #FF4757;
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 13px;
+  box-shadow: 0 2px 8px rgba(255, 71, 87, 0.4);
+  animation: pulse-badge 2s infinite;
+}
+
+@keyframes pulse-badge {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.fe-back-button {
+  background: linear-gradient(135deg, var(--ln-orange), var(--ln-orange-dark));
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.fe-back-button:hover {
+  transform: translateX(-5px);
+  box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
+}
+
+/* Estilos originales mantenidos */
 .status-btn { 
     background: #27ae60; color: white; border: none; padding: 8px 16px; border-radius: 20px; 
     font-size: 13px; font-weight: 700; cursor: default; display: flex; align-items: center; 
@@ -91,13 +447,13 @@ body { background: var(--ln-gray); color: var(--ln-text); }
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 25px; }
 .stat-card { background: white; padding: 20px; border-radius: 12px; box-shadow: var(--ln-shadow); border-left: 5px solid var(--ln-orange); transition: transform 0.2s; }
 .stat-card:hover { transform: translateY(-2px); }
-.stat-card.red { border-left-color: #e74c3c; }
-.stat-card.green { border-left-color: #27ae60; }
+.stat-card.red { border-left-color: #FF4757; }
+.stat-card.green { border-left-color: #2ECC71; }
 .stat-card.orange { border-left-color: var(--ln-orange); }
-.stat-card.purple { border-left-color: #9b59b6; }
-.stat-card.yellow { border-left-color: #f1c40f; }
-.stat-card.cyan { border-left-color: #00bcd4; }
-.stat-card.blue { border-left-color: #2196f3; }
+.stat-card.purple { border-left-color: #A55EEA; }
+.stat-card.yellow { border-left-color: #F9CA24; }
+.stat-card.cyan { border-left-color: #00D2D3; }
+.stat-card.blue { border-left-color: #4ECDC4; }
 .stat-card h3 { font-size: 12px; color: var(--ln-gray-dark); text-transform: uppercase; margin-bottom: 10px; font-weight: 700; letter-spacing: 0.5px; }
 .stat-card .value { font-size: 28px; font-weight: 800; color: var(--ln-orange-dark); line-height: 1.2; }
 .stat-card .sub { font-size: 11px; color: var(--ln-gray-dark); margin-top: 5px; font-weight: 600; }
@@ -110,6 +466,7 @@ body { background: var(--ln-gray); color: var(--ln-text); }
 .filter-group select, .filter-group input { padding: 8px; border: 2px solid #e0e0e0; border-radius: 6px; font-size: 13px; font-weight: 600; }
 .filter-group select:focus, .filter-group input:focus { border-color: var(--ln-orange); outline: none; }
 .btn-clear { background: var(--ln-gray-dark); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 700; }
+.btn-clear:hover { background: #555; }
 .btn-export { background: var(--ln-orange); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 700; margin-left: 10px; }
 .btn-export:hover { background: var(--ln-orange-dark); }
 
@@ -137,13 +494,6 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover, input[type="time"]:
 
 .btn-group { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
 .btn { padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 14px; transition: all 0.3s; }
-.btn-primary { background: var(--ln-orange); color: white; }
-.btn-primary:hover { background: var(--ln-orange-dark); }
-.btn-secondary { background: var(--ln-gray-dark); color: white; }
-.btn-danger { background: #e74c3c; color: white; }
-.btn-edit { background: var(--ln-orange-light); color: white; }
-.btn-success { background: #27ae60; color: white; }
-.btn-success:hover { background: #219a52; }
 
 .table-container { background: white; border-radius: 12px; box-shadow: var(--ln-shadow); overflow: hidden; margin-top: 20px; }
 .table-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; border-bottom: 2px solid var(--ln-orange-pale); }
@@ -155,7 +505,7 @@ table { width: 100%; border-collapse: collapse; }
 th { background: var(--ln-orange); color: white; padding: 12px; text-align: left; font-size: 13px; font-weight: 700; }
 td { padding: 10px 12px; border-bottom: 1px solid #eee; font-size: 13px; font-weight: 600; }
 tr:hover { background: var(--ln-orange-pale); }
-tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c; }
+tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #FF4757; }
 
 .badge { padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; display: inline-block; }
 .badge-success { background: #d4edda; color: #155724; }
@@ -164,13 +514,20 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
 .badge-laboral { background: #e3f2fd; color: #1565c0; }
 .badge-pendiente { background: var(--ln-orange); color: white; }
 .badge-suspendida { background: #95a5a6; color: white; }
-.badge-postergada { background: #9b59b6; color: white; }
+.badge-postergada { background: #A55EEA; color: white; }
 
-.badge-extra-sleek { display: inline-flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: 800; color: #e74c3c; background: transparent; padding: 0; line-height: 1; letter-spacing: 0.5px; }
-.badge-extra-sleek::before { content: ''; display: block; width: 6px; height: 6px; background-color: #e74c3c; border-radius: 50%; margin-bottom: 3px; box-shadow: 0 0 5px rgba(231, 76, 60, 0.6); animation: pulse-red 2s infinite; }
-@keyframes pulse-red { 0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.4); } 70% { box-shadow: 0 0 0 4px rgba(231, 76, 60, 0); } 100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); } }
-
-.action-btn { padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer; font-size: 12px; margin: 2px; font-weight: 700; }
+.badge-extra-sleek { 
+  background: linear-gradient(135deg, #FF4757 0%, #FF3838 100%);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 2px 4px rgba(255, 71, 87, 0.3);
+}
 
 .ot-highlight { background: linear-gradient(135deg, var(--ln-orange), var(--ln-orange-dark)); color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; }
 .ot-highlight h3 { font-size: 18px; margin-bottom: 10px; font-weight: 700; }
@@ -193,7 +550,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
 
 .login-box-inline { background: var(--ln-gray); padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 2px solid #e0e0e0; }
 .login-box-inline input { width: 100%; padding: 10px; margin: 5px 0; border: 2px solid #ddd; border-radius: 6px; font-weight: 600; }
-.login-error { color: #e74c3c; margin-top: 10px; display: none; font-size: 13px; font-weight: 700; }
+.login-error { color: #FF4757; margin-top: 10px; display: none; font-size: 13px; font-weight: 700; }
 
 .table-scroll { overflow-x: auto; }
 .hidden { display: none !important; }
@@ -260,7 +617,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
       </div>
       <div class="about-info">
         <h3>KPI Field Engineers - Liberty Networks</h3>
-        <div class="version">Version 2.0.0 (Mejorada)</div>
+        <div class="version">Version 2.1.0 (Con Porcentajes en Gráficos)</div>
         <div class="copyright">
           <strong>Copyright © Lenin Justiniano 2026</strong><br>
           Lenin Justiniano @ Dominican Republic
@@ -318,7 +675,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
   <button class="tab" onclick="showSection('actividades', this)">📋 Actividades</button>
   <button class="tab" onclick="showSection('horasExtras', this)">🔴 Horas Extras</button>
   <button class="tab" onclick="showSection('ingeniero', this)"> Por Ingeniero</button>
-  <button class="tab locked" id="tabAdmin" onclick="showSection('admin', this)">⚙️ Admin</button>
+  <button class="tab locked" id="tabAdmin" onclick="showSection('admin', this)">️ Admin</button>
 </div>
 
 <div class="content">
@@ -330,7 +687,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
       <form id="formActividad" onsubmit="guardarActividad(event)">
         <div class="form-grid">
           <div class="form-group">
-            <label>📅 Fecha Inicio *</label>
+            <label> Fecha Inicio *</label>
             <input type="date" id="fInicioDate" required>
           </div>
           <div class="form-group">
@@ -338,7 +695,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
             <input type="time" id="fInicioTime" required>
           </div>
           <div class="form-group">
-            <label>📅 Fecha Fin *</label>
+            <label> Fecha Fin *</label>
             <input type="date" id="fFinDate" required>
           </div>
           <div class="form-group">
@@ -358,7 +715,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
             <input type="text" id="fPM" required placeholder="Ej: MAXIM SALAZAR">
           </div>
           <div class="form-group">
-            <label>👨‍ Especialista (si aplica)</label>
+            <label> Especialista (si aplica)</label>
             <input type="text" id="fEspecialista" placeholder="Nombre del especialista">
           </div>
           <div class="form-group">
@@ -393,7 +750,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
             </select>
           </div>
           <div class="form-group full" id="detalleErrorGroup" style="display:none;">
-            <label>📋 Detalle del Error</label>
+            <label> Detalle del Error</label>
             <textarea id="fDetalleError" placeholder="Describa el error ocurrido..."></textarea>
           </div>
         </div>
@@ -404,21 +761,27 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
     </div>
   </div>
 
-  <!-- PORTAL FE -->
+  <!-- PORTAL FE - NUEVO DISEÑO CON TIQUETS -->
   <div class="section" id="portalFE">
     <div class="form-container">
       <h2> Portal de Field Engineer - Mis Asignaciones</h2>
       <p style="margin-bottom: 20px; color: #666; font-size: 14px;">Seleccione su nombre para ver sus actividades asignadas. Puede marcarlas como completadas directamente desde aquí.</p>
-      <div class="filters" style="margin-bottom:20px; display:flex; gap:15px; align-items:end; flex-wrap:wrap;">
-        <div class="filter-group">
-          <label>👷 Seleccione su Nombre (FE)</label>
-          <select id="feSelectName" onchange="renderFEActivities()" style="padding:10px; min-width:250px; border: 2px solid #e0e0e0; border-radius: 6px; font-weight: 600;">
-            <option value="">-- Seleccione Ingeniero --</option>
-          </select>
+      
+      <!-- Vista de Tiquets de Ingenieros -->
+      <div id="feTicketView">
+        <div class="fe-ticket-grid" id="feTicketGrid">
+          <!-- Los tiquets se generan dinámicamente -->
         </div>
       </div>
-      <div id="feActivitiesList">
-        <p style="text-align:center; padding: 30px; color: #666;">Seleccione un ingeniero para ver sus actividades.</p>
+      
+      <!-- Vista de Actividades del Ingeniero Seleccionado -->
+      <div id="feActivitiesView" style="display:none;">
+        <button class="fe-back-button" onclick="backToTickets()">
+          ← Volver a Ingenieros
+        </button>
+        <div id="feActivitiesList">
+          <!-- Las actividades se generan dinámicamente -->
+        </div>
       </div>
     </div>
   </div>
@@ -426,9 +789,9 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
   <!-- DASHBOARD -->
   <div class="section" id="dashboard">
     <div class="global-filters">
-      <h3>🎛️ Filtros Interactivos del Dashboard</h3>
+      <h3>️ Filtros Interactivos del Dashboard</h3>
       <div class="filters-row">
-        <div class="filter-group"><label>👷 Ingeniero</label><select id="gIng" onchange="renderDashboard()"><option value="">Todos</option></select></div>
+        <div class="filter-group"><label> Ingeniero</label><select id="gIng" onchange="renderDashboard()"><option value="">Todos</option></select></div>
         <div class="filter-group"><label>🔧 Tipo Actividad</label><select id="gTipo" onchange="renderDashboard()"><option value="">Todos</option></select></div>
         <div class="filter-group"><label>📅 Mes</label>
           <select id="gMes" onchange="renderDashboard()">
@@ -447,7 +810,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
             <option value="ACT-PENDIENTE">Pendientes</option><option value="SUSPENDIDA">Suspendidas</option><option value="POSTERGADA">Postergadas</option>
           </select>
         </div>
-        <button class="btn-clear" onclick="clearFilters()">🗑️ Limpiar Filtros</button>
+        <button class="btn-clear" onclick="clearFilters()">️ Limpiar Filtros</button>
         <button class="btn-export" onclick="exportarExcel()"> Exportar a Excel</button>
       </div>
     </div>
@@ -467,15 +830,15 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
 
     <div class="charts-grid">
       <div class="chart-box"><h3>📊 Actividades por Mes</h3><div class="chart-container"><canvas id="chartMes"></canvas></div></div>
-      <div class="chart-box"><h3>🎯 Por Tipo de Actividad</h3><div class="chart-container"><canvas id="chartTipo"></canvas></div></div>
+      <div class="chart-box"><h3>🎯 Por Tipo de Actividad (%)</h3><div class="chart-container"><canvas id="chartTipo"></canvas></div></div>
     </div>
     <div class="charts-grid">
       <div class="chart-box"><h3> Actividades por Ingeniero</h3><div class="chart-container"><canvas id="chartIng"></canvas></div></div>
       <div class="chart-box"><h3>🔴 Horas Extras por Ingeniero</h3><div class="chart-container"><canvas id="chartOT"></canvas></div></div>
     </div>
     <div class="charts-grid">
-      <div class="chart-box"><h3>⚠️ Actividades con Errores por Tipo</h3><div class="chart-container"><canvas id="chartErrores"></canvas></div></div>
-      <div class="chart-box"><h3>📈 Estado de Actividades</h3><div class="chart-container"><canvas id="chartEstado"></canvas></div></div>
+      <div class="chart-box"><h3>⚠️ Actividades con Errores por Tipo (%)</h3><div class="chart-container"><canvas id="chartErrores"></canvas></div></div>
+      <div class="chart-box"><h3>📈 Estado de Actividades (%)</h3><div class="chart-container"><canvas id="chartEstado"></canvas></div></div>
     </div>
     <div class="chart-box" style="margin-top:20px;">
       <h3>📅 Histórico Anual</h3>
@@ -498,7 +861,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
             <select id="filterIng" onchange="renderTabla()"><option value="">Todos</option></select>
           </div>
           <div class="filter-group">
-            <label>🔧 Tipos</label>
+            <label> Tipos</label>
             <select id="filterTipo" onchange="renderTabla()"><option value="">Todos</option></select>
           </div>
           <div class="filter-group">
@@ -590,7 +953,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
   <!-- POR INGENIERO -->
   <div class="section" id="ingeniero">
     <div class="form-container">
-      <h2>👷 Estadísticas por Ingeniero</h2>
+      <h2> Estadísticas por Ingeniero</h2>
       <div class="filters" style="margin-bottom:20px; display: flex; gap: 15px; flex-wrap: wrap; align-items: end;">
         <div class="filter-group"><label>👷 Ingeniero</label>
           <select id="ingSelect" onchange="cargarStatsIngeniero()" style="padding:10px; min-width:200px;"><option value="">-- Seleccione Ingeniero --</option></select>
@@ -602,7 +965,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
             <option value="7">Agosto</option><option value="8">Septiembre</option><option value="9">Octubre</option><option value="10">Noviembre</option><option value="11">Diciembre</option>
           </select>
         </div>
-        <div class="filter-group"><label>📆 Año</label><select id="ingAnio" onchange="cargarStatsIngeniero()"><option value="">Todos</option></select></div>
+        <div class="filter-group"><label> Año</label><select id="ingAnio" onchange="cargarStatsIngeniero()"><option value="">Todos</option></select></div>
         <div class="filter-group" style="justify-content: flex-end;"><button class="btn-export" onclick="exportarExcelIngeniero()" style="margin:0; height:42px;">📥 Exportar</button></div>
       </div>
       <div id="statsIngeniero" style="display:none;">
@@ -614,7 +977,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
           <div class="stat-card orange"><h3>Horas Extra Totales</h3><div class="value" id="ingOTHrs">0h</div></div>
         </div>
         <div class="charts-grid">
-          <div class="chart-box"><h3>📊 Actividades por Tipo</h3><div class="chart-container"><canvas id="chartIngTipo"></canvas></div></div>
+          <div class="chart-box"><h3>📊 Actividades por Tipo (%)</h3><div class="chart-container"><canvas id="chartIngTipo"></canvas></div></div>
           <div class="chart-box"><h3>📅 Actividades por Mes</h3><div class="chart-container"><canvas id="chartIngMes"></canvas></div></div>
         </div>
       </div>
@@ -631,8 +994,8 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
         <input type="text" id="adminUser" placeholder="admin" autocomplete="off">
         <label><strong>Contraseña:</strong></label>
         <input type="password" id="adminPass" placeholder="••••••••" autocomplete="off">
-        <button class="btn btn-primary" style="margin-top:10px;width:100%;" onclick="doAdminLogin()">🔓 Acceder</button>
-        <div class="login-error" id="adminError">❌ Credenciales incorrectas</div>
+        <button class="btn btn-primary" style="margin-top:10px;width:100%;" onclick="doAdminLogin()"> Acceder</button>
+        <div class="login-error" id="adminError"> Credenciales incorrectas</div>
       </div>
     </div>
 
@@ -660,7 +1023,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
             <input type="time" id="afInicioTime" required>
           </div>
           <div class="form-group">
-            <label>📅 Fecha Fin *</label>
+            <label> Fecha Fin *</label>
             <input type="date" id="afFinDate" required>
           </div>
           <div class="form-group">
@@ -668,7 +1031,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
             <input type="time" id="afFinTime" required>
           </div>
           <div class="form-group">
-            <label>👷 Ingeniero Asignado (FE) *</label>
+            <label> Ingeniero Asignado (FE) *</label>
             <select id="afIngeniero" required><option value="">-- Seleccione --</option></select>
           </div>
           <div class="form-group">
@@ -695,7 +1058,7 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
             <textarea id="afDescripcion" required placeholder="Detalle del cliente/servicio..."></textarea>
           </div>
           <div class="form-group full">
-            <label>💬 Observaciones</label>
+            <label> Observaciones</label>
             <textarea id="afObservaciones" placeholder="Observaciones adicionales..."></textarea>
           </div>
           <div class="form-group">
@@ -714,10 +1077,10 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
         </div>
       </form>
 
-      <h3 style="color:var(--ln-orange-dark); margin: 30px 0 15px 0; font-size:18px; font-weight:700; border-bottom: 2px solid var(--ln-orange-pale); padding-bottom: 10px;">📚 Gestión de Catálogos</h3>
+      <h3 style="color:var(--ln-orange-dark); margin: 30px 0 15px 0; font-size:18px; font-weight:700; border-bottom: 2px solid var(--ln-orange-pale); padding-bottom: 10px;"> Gestión de Catálogos</h3>
       <div class="catalog-grid">
         <div class="catalog-item">
-          <h4>👷 Ingenieros</h4>
+          <h4> Ingenieros</h4>
           <div style="display:flex;gap:5px;margin-bottom:10px;">
             <input type="text" id="newIng" placeholder="Nombre..." style="flex:1;padding:8px;border:1px solid #ccc;border-radius:6px;font-size:13px;">
             <button class="btn btn-primary" style="padding:8px 12px;font-size:12px;" onclick="addIngeniero()">➕</button>
@@ -754,11 +1117,11 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
     <form id="formEditar" onsubmit="guardarEdicion(event)">
       <input type="hidden" id="editId">
       <div class="form-grid">
-        <div class="form-group"><label>📅 Fecha Inicio *</label><input type="date" id="editInicioDate" required></div>
-        <div class="form-group"><label>🕒 Hora Inicio *</label><input type="time" id="editInicioTime" required></div>
-        <div class="form-group"><label>📅 Fecha Fin *</label><input type="date" id="editFinDate" required></div>
-        <div class="form-group"><label>🕒 Hora Fin *</label><input type="time" id="editFinTime" required></div>
-        <div class="form-group"><label>👷 Ingeniero Asignado *</label><select id="editIngeniero" required></select></div>
+        <div class="form-group"><label> Fecha Inicio *</label><input type="date" id="editInicioDate" required></div>
+        <div class="form-group"><label> Hora Inicio *</label><input type="time" id="editInicioTime" required></div>
+        <div class="form-group"><label> Fecha Fin *</label><input type="date" id="editFinDate" required></div>
+        <div class="form-group"><label> Hora Fin *</label><input type="time" id="editFinTime" required></div>
+        <div class="form-group"><label> Ingeniero Asignado *</label><select id="editIngeniero" required></select></div>
         <div class="form-group"><label>🔧 Tipo de Actividad *</label><select id="editTipo" required></select></div>
         <div class="form-group"><label>👤 Project Manager (PM) *</label><input type="text" id="editPM" required></div>
         <div class="form-group"><label>👨‍ Especialista</label><input type="text" id="editEspecialista"></div>
@@ -777,11 +1140,11 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
             <option value="COMPLETADA">✅ Completada</option>
             <option value="INCOMPLETA">❌ Incompleta</option>
             <option value="ACT-PENDIENTE">⏳ ACT-PENDIENTE</option>
-            <option value="SUSPENDIDA">🚫 Suspendida</option>
+            <option value="SUSPENDIDA"> Suspendida</option>
             <option value="POSTERGADA">📅 Postergada</option>
           </select>
         </div>
-        <div class="form-group"><label>⚠️ Tipo Error</label><select id="editTipoError"><option value="">-- Sin error --</option></select></div>
+        <div class="form-group"><label>️ Tipo Error</label><select id="editTipoError"><option value="">-- Sin error --</option></select></div>
         <div class="form-group full"><label>📋 Detalle Error</label><textarea id="editDetalleError"></textarea></div>
       </div>
       <div class="btn-group">
@@ -793,6 +1156,53 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #e74c3c
 </div>
 
 <script>
+// ==========================================
+// CONFIGURACIÓN DE PORCENTAJES CORREGIDOS
+// ==========================================
+Chart.register(ChartDataLabels);
+
+// Función para calcular porcentaje CORRECTAMENTE (NUNCA más de 100%)
+function calcularPorcentajeCorrecto(value, total) {
+  if (!total || total === 0) return '0%';
+  const percentage = (value / total) * 100;
+  return Math.min(percentage, 100).toFixed(1) + '%';
+}
+
+// Tooltip MEJORADO con cálculo correcto de porcentaje
+const tooltipConPorcentaje = {
+  callbacks: {
+    label: function(context) {
+      let label = context.label || context.dataset.label || '';
+      let value = context.raw || 0;
+      
+      // Para gráficos de barras con múltiples datasets
+      if (context.chart.config.type === 'bar') {
+        let datasetTotal = context.chart.data.datasets[context.datasetIndex].data.reduce((a, b) => a + (Number(b) || 0), 0);
+        let percentage = datasetTotal > 0 ? ((value / datasetTotal) * 100).toFixed(1) + '%' : '0%';
+        return `${label}: ${value} (${percentage})`;
+      }
+      
+      // Para gráficos de pastel/dona
+      let total = context.chart.data.datasets[0].data.reduce((a, b) => a + (Number(b) || 0), 0);
+      let percentage = total > 0 ? ((value / total) * 100).toFixed(1) + '%' : '0%';
+      return `${label}: ${value} (${percentage} del total)`;
+    }
+  }
+};
+
+// Configuración de datalabels para gráficos circulares
+const datalabelsPorcentaje = {
+  color: '#fff',
+  font: { weight: 'bold', size: 11 },
+  formatter: function(value, context) {
+    let total = context.chart.data.datasets[0].data.reduce((a, b) => a + (Number(b) || 0), 0);
+    return calcularPorcentajeCorrecto(value, total);
+  },
+  anchor: 'end',
+  align: 'end',
+  offset: 4
+};
+
 // Funciones del Modal About
 function showAboutModal() { document.getElementById('aboutModal').classList.add('active'); }
 function closeAboutModal() { document.getElementById('aboutModal').classList.remove('active'); }
@@ -864,7 +1274,6 @@ async function doAdminLogin() {
 
 function showAdminLogin() {
   if (isAdmin) { 
-    // Si ya está logueado, ir directamente al panel
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     document.getElementById('admin').classList.add('active');
@@ -873,7 +1282,6 @@ function showAdminLogin() {
     renderWorkloadMarker();
     return; 
   }
-  // Si NO está logueado, solo mostrar el formulario de login
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById('admin').classList.add('active');
@@ -966,6 +1374,7 @@ async function initApp() {
   renderTabla();
   renderDashboard();
   renderOT();
+  renderFETickets();
 }
 
 function combineDateTime(dateStr, timeStr) { return (dateStr && timeStr) ? `${dateStr}T${timeStr}` : null; }
@@ -1006,12 +1415,12 @@ function cargarSelects() {
   const tipoOptions = tipos.map(t => `<option value="${t}">${t}</option>`).join('');
   const errorOptions = errores.map(e => `<option value="${e}">${e}</option>`).join('');
 
-  ['fIngeniero', 'afIngeniero', 'editIngeniero', 'gIng', 'filterIng', 'otIng', 'ingSelect', 'feSelectName'].forEach(id => {
+  ['fIngeniero', 'afIngeniero', 'editIngeniero', 'gIng', 'filterIng', 'otIng', 'ingSelect'].forEach(id => {
     const el = document.getElementById(id);
     if (el) {
       let defaultOpt = '<option value="">-- Seleccione --</option>';
       if (id.includes('filter') || id === 'gIng' || id === 'otIng') defaultOpt = '<option value="">Todos</option>';
-      else if (id === 'ingSelect' || id === 'feSelectName') defaultOpt = '<option value="">-- Seleccione Ingeniero --</option>';
+      else if (id === 'ingSelect') defaultOpt = '<option value="">-- Seleccione Ingeniero --</option>';
       el.innerHTML = defaultOpt + ingOptions;
     }
   });
@@ -1070,10 +1479,72 @@ function renderWorkloadMarker() {
 }
 
 /* ============================================
-   PORTAL FE
+   NUEVO: RENDERIZAR TIQUETS DE INGENIEROS
    ============================================ */
-function renderFEActivities() {
-  const feName = document.getElementById('feSelectName').value;
+function renderFETickets() {
+  const container = document.getElementById('feTicketGrid');
+  
+  if (!ingenieros || ingenieros.length === 0) {
+    container.innerHTML = '<p style="text-align:center; padding: 30px; color: #666;">No hay ingenieros registrados.</p>';
+    return;
+  }
+
+  const ticketsHTML = ingenieros.map(ing => {
+    const actividadesFE = todasActividades.filter(a => a.ingeniero === ing);
+    const pendientes = actividadesFE.filter(a => a.estado === 'ACT-PENDIENTE').length;
+    const completadas = actividadesFE.filter(a => a.estado === 'COMPLETADA').length;
+    const total = actividadesFE.length;
+    const iniciales = ing.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+    const hasPending = pendientes > 0;
+
+    return `
+      <div class="fe-ticket-card ${hasPending ? 'has-pending' : ''}" onclick="selectFE('${ing.replace(/'/g, "\\'")}')">
+        ${hasPending ? `<div class="fe-ticket-badge">${pendientes}</div>` : ''}
+        <div class="fe-ticket-header">
+          <div class="fe-avatar">${iniciales}</div>
+          <div class="fe-ticket-name">${ing}</div>
+        </div>
+        <div class="fe-ticket-stats">
+          <div class="fe-stat-box pending">
+            <span class="stat-number">${pendientes}</span>
+            <span class="stat-label">Pendientes</span>
+          </div>
+          <div class="fe-stat-box completed">
+            <span class="stat-number">${completadas}</span>
+            <span class="stat-label">Completadas</span>
+          </div>
+          <div class="fe-stat-box">
+            <span class="stat-number">${total}</span>
+            <span class="stat-label">Total</span>
+          </div>
+          <div class="fe-stat-box">
+            <span class="stat-number">${total > 0 ? ((completadas/total)*100).toFixed(0) : 0}%</span>
+            <span class="stat-label">Efectividad</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  container.innerHTML = ticketsHTML;
+}
+
+function selectFE(feName) {
+  document.getElementById('feTicketView').style.display = 'none';
+  document.getElementById('feActivitiesView').style.display = 'block';
+  renderFEActivities(feName);
+}
+
+function backToTickets() {
+  document.getElementById('feTicketView').style.display = 'block';
+  document.getElementById('feActivitiesView').style.display = 'none';
+  renderFETickets();
+}
+
+/* ============================================
+   PORTAL FE - ACTIVIDADES
+   ============================================ */
+function renderFEActivities(feName) {
   const container = document.getElementById('feActivitiesList');
   
   if (!feName) {
@@ -1113,13 +1584,13 @@ function renderFEActivities() {
       </div>
       
       <div style="margin: 10px 0; padding: 10px; background: white; border-radius: 6px; border-left: 3px solid var(--ln-orange);">
-        <div style="font-size:11px; color:#666; font-weight:700; text-transform:uppercase; margin-bottom:5px;">📝 Descripción</div>
+        <div style="font-size:11px; color:#666; font-weight:700; text-transform:uppercase; margin-bottom:5px;"> Descripción</div>
         <div style="color: #374151; font-size: 0.95rem; line-height:1.5;">
           ${descCorta}${descCompleta.length > 100 ? '...' : ''}
         </div>
       </div>
       
-      ${a.especialista ? `<p style="margin: 5px 0; color: #374151; font-size: 0.95rem;"><strong>👨‍ Especialista:</strong> ${a.especialista}</p>` : ''}
+      ${a.especialista ? `<p style="margin: 5px 0; color: #374151; font-size: 0.95rem;"><strong>‍ Especialista:</strong> ${a.especialista}</p>` : ''}
       ${a.fuera_horario ? '<p style="color: #ef4444; font-weight: 600; margin-top: 8px; font-size: 0.9rem;">⚠️ Fuera de Horario</p>' : ''}
       
       <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
@@ -1139,7 +1610,6 @@ async function marcarFECompletada(id) {
     const idx = todasActividades.findIndex(a => String(a.id) === String(id));
     if (idx !== -1) todasActividades[idx].estado = 'COMPLETADA';
     alert('✅ Actividad marcada como completada');
-    // Actualizar automáticamente todas las vistas
     renderFEActivities();
     renderWorkloadMarker();
     renderTabla();
@@ -1164,7 +1634,7 @@ function verDetallesActividad(id) {
   else if (a.estado === 'INCOMPLETA') estadoBadge = '<span class="badge badge-danger" style="font-size:14px; padding:6px 14px;">❌ INCOMPLETA</span>';
   else if (a.estado === 'ACT-PENDIENTE') estadoBadge = '<span class="badge badge-pendiente" style="font-size:14px; padding:6px 14px;">⏳ ACT-PENDIENTE</span>';
   else if (a.estado === 'SUSPENDIDA') estadoBadge = '<span class="badge badge-suspendida" style="font-size:14px; padding:6px 14px;">🚫 SUSPENDIDA</span>';
-  else if (a.estado === 'POSTERGADA') estadoBadge = '<span class="badge badge-postergada" style="font-size:14px; padding:6px 14px;">📅 POSTERGADA</span>';
+  else if (a.estado === 'POSTERGADA') estadoBadge = '<span class="badge badge-postergada" style="font-size:14px; padding:6px 14px;"> POSTERGADA</span>';
   
   const contenido = `
     <div style="line-height:1.8;">
@@ -1188,11 +1658,11 @@ function verDetallesActividad(id) {
       
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-bottom:20px;">
         <div style="background:#f9fafb; padding:12px; border-radius:8px;">
-          <div style="font-size:11px; color:#666; font-weight:700; text-transform:uppercase;">👷 Field Engineer</div>
+          <div style="font-size:11px; color:#666; font-weight:700; text-transform:uppercase;"> Field Engineer</div>
           <div style="font-weight:700; font-size:14px;">${a.ingeniero || 'N/A'}</div>
         </div>
         <div style="background:#f9fafb; padding:12px; border-radius:8px;">
-          <div style="font-size:11px; color:#666; font-weight:700; text-transform:uppercase;">👤 Project Manager</div>
+          <div style="font-size:11px; color:#666; font-weight:700; text-transform:uppercase;"> Project Manager</div>
           <div style="font-weight:700; font-size:14px;">${a.pm || a.responsable || 'N/A'}</div>
         </div>
       </div>
@@ -1212,7 +1682,7 @@ function verDetallesActividad(id) {
       </div>
       
       <div style="background:#fff3e0; padding:15px; border-radius:8px; margin-bottom:15px; border-left:4px solid var(--ln-orange);">
-        <div style="font-size:11px; color:#666; font-weight:700; text-transform:uppercase; margin-bottom:8px;">📝 Descripción de la Actividad</div>
+        <div style="font-size:11px; color:#666; font-weight:700; text-transform:uppercase; margin-bottom:8px;"> Descripción de la Actividad</div>
         <div style="font-size:14px; line-height:1.6; color:#333; white-space:pre-wrap;">${a.descripcion || 'Sin descripción'}</div>
       </div>
       
@@ -1258,22 +1728,22 @@ function verDetallesActividad(id) {
    NAVEGACIÓN
    ============================================ */
 function showSection(id, btn) {
-  // Ocultar todas las secciones y desactivar tabs
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   
-  // Activar la sección y tab correspondientes
   const section = document.getElementById(id);
   if (section) section.classList.add('active');
   if (btn) btn.classList.add('active');
   
-  // Ejecutar renderizados específicos
   if (id === 'dashboard') renderDashboard();
   if (id === 'horasExtras') renderOT();
   if (id === 'actividades') renderTabla();
-  if (id === 'portalFE') { cargarSelects(); renderFEActivities(); }
+  if (id === 'portalFE') { 
+    cargarSelects(); 
+    renderFETickets();
+    backToTickets();
+  }
   
-  // Lógica especial para Admin
   if (id === 'admin') {
     if (isAdmin) {
       document.getElementById('adminLocked').classList.add('hidden');
@@ -1281,7 +1751,6 @@ function showSection(id, btn) {
       renderAdmin();
       renderWorkloadMarker();
     } else {
-      // Mostrar formulario de login sin bucle
       document.getElementById('adminLocked').classList.remove('hidden');
       document.getElementById('adminPanel').classList.add('hidden');
       setTimeout(() => document.getElementById('adminUser').focus(), 100);
@@ -1323,7 +1792,7 @@ function getFilteredData() {
 }
 
 /* ============================================
-   RENDERIZADO DASHBOARD
+   RENDERIZADO DASHBOARD (CON PORCENTAJES CORREGIDOS)
    ============================================ */
 function renderDashboard() {
   const filtradas = getFilteredData();
@@ -1356,33 +1825,100 @@ function renderDashboard() {
   const dataMes = new Array(12).fill(0);
   filtradas.forEach(a => { if (a.inicio) dataMes[new Date(a.inicio).getMonth()]++; });
   if (chartMes) chartMes.destroy();
-  chartMes = new Chart(document.getElementById('chartMes'), { type: 'bar', data: { labels: meses, datasets: [{ label: 'Actividades', data: dataMes, backgroundColor: CHART_COLORS }] }, options: { responsive: true, maintainAspectRatio: false } });
+  chartMes = new Chart(document.getElementById('chartMes'), { 
+    type: 'bar', 
+    data: { labels: meses, datasets: [{ label: 'Actividades', data: dataMes, backgroundColor: CHART_COLORS }] }, 
+    options: { 
+      responsive: true, 
+      maintainAspectRatio: false,
+      plugins: { tooltip: tooltipConPorcentaje }
+    } 
+  });
 
   const tipos = {}; filtradas.forEach(a => { tipos[a.tipo] = (tipos[a.tipo]||0) + 1; });
   if (chartTipo) chartTipo.destroy();
-  chartTipo = new Chart(document.getElementById('chartTipo'), { type: 'doughnut', data: { labels: Object.keys(tipos), datasets: [{ data: Object.values(tipos), backgroundColor: CHART_COLORS }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { font: { size: 10 } } } } } });
+  chartTipo = new Chart(document.getElementById('chartTipo'), { 
+    type: 'doughnut', 
+    data: { labels: Object.keys(tipos), datasets: [{ data: Object.values(tipos), backgroundColor: CHART_COLORS }] }, 
+    options: { 
+      responsive: true, 
+      maintainAspectRatio: false, 
+      plugins: { 
+        legend: { position: 'right', labels: { font: { size: 11 } } },
+        datalabels: datalabelsPorcentaje,
+        tooltip: tooltipConPorcentaje
+      } 
+    } 
+  });
 
   const ingsObj = {}; filtradas.forEach(a => { ingsObj[a.ingeniero] = (ingsObj[a.ingeniero]||0) + 1; });
   if (chartIng) chartIng.destroy();
-  chartIng = new Chart(document.getElementById('chartIng'), { type: 'bar', data: { labels: Object.keys(ingsObj), datasets: [{ label: 'Actividades', data: Object.values(ingsObj), backgroundColor: CHART_COLORS[0] }] }, options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y' } });
+  chartIng = new Chart(document.getElementById('chartIng'), { 
+    type: 'bar', 
+    data: { labels: Object.keys(ingsObj), datasets: [{ label: 'Actividades', data: Object.values(ingsObj), backgroundColor: CHART_COLORS[0] }] }, 
+    options: { 
+      responsive: true, 
+      maintainAspectRatio: false, 
+      indexAxis: 'y',
+      plugins: { tooltip: tooltipConPorcentaje }
+    } 
+  });
 
   const otIng = {}; filtradas.filter(esHorasExtra).forEach(a => { otIng[a.ingeniero] = (otIng[a.ingeniero]||0) + calcularHorasExtra(a); });
   if (chartOT) chartOT.destroy();
-  chartOT = new Chart(document.getElementById('chartOT'), { type: 'bar', data: { labels: Object.keys(otIng), datasets: [{ label: 'Horas Extra', data: Object.values(otIng).map(v => +v.toFixed(2)), backgroundColor: CHART_COLORS.slice(2, 6) }] }, options: { responsive: true, maintainAspectRatio: false } });
+  chartOT = new Chart(document.getElementById('chartOT'), { 
+    type: 'bar', 
+    data: { labels: Object.keys(otIng), datasets: [{ label: 'Horas Extra', data: Object.values(otIng).map(v => +v.toFixed(2)), backgroundColor: CHART_COLORS.slice(2, 6) }] }, 
+    options: { 
+      responsive: true, 
+      maintainAspectRatio: false,
+      plugins: { tooltip: tooltipConPorcentaje }
+    } 
+  });
 
   const errs = {}; filtradas.filter(a => a.tipo_error).forEach(a => { if (a.tipo_error) errs[a.tipo_error] = (errs[a.tipo_error]||0) + 1; });
   if (chartErrores) chartErrores.destroy();
-  chartErrores = new Chart(document.getElementById('chartErrores'), { type: 'polarArea', data: { labels: Object.keys(errs), datasets: [{ data: Object.values(errs), backgroundColor: CHART_COLORS.slice(0, 10) }] }, options: { responsive: true, maintainAspectRatio: false } });
+  chartErrores = new Chart(document.getElementById('chartErrores'), { 
+    type: 'polarArea', 
+    data: { labels: Object.keys(errs), datasets: [{ data: Object.values(errs), backgroundColor: CHART_COLORS.slice(0, 10) }] }, 
+    options: { 
+      responsive: true, 
+      maintainAspectRatio: false,
+      plugins: {
+        datalabels: datalabelsPorcentaje,
+        tooltip: tooltipConPorcentaje
+      }
+    } 
+  });
 
   const estados = { COMPLETADA: 0, INCOMPLETA: 0, 'ACT-PENDIENTE': 0, SUSPENDIDA: 0, POSTERGADA: 0 };
   filtradas.forEach(a => { if (estados[a.estado] !== undefined) estados[a.estado]++; });
   if (chartEstado) chartEstado.destroy();
-  chartEstado = new Chart(document.getElementById('chartEstado'), { type: 'pie', data: { labels: ['Completadas','Incompletas','Pendientes','Suspendidas','Postergadas'], datasets: [{ data: [estados.COMPLETADA, estados.INCOMPLETA, estados['ACT-PENDIENTE'], estados.SUSPENDIDA, estados.POSTERGADA], backgroundColor: ['#2ecc71','#e74c3c','#f1c40f','#95a5a6','#9b59b6'] }] }, options: { responsive: true, maintainAspectRatio: false } });
+  chartEstado = new Chart(document.getElementById('chartEstado'), { 
+    type: 'pie', 
+    data: { labels: ['Completadas','Incompletas','Pendientes','Suspendidas','Postergadas'], datasets: [{ data: [estados.COMPLETADA, estados.INCOMPLETA, estados['ACT-PENDIENTE'], estados.SUSPENDIDA, estados.POSTERGADA], backgroundColor: ['#2ecc71','#e74c3c','#f1c40f','#95a5a6','#9b59b6'] }] }, 
+    options: { 
+      responsive: true, 
+      maintainAspectRatio: false,
+      plugins: {
+        datalabels: datalabelsPorcentaje,
+        tooltip: tooltipConPorcentaje
+      }
+    } 
+  });
 
   const aniosObj = {}; filtradas.forEach(a => { if (a.inicio) { const anio = new Date(a.inicio).getFullYear(); aniosObj[anio] = (aniosObj[anio]||0) + 1; } });
   const aniosOrdenados = Object.keys(aniosObj).sort();
   if (chartAnual) chartAnual.destroy();
-  chartAnual = new Chart(document.getElementById('chartAnual'), { type: 'line', data: { labels: aniosOrdenados, datasets: [{ label: 'Actividades', data: aniosOrdenados.map(a => aniosObj[a]), borderColor: CHART_COLORS[0], backgroundColor: 'rgba(52, 152, 219, 0.1)', fill: true, tension: 0.3 }] }, options: { responsive: true, maintainAspectRatio: false } });
+  chartAnual = new Chart(document.getElementById('chartAnual'), { 
+    type: 'line', 
+    data: { labels: aniosOrdenados, datasets: [{ label: 'Actividades', data: aniosOrdenados.map(a => aniosObj[a]), borderColor: CHART_COLORS[0], backgroundColor: 'rgba(52, 152, 219, 0.1)', fill: true, tension: 0.3 }] }, 
+    options: { 
+      responsive: true, 
+      maintainAspectRatio: false,
+      plugins: { tooltip: tooltipConPorcentaje }
+    } 
+  });
 }
 
 /* ============================================
@@ -1537,13 +2073,15 @@ async function guardarActividad(e) {
     document.getElementById('formActividad').reset();
     setFechaActual();
     
-    // Actualizar automáticamente todas las vistas
     renderWorkloadMarker();
     cargarSelects(); 
     renderTabla(); 
     renderDashboard();
     renderOT();
-    if (document.getElementById('portalFE').classList.contains('active')) renderFEActivities();
+    renderFETickets();
+    if (document.getElementById('portalFE').classList.contains('active')) {
+      backToTickets();
+    }
   } catch (error) {
     console.error('Error:', error);
     setStatus('Error: ' + error.message, 'error');
@@ -1580,13 +2118,15 @@ async function guardarActividadAdmin(e) {
     document.getElementById('formAdminActividad').reset();
     setFechaActualAdmin();
     
-    // Actualizar automáticamente todas las vistas
     renderWorkloadMarker();
     cargarSelects(); 
     renderTabla(); 
     renderDashboard();
     renderOT();
-    if (document.getElementById('portalFE').classList.contains('active')) renderFEActivities();
+    renderFETickets();
+    if (document.getElementById('portalFE').classList.contains('active')) {
+      backToTickets();
+    }
   } catch (error) {
     console.error('Error:', error);
     setStatus('Error: ' + error.message, 'error');
@@ -1643,12 +2183,14 @@ async function guardarEdicion(e) {
     if (idx !== -1) todasActividades[idx] = { ...todasActividades[idx], ...editada };
     alert('✅ Actualizada exitosamente');
     closeModal('editModal');
-    // Actualizar automáticamente todas las vistas
     renderWorkloadMarker();
     renderTabla(); 
     renderDashboard(); 
     renderOT();
-    if (document.getElementById('portalFE').classList.contains('active')) renderFEActivities();
+    renderFETickets();
+    if (document.getElementById('portalFE').classList.contains('active')) {
+      backToTickets();
+    }
   } catch (error) {
     alert(' Error: ' + error.message);
   }
@@ -1660,12 +2202,14 @@ async function eliminarActividad(id) {
     const { error } = await supabaseClient.from('actividades').delete().eq('id', id);
     if (error) throw error;
     todasActividades = todasActividades.filter(a => String(a.id) !== String(id));
-    // Actualizar automáticamente todas las vistas
     renderWorkloadMarker();
     renderTabla(); 
     renderDashboard(); 
     renderOT();
-    if (document.getElementById('portalFE').classList.contains('active')) renderFEActivities();
+    renderFETickets();
+    if (document.getElementById('portalFE').classList.contains('active')) {
+      backToTickets();
+    }
     alert('✅ Eliminada');
   } catch (error) {
     alert(' Error: ' + error.message);
@@ -1728,7 +2272,7 @@ function renderTabla() {
       <td>${calcularDuracion(a)}h</td>
       <td>
         <button class="action-btn btn-edit" onclick="abrirEditar('${a.id}')">✏️</button>
-        <button class="action-btn btn-danger" onclick="eliminarActividad('${a.id}')">️</button>
+        <button class="action-btn btn-danger" onclick="eliminarActividad('${a.id}')">🗑️</button>
       </td>
     </tr>`;
   }).join('');
@@ -1792,16 +2336,20 @@ function renderOT() {
     data: {
       labels: Object.keys(otIng),
       datasets: [
-        { label: 'Actividades OT', data: Object.values(otIng).map(v => v.acts), backgroundColor: CHART_COLORS[3] },
-        { label: 'Horas Extra', data: Object.values(otIng).map(v => +v.hrs.toFixed(2)), backgroundColor: CHART_COLORS[2] }
+        { label: 'Actividades OT', data: Object.values(otIng).map(v => v.acts), backgroundColor: '#FF4757' },
+        { label: 'Horas Extra', data: Object.values(otIng).map(v => +v.hrs.toFixed(2)), backgroundColor: '#F9CA24' }
       ]
     },
-    options: { responsive: true, maintainAspectRatio: false }
+    options: { 
+      responsive: true, 
+      maintainAspectRatio: false,
+      plugins: { tooltip: tooltipConPorcentaje }
+    }
   });
 }
 
 /* ============================================
-   ESTADÍSTICAS POR INGENIERO
+   ESTADÍSTICAS POR INGENIERO (CON PORCENTAJES)
    ============================================ */
 function cargarStatsIngeniero() {
   const ing = document.getElementById('ingSelect').value;
@@ -1829,22 +2377,41 @@ function cargarStatsIngeniero() {
 
   const tipos = {}; filtradas.forEach(a => { tipos[a.tipo] = (tipos[a.tipo]||0) + 1; });
   if (chartIngTipo) chartIngTipo.destroy();
-  chartIngTipo = new Chart(document.getElementById('chartIngTipo'), { type: 'pie', data: { labels: Object.keys(tipos), datasets: [{ data: Object.values(tipos), backgroundColor: CHART_COLORS }] }, options: { responsive: true, maintainAspectRatio: false } });
+  chartIngTipo = new Chart(document.getElementById('chartIngTipo'), { 
+    type: 'pie', 
+    data: { labels: Object.keys(tipos), datasets: [{ data: Object.values(tipos), backgroundColor: CHART_COLORS }] }, 
+    options: { 
+      responsive: true, 
+      maintainAspectRatio: false,
+      plugins: {
+        datalabels: datalabelsPorcentaje,
+        tooltip: tooltipConPorcentaje
+      }
+    } 
+  });
 
   const meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
   const dataMes = new Array(12).fill(0);
   filtradas.forEach(a => { if (a.inicio) dataMes[new Date(a.inicio).getMonth()]++; });
   if (chartIngMes) chartIngMes.destroy();
-  chartIngMes = new Chart(document.getElementById('chartIngMes'), { type: 'line', data: { labels: meses, datasets: [{ label: 'Actividades', data: dataMes, borderColor: CHART_COLORS[0], backgroundColor: 'rgba(52, 152, 219, 0.1)', fill: true, tension: 0.3 }] }, options: { responsive: true, maintainAspectRatio: false } });
+  chartIngMes = new Chart(document.getElementById('chartIngMes'), { 
+    type: 'line', 
+    data: { labels: meses, datasets: [{ label: 'Actividades', data: dataMes, borderColor: CHART_COLORS[0], backgroundColor: 'rgba(52, 152, 219, 0.1)', fill: true, tension: 0.3 }] }, 
+    options: { 
+      responsive: true, 
+      maintainAspectRatio: false,
+      plugins: { tooltip: tooltipConPorcentaje }
+    } 
+  });
 }
 
 /* ============================================
    ADMIN - GESTIÓN DE CATÁLOGOS
    ============================================ */
 function renderAdmin() {
-  document.getElementById('listIngs').innerHTML = ingenieros.map((i, idx) => `<div class="admin-item"><span>👷 ${i}</span><button class="action-btn btn-danger" onclick="delIngeniero(${idx})">️</button></div>`).join('');
+  document.getElementById('listIngs').innerHTML = ingenieros.map((i, idx) => `<div class="admin-item"><span>👷 ${i}</span><button class="action-btn btn-danger" onclick="delIngeniero(${idx})">🗑️</button></div>`).join('');
   document.getElementById('listTipos').innerHTML = tiposActividad.map((t, idx) => `<div class="admin-item"><span>🔧 ${t}</span><button class="action-btn btn-danger" onclick="delTipo(${idx})">🗑️</button></div>`).join('');
-  document.getElementById('listErrors').innerHTML = tiposError.map((e, idx) => `<div class="admin-item"><span>️ ${e}</span><button class="action-btn btn-danger" onclick="delError(${idx})">️</button></div>`).join('');
+  document.getElementById('listErrors').innerHTML = tiposError.map((e, idx) => `<div class="admin-item"><span>️ ${e}</span><button class="action-btn btn-danger" onclick="delError(${idx})">🗑️</button></div>`).join('');
 }
 
 async function addIngeniero() {
@@ -1853,6 +2420,7 @@ async function addIngeniero() {
   try { await supabaseClient.from('ingenieros').insert([{ nombre: val }]); ingenieros.push(val); } catch (e) { alert('Error: ' + e.message); return; }
   document.getElementById('newIng').value = '';
   cargarSelects(); renderAdmin(); renderWorkloadMarker();
+  renderFETickets();
 }
 
 async function delIngeniero(idx) {
@@ -1860,6 +2428,7 @@ async function delIngeniero(idx) {
   const val = ingenieros[idx];
   try { await supabaseClient.from('ingenieros').delete().eq('nombre', val); ingenieros.splice(idx, 1); } catch (e) { alert('Error: ' + e.message); return; }
   cargarSelects(); renderAdmin(); renderWorkloadMarker();
+  renderFETickets();
 }
 
 async function addTipo() {
