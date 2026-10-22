@@ -38,8 +38,6 @@
 }
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
 body { background: var(--ln-gray); color: var(--ln-text); }
-
-/* Skip Link para Accesibilidad */
 .skip-link {
 position: absolute;
 top: -40px;
@@ -54,8 +52,6 @@ text-decoration: none;
 border-radius: 0 0 8px 0;
 }
 .skip-link:focus { top: 0; }
-
-/* Sistema de Notificaciones Toast */
 .toast-container {
 position: fixed;
 top: 20px;
@@ -115,8 +111,6 @@ to { transform: translateX(0); opacity: 1; }
 from { transform: translateX(0); opacity: 1; }
 to { transform: translateX(400px); opacity: 0; }
 }
-
-/* Modal de Confirmación Personalizado */
 .confirm-modal {
 display: none;
 position: fixed;
@@ -163,7 +157,6 @@ display: flex;
 gap: 10px;
 justify-content: center;
 }
-
 @media print {
 @page { size: letter portrait; margin: 0.15in; }
 html, body { width: 8.5in; height: 11in; overflow: hidden; background-color: #fff !important; color: #000 !important; font-size: 11px; }
@@ -478,10 +471,11 @@ font-size: 14px;
 .btn-print:hover { transform: translateY(-2px); }
 .btn-save-pdf { background: linear-gradient(135deg, #FF6B00 0%, #FF8C33 100%); color: white; border: none; padding: 12px 25px; font-size: 14px; font-weight: 800; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
 .btn-save-pdf:hover { transform: translateY(-2px); }
+/* ✅ NUEVO: Estilo del botón Limpiar */
+.btn-clear-form { background: linear-gradient(135deg, #95A5A6 0%, #7F8C8D 100%); color: white; border: none; padding: 12px 25px; font-size: 14px; font-weight: 800; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
+.btn-clear-form:hover { transform: translateY(-2px); }
 input, textarea, select { transition: all 0.2s ease-in-out; }
 input:focus, textarea:focus, select:focus { outline: none; border-color: var(--ln-orange); box-shadow: 0 0 0 2px rgba(255, 107, 0, 0.2); }
-
-/* Paginación */
 .pagination {
 display: flex;
 justify-content: center;
@@ -518,8 +512,6 @@ font-size: 13px;
 color: var(--ln-gray-dark);
 font-weight: 600;
 }
-
-/* Spinner */
 .spinner {
 display: inline-block;
 width: 16px;
@@ -534,11 +526,7 @@ animation: spin 0.8s ease-in-out infinite;
 </head>
 <body>
 <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
-
-<!-- Contenedor de Notificaciones Toast -->
 <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
-
-<!-- Modal de Confirmación Personalizado -->
 <div class="confirm-modal" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
 <div class="confirm-modal-content">
 <div class="confirm-modal-icon" id="confirmIcon"><i class="fas fa-question-circle"></i></div>
@@ -550,7 +538,6 @@ animation: spin 0.8s ease-in-out infinite;
 </div>
 </div>
 </div>
-
 <div class="header" role="banner">
 <h1>
 <span class="ln-logo"><span class="ln-logo-icon">LN</span> LIBERTY NETWORKS</span>
@@ -572,7 +559,6 @@ animation: spin 0.8s ease-in-out infinite;
 </button>
 </div>
 </div>
-
 <div class="about-modal" id="aboutModal" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
 <div class="about-content">
 <div class="about-header">
@@ -635,7 +621,6 @@ Lenin Justiniano @ Dominican Republic
 </div>
 </div>
 </div>
-
 <nav class="tabs" role="tablist" aria-label="Secciones del sistema">
 <button class="tab active" onclick="showSection('registro', this)" role="tab" aria-selected="true">
 <i class="fas fa-plus-circle"></i> Registrar Actividad
@@ -662,7 +647,6 @@ Lenin Justiniano @ Dominican Republic
 <i class="fas fa-gear"></i> Admin
 </button>
 </nav>
-
 <main class="content" id="main-content">
 <div class="section active" id="registro">
 <div class="form-container">
@@ -722,7 +706,7 @@ Lenin Justiniano @ Dominican Republic
 <option value="COMPLETADA">✅ Completada</option>
 <option value="INCOMPLETA">❌ Incompleta</option>
 <option value="ACT-PENDIENTE">⏳ ACT-PENDIENTE</option>
-<option value="SUSPENDIDA">🚫 Suspendida</option>
+<option value="SUSPENDIDA"> Suspendida</option>
 <option value="POSTERGADA">📅 Postergada</option>
 </select>
 </div>
@@ -745,7 +729,6 @@ Lenin Justiniano @ Dominican Republic
 </form>
 </div>
 </div>
-
 <div class="section" id="portalFE">
 <div class="form-container">
 <h2><i class="fas fa-user-tie"></i> Portal de Field Engineer - Mis Asignaciones</h2>
@@ -759,7 +742,6 @@ Lenin Justiniano @ Dominican Republic
 </div>
 </div>
 </div>
-
 <div class="section" id="dashboard">
 <div class="global-filters">
 <h3><i class="fas fa-sliders"></i> Filtros Interactivos del Dashboard</h3>
@@ -842,7 +824,6 @@ Lenin Justiniano @ Dominican Republic
 <div class="chart-container"><canvas id="chartAnual"></canvas></div>
 </div>
 </div>
-
 <div class="section" id="actividades">
 <div class="table-container">
 <div class="table-header">
@@ -913,7 +894,6 @@ Lenin Justiniano @ Dominican Republic
 <div class="pagination" id="paginationActividades"></div>
 </div>
 </div>
-
 <div class="section" id="horasExtras">
 <div class="ot-highlight">
 <h3><i class="fas fa-moon"></i> Control de Horas Extras</h3>
@@ -969,7 +949,6 @@ Lenin Justiniano @ Dominican Republic
 </div>
 </div>
 </div>
-
 <div class="section" id="ingeniero">
 <div class="form-container">
 <h2><i class="fas fa-user-gear"></i> Estadísticas por Ingeniero</h2>
@@ -1015,7 +994,6 @@ Lenin Justiniano @ Dominican Republic
 </div>
 </div>
 </div>
-
 <div class="section" id="entregaEquipos">
 <div class="delivery-form-container" id="printableArea">
 <div class="delivery-form-header">
@@ -1040,6 +1018,10 @@ Lenin Justiniano @ Dominican Republic
 <div class="section-content">
 <div class="info-grid" style="grid-template-columns: repeat(3, 1fr);">
 <div class="info-field"><label>CUSTOMER NAME *</label><input type="text" id="eqCompanyName" placeholder="Ej: MC SCHOOL" oninput="searchCompanyLogo()" maxlength="100"></div>
+<div class="info-field">
+<label>URL DEL LOGO (opcional)</label>
+<input type="url" id="eqLogoUrl" placeholder="https://ejemplo.com/logo.png" onchange="loadCustomLogo()" maxlength="300">
+</div>
 <div class="info-field"><label>TECHNICAL CONTACT</label><input type="text" id="eqTechContact" placeholder="MIGUEL BONILLA" maxlength="100"></div>
 <div class="info-field"><label>CIRCUIT ID #1</label><input type="text" id="eqCircuit1" placeholder="7004739.DR" maxlength="50"></div>
 <div class="info-field"><label>EMAIL</label><input type="email" id="eqEmail" placeholder="m.bonilla@mcschool.edu.do" maxlength="100"></div>
@@ -1094,6 +1076,7 @@ Lenin Justiniano @ Dominican Republic
 <div class="signature-line"><label>Date:</label><input type="date" id="eqDate"></div>
 </div>
 </div>
+<!-- ✅ BOTÓN LIMPIAR AGREGADO -->
 <div class="print-button-container" data-no-print="true">
 <button type="button" class="btn-print" onclick="printDeliveryForm()" title="Enviar a impresora / Vista previa">
 <i class="fas fa-print"></i> Imprimir
@@ -1101,10 +1084,12 @@ Lenin Justiniano @ Dominican Republic
 <button type="button" class="btn-save-pdf" onclick="saveDeliveryPDF()" title="Generar y descargar archivo PDF">
 <i class="fas fa-file-pdf"></i> Guardar PDF
 </button>
+<button type="button" class="btn-clear-form" onclick="clearDeliveryForm()" title="Limpiar todos los campos del formulario">
+<i class="fas fa-broom"></i> Limpiar
+</button>
 </div>
 </div>
 </div>
-
 <div class="section" id="admin">
 <div id="adminLocked" class="form-container">
 <h2><i class="fas fa-lock"></i> Acceso Restringido</h2>
@@ -1205,7 +1190,6 @@ Lenin Justiniano @ Dominican Republic
 </div>
 </div>
 </div>
-
 <div class="edit-modal" id="editModal" role="dialog" aria-modal="true" aria-labelledby="editModalTitle">
 <div class="edit-modal-content">
 <button class="modal-close" onclick="closeModal('editModal')" aria-label="Cerrar">&times;</button>
@@ -1235,10 +1219,7 @@ Lenin Justiniano @ Dominican Republic
 </form>
 </div>
 </div>
-
-<!-- Modal de Detalles (se crea dinámicamente) -->
 </main>
-
 <script>
 // ============================================
 // UTILIDADES DE SEGURIDAD Y SANITIZACIÓN
@@ -1249,7 +1230,6 @@ const div = document.createElement('div');
 div.textContent = String(text);
 return div.innerHTML;
 }
-
 // ============================================
 // SISTEMA DE NOTIFICACIONES TOAST
 // ============================================
@@ -1281,7 +1261,6 @@ toast.querySelector('.toast-close').addEventListener('click', () => removeToast(
 container.appendChild(toast);
 setTimeout(() => removeToast(toast), duration);
 }
-
 function removeToast(toast) {
 if (!toast || !toast.parentNode) return;
 toast.classList.add('hiding');
@@ -1289,7 +1268,6 @@ setTimeout(() => {
 if (toast.parentNode) toast.parentNode.removeChild(toast);
 }, 300);
 }
-
 // ============================================
 // SISTEMA DE CONFIRMACIÓN PERSONALIZADO
 // ============================================
@@ -1300,7 +1278,6 @@ const title = document.getElementById('confirmTitle');
 const msg = document.getElementById('confirmMessage');
 const btnOk = document.getElementById('confirmOk');
 const btnCancel = document.getElementById('confirmCancel');
-
 icon.className = 'confirm-modal-icon ' + (options.type || 'warning');
 const iconMap = {
 warning: 'fa-triangle-exclamation',
@@ -1312,40 +1289,32 @@ title.textContent = options.title || 'Confirmar acción';
 msg.textContent = message;
 btnOk.innerHTML = `<i class="fas fa-check"></i> ${escapeHtml(options.confirmText || 'Confirmar')}`;
 btnCancel.innerHTML = `<i class="fas fa-xmark"></i> Cancelar`;
-
 if (options.type === 'danger') {
 btnOk.className = 'btn btn-danger';
 } else {
 btnOk.className = 'btn btn-primary';
 }
-
 const cleanup = () => {
 modal.classList.remove('active');
 btnOk.onclick = null;
 btnCancel.onclick = null;
 };
-
 btnOk.onclick = () => { cleanup(); if (onConfirm) onConfirm(); };
 btnCancel.onclick = cleanup;
 modal.classList.add('active');
-
-// Focus trap básico
 btnOk.focus();
 }
-
 // ============================================
 // INICIALIZACIÓN DE CHART.JS
 // ============================================
 if (window.Chart && window.ChartDataLabels) {
 Chart.register(ChartDataLabels);
 }
-
 function calcularPorcentajeCorrecto(value, total) {
 if (!total || total === 0) return '0%';
 const percentage = (value / total) * 100;
 return Math.min(percentage, 100).toFixed(1) + '%';
 }
-
 const tooltipConPorcentaje = {
 callbacks: {
 label: function(context) {
@@ -1362,7 +1331,6 @@ return `${label}: ${value} (${percentage} del total)`;
 }
 }
 };
-
 const datalabelsPorcentaje = {
 color: '#fff',
 font: { weight: 'bold', size: 11 },
@@ -1374,7 +1342,6 @@ anchor: 'end',
 align: 'end',
 offset: 4
 };
-
 // ============================================
 // MODAL ABOUT
 // ============================================
@@ -1388,12 +1355,10 @@ document.getElementById('aboutModal').classList.remove('active');
 document.getElementById('aboutModal').addEventListener('click', function(e) {
 if (e.target === this) closeAboutModal();
 });
-
 async function changeAdminPasswordFromModal() {
 const currentPass = document.getElementById('currentAdminPass').value;
 const newPass = document.getElementById('newAdminPass').value;
 const confirmPass = document.getElementById('confirmNewAdminPass').value;
-
 if (!currentPass || !newPass || !confirmPass) {
 showToast('Todos los campos son obligatorios', 'warning');
 return;
@@ -1406,7 +1371,6 @@ if (newPass !== confirmPass) {
 showToast('Las nuevas contraseñas no coinciden', 'warning');
 return;
 }
-
 const storedHash = localStorage.getItem('adminPassHash') || DEFAULT_PASS_HASH;
 const currentPassHash = await sha256(currentPass);
 if (currentPassHash !== storedHash) {
@@ -1416,7 +1380,6 @@ document.getElementById('newAdminPass').value = '';
 document.getElementById('confirmNewAdminPass').value = '';
 return;
 }
-
 showConfirm('¿Está seguro que desea cambiar la contraseña de administrador?', async () => {
 localStorage.setItem('adminPassHash', await sha256(newPass));
 showToast('Contraseña cambiada exitosamente', 'success');
@@ -1425,14 +1388,12 @@ document.getElementById('newAdminPass').value = '';
 document.getElementById('confirmNewAdminPass').value = '';
 }, { type: 'info', title: 'Cambiar contraseña' });
 }
-
 // ============================================
 // CONFIGURACIÓN DE SUPABASE
 // ============================================
 const SUPABASE_URL = 'https://dfdnavszuuqspycdbzma.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRmZG5hdnN6dXVxc3B5Y2Riem1hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE1NDIxNTksImV4cCI6MjEwNzExODE1OX0.3K5gcAsdXScpeLjbUfZQfaD1eoSn1q4CVfin2FoIhlI';
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
 // ============================================
 // ESTADO GLOBAL DE LA APLICACIÓN
 // ============================================
@@ -1449,17 +1410,14 @@ dashboard: null,
 lastUpdate: null
 }
 };
-
 let chartMes, chartTipo, chartIng, chartOT, chartErrores, chartEstado, chartAnual, chartOTDetail, chartIngTipo, chartIngMes;
 const CHART_COLORS = ['#3498db', '#2ecc71', '#f1c40f', '#e74c3c', '#9b59b6', '#1abc9c', '#34495e', '#e67e22', '#95a5a6', '#d35400', '#2980b9', '#27ae60', '#8e44ad', '#16a085', '#c0392b'];
 const DEFAULT_PASS_HASH = "a5e7f5e1d9c3b2a4f8e7d6c5b4a3f2e1d0c9b8a7f6e5d4c3b2a1f0e9d8c7b6a5";
-
 async function sha256(message) {
 const msgBuffer = new TextEncoder().encode(message);
 const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
 return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
 }
-
 // ============================================
 // AUTENTICACIÓN DE ADMINISTRADOR
 // ============================================
@@ -1468,7 +1426,6 @@ const user = document.getElementById('adminUser').value.trim();
 const pass = document.getElementById('adminPass').value;
 const storedHash = localStorage.getItem('adminPassHash') || DEFAULT_PASS_HASH;
 const passHash = await sha256(pass);
-
 if (user === 'admin' && passHash === storedHash) {
 AppState.isAdmin = true;
 localStorage.setItem('adminLogged', 'true');
@@ -1486,7 +1443,6 @@ showToast('Credenciales incorrectas', 'error');
 setTimeout(() => document.getElementById('adminError').style.display = 'none', 3000);
 }
 }
-
 function showAdminLogin() {
 if (AppState.isAdmin) {
 document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -1508,7 +1464,6 @@ document.getElementById('adminLocked').classList.remove('hidden');
 document.getElementById('adminPanel').classList.add('hidden');
 setTimeout(() => document.getElementById('adminUser').focus(), 100);
 }
-
 function logoutAdmin() {
 showConfirm('¿Cerrar sesión de administrador?', () => {
 AppState.isAdmin = false;
@@ -1521,11 +1476,9 @@ showSection('registro', document.querySelector('.tab'));
 showToast('Sesión cerrada', 'info');
 }, { type: 'info', title: 'Cerrar sesión' });
 }
-
 function closeModal(id) {
 document.getElementById(id).classList.remove('active');
 }
-
 // ============================================
 // SEMÁFORO DE BACKUP
 // ============================================
@@ -1540,10 +1493,8 @@ const trafficLightDesc = document.getElementById('trafficLightDesc');
 const trafficLightStatus = document.getElementById('trafficLightStatus');
 const btnBackup = document.getElementById('btnBackup');
 const container = document.getElementById('backupTrafficLight');
-
 trafficLight.classList.remove('green', 'yellow', 'red');
 btnBackup.classList.remove('urgent');
-
 let colorClass, iconClass, title, status, isUrgent;
 if (currentDay <= 10) {
 colorClass = 'green'; iconClass = 'fa-circle-check'; title = 'Inicio de Mes - Backup'; status = 'Período normal'; isUrgent = false;
@@ -1552,13 +1503,11 @@ colorClass = 'yellow'; iconClass = 'fa-circle-exclamation'; title = 'Mitad de Me
 } else {
 colorClass = 'red'; iconClass = 'fa-circle-xmark'; title = '¡URGENTE! Fin de Mes'; status = '¡Realizar backup inmediatamente!'; isUrgent = true;
 }
-
 trafficLight.classList.add(colorClass);
 trafficLight.innerHTML = `<i class="fas ${iconClass}"></i>`;
 trafficLightTitle.textContent = title;
 trafficLightDesc.innerHTML = `Día ${currentDay} de ${lastDayOfMonth} - <span class="days-remaining">${daysRemaining} días restantes</span>`;
 trafficLightStatus.textContent = `Estado: ${status}`;
-
 if (isUrgent) {
 btnBackup.classList.add('urgent');
 container.style.borderTopColor = '#FF4757';
@@ -1566,7 +1515,6 @@ container.style.borderTopColor = '#FF4757';
 container.style.borderTopColor = colorClass === 'green' ? '#2ECC71' : '#F9CA24';
 }
 }
-
 // ============================================
 // BACKUP Y RESTAURACIÓN
 // ============================================
@@ -1601,11 +1549,9 @@ localStorage.setItem('ultimoBackup', now.toISOString().split('T')[0]);
 showToast('Error al realizar backup: ' + error.message, 'error');
 }
 }
-
 async function cargarBackup(input) {
 const file = input.files[0];
 if (!file) return;
-
 showConfirm('Esto cargará los datos del archivo de backup y los sincronizará con la base de datos de Supabase. ¿Continuar?', async () => {
 const reader = new FileReader();
 reader.onload = async function(e) {
@@ -1616,7 +1562,6 @@ if (!backupData.actividades || !Array.isArray(backupData.actividades)) {
 throw new Error('El archivo no tiene el formato de backup válido');
 }
 setStatus('Restaurando datos...', 'connecting');
-
 if (backupData.ingenieros && backupData.ingenieros.length > 0) {
 await supabaseClient.from('ingenieros').upsert(backupData.ingenieros.map(nombre => ({ nombre })), { onConflict: 'nombre' });
 }
@@ -1636,7 +1581,6 @@ horario: a.horario, estado: a.estado, tipo_error: a.tipo_error, detalle_error: a
 const { error: actError } = await supabaseClient.from('actividades').upsert(actsToUpsert, { onConflict: 'id' });
 if (actError) throw actError;
 }
-
 await cargarDatosSupabase();
 cargarSelects();
 renderWorkloadMarker();
@@ -1658,7 +1602,6 @@ input.value = '';
 reader.readAsText(file);
 }, { type: 'warning', title: 'Restaurar Backup', confirmText: 'Restaurar' });
 }
-
 function setStatus(msg, type) {
 const statusBtn = document.getElementById('statusBtn');
 const statusText = document.getElementById('statusText');
@@ -1677,7 +1620,6 @@ statusIcon.className = 'fas fa-circle-notch status-icon';
 statusText.textContent = msg;
 }
 }
-
 // ============================================
 // CARGA DE DATOS DESDE SUPABASE
 // ============================================
@@ -1687,19 +1629,15 @@ setStatus('Cargando datos...', 'connecting');
 const { data: acts, error: actsError } = await supabaseClient.from('actividades').select('*').order('inicio', { ascending: false });
 if (actsError) throw actsError;
 AppState.todasActividades = acts || [];
-
 const { data: ings, error: ingsError } = await supabaseClient.from('ingenieros').select('nombre').order('nombre');
 if (ingsError) throw ingsError;
 AppState.ingenieros = ings ? ings.map(i => i.nombre) : [...DEFAULT_INGENIEROS];
-
 const { data: tips, error: tipsError } = await supabaseClient.from('tipos_actividad').select('nombre').order('nombre');
 if (tipsError) throw tipsError;
 AppState.tiposActividad = tips ? tips.map(t => t.nombre) : [...DEFAULT_TIPOS];
-
 const { data: errs, error: errsError } = await supabaseClient.from('tipos_error').select('nombre').order('nombre');
 if (errsError) throw errsError;
 AppState.tiposError = errs ? errs.map(e => e.nombre) : [...DEFAULT_ERRORES];
-
 setStatus(`Conectado - ${AppState.todasActividades.length} actividades`, 'ok');
 return true;
 } catch (error) {
@@ -1711,11 +1649,9 @@ AppState.tiposError = [...DEFAULT_ERRORES];
 return false;
 }
 }
-
 const DEFAULT_INGENIEROS = ["Luis Gomez", "Lenin Justiniano", "Eric De Los Santos", "Miguel Baez", "Ezequiel Medrano", "Jose Noboa", "Carlos Suriel", "Welington Del Jesus", "John Castillo", "Junior Diaz", "Mario Medina", "Alexis de los Santos"];
 const DEFAULT_TIPOS = ["Averia", "Implementacion GPON", "Implementacion CPE", "Implementacion B2B red GPON", "Configuracion Equipo", "Retiro", "Xconnect", "Ventana", "Envios de Equipo", "Migracion", "Traslado", "Cambio de Equipos", "Entrega Equipos", "Implementacion", "Retiro Almacen Baldosa"];
 const DEFAULT_ERRORES = ["PROBLEMA DE FIBRA", "PÉRDIDA DE GESTIÓN", "NO HAY ELECTRICIDAD", "ESPACIO EN RACK", "PROBLEMA ÚLT. MILLA", "TEST VELOCIDAD", "CAMBIO EQUIPO ADM", "ERROR DE RECURSOS", "OTROS", "GESTION DEL PM"];
-
 async function initApp() {
 if (!localStorage.getItem('adminPassHash')) {
 localStorage.setItem('adminPassHash', await sha256('FE2026$KPI'));
@@ -1738,17 +1674,14 @@ renderDashboard();
 renderOT();
 renderFETickets();
 }
-
 function combineDateTime(dateStr, timeStr) {
 return (dateStr && timeStr) ? `${dateStr}T${timeStr}` : null;
 }
-
 function splitDateTime(isoStr) {
 if (!isoStr) return { date: '', time: '' };
 const parts = isoStr.split('T');
 return { date: parts[0], time: parts[1] ? parts[1].substring(0, 5) : '' };
 }
-
 function setFechaActual() {
 const now = new Date();
 const localIso = new Date(now.getTime() - (now.getTimezoneOffset() * 60000)).toISOString();
@@ -1759,7 +1692,6 @@ const localEndIso = new Date(end.getTime() - (end.getTimezoneOffset() * 60000)).
 document.getElementById('fFinDate').value = localEndIso.split('T')[0];
 document.getElementById('fFinTime').value = localEndIso.split('T')[1].substring(0, 5);
 }
-
 function setFechaActualAdmin() {
 const now = new Date();
 const localIso = new Date(now.getTime() - (now.getTimezoneOffset() * 60000)).toISOString();
@@ -1770,16 +1702,13 @@ const localEndIso = new Date(end.getTime() - (end.getTimezoneOffset() * 60000)).
 document.getElementById('afFinDate').value = localEndIso.split('T')[0];
 document.getElementById('afFinTime').value = localEndIso.split('T')[1].substring(0, 5);
 }
-
 function cargarSelects() {
 const ings = AppState.ingenieros.length > 0 ? AppState.ingenieros : [...DEFAULT_INGENIEROS];
 const tipos = AppState.tiposActividad.length > 0 ? AppState.tiposActividad : [...DEFAULT_TIPOS];
 const errores = AppState.tiposError.length > 0 ? AppState.tiposError : [...DEFAULT_ERRORES];
-
 const ingOptions = ings.map(i => `<option value="${escapeHtml(i)}">${escapeHtml(i)}</option>`).join('');
 const tipoOptions = tipos.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join('');
 const errorOptions = errores.map(e => `<option value="${escapeHtml(e)}">${escapeHtml(e)}</option>`).join('');
-
 ['fIngeniero', 'afIngeniero', 'editIngeniero', 'gIng', 'filterIng', 'otIng', 'ingSelect'].forEach(id => {
 const el = document.getElementById(id);
 if (el) {
@@ -1789,7 +1718,6 @@ else if (id === 'ingSelect') defaultOpt = '<option value="">-- Seleccione Ingeni
 el.innerHTML = defaultOpt + ingOptions;
 }
 });
-
 ['fTipo', 'afTipo', 'editTipo', 'gTipo', 'filterTipo'].forEach(id => {
 const el = document.getElementById(id);
 if (el) {
@@ -1797,19 +1725,16 @@ const defaultOpt = (id.includes('filter') || id === 'gTipo') ? '<option value=""
 el.innerHTML = defaultOpt + tipoOptions;
 }
 });
-
 ['fTipoError', 'editTipoError'].forEach(id => {
 const el = document.getElementById(id);
 if (el) el.innerHTML = '<option value="">-- Sin error --</option>' + errorOptions;
 });
-
 const anios = [...new Set(AppState.todasActividades.map(a => a.inicio ? new Date(a.inicio).getFullYear() : null).filter(Boolean))].sort((a,b)=>b-a);
 ['filterAnio','ingAnio','gAnio','otAnio'].forEach(id => {
 const el = document.getElementById(id);
 if (el) el.innerHTML = '<option value="">Todos</option>' + anios.map(a => `<option value="${a}">${a}</option>`).join('');
 });
 }
-
 function renderWorkloadMarker() {
 const workload = {};
 AppState.ingenieros.forEach(ing => {
@@ -1841,7 +1766,6 @@ return `<div class="workload-item">
 const container1 = document.getElementById('adminWorkloadList');
 if (container1) container1.innerHTML = html || '<span style="color: #666; font-size: 13px;">No hay actividades asignadas aún.</span>';
 }
-
 function renderFETickets() {
 const container = document.getElementById('feTicketGrid');
 if (!AppState.ingenieros || AppState.ingenieros.length === 0) {
@@ -1871,19 +1795,16 @@ ${hasPending ? `<div class="fe-ticket-badge">${pendientes}</div>` : ''}
 }).join('');
 container.innerHTML = ticketsHTML;
 }
-
 function selectFE(feName) {
 document.getElementById('feTicketView').style.display = 'none';
 document.getElementById('feActivitiesView').style.display = 'block';
 renderFEActivities(feName);
 }
-
 function backToTickets() {
 document.getElementById('feTicketView').style.display = 'block';
 document.getElementById('feActivitiesView').style.display = 'none';
 renderFETickets();
 }
-
 function renderFEActivities(feName) {
 const container = document.getElementById('feActivitiesList');
 if (!feName) {
@@ -1903,7 +1824,6 @@ else if (a.estado === 'ACT-PENDIENTE') estadoBadge = '<span class="badge badge-p
 else if (a.estado === 'SUSPENDIDA') estadoBadge = '<span class="badge badge-suspendida">SUSPENDIDA</span>';
 else if (a.estado === 'POSTERGADA') estadoBadge = '<span class="badge badge-postergada">POSTERGADA</span>';
 else estadoBadge = `<span class="badge badge-warning">${escapeHtml(a.estado) || 'N/A'}</span>`;
-
 const ini = new Date(a.inicio);
 const descCorta = escapeHtml((a.descripcion || 'Sin descripción').substring(0, 100));
 const safeId = escapeHtml(a.id).replace(/'/g, "\\'");
@@ -1911,7 +1831,6 @@ const safeIngeniero = escapeHtml(a.ingeniero || '');
 const safePM = escapeHtml(a.pm || a.responsable || 'Sin PM');
 const safeTipo = escapeHtml(a.tipo || 'Sin tipo');
 const safeEspecialista = a.especialista ? escapeHtml(a.especialista) : '';
-
 return `<div class="card" style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; margin-bottom: 15px; transition: all 0.3s;">
 <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; flex-wrap:wrap; gap:10px;">
 <div style="flex:1; min-width:200px;">
@@ -1944,7 +1863,6 @@ ${a.estado !== 'COMPLETADA' ? `<button class="btn btn-success" style="padding: 8
 </div>`;
 }).join('');
 }
-
 async function marcarFECompletada(id) {
 showConfirm('¿Confirmar que esta actividad fue COMPLETADA exitosamente?', async () => {
 try {
@@ -1963,7 +1881,6 @@ showToast('Error: ' + error.message, 'error');
 }
 }, { type: 'info', title: 'Marcar como completada' });
 }
-
 function verDetallesActividad(id) {
 const a = AppState.todasActividades.find(x => String(x.id) === String(id));
 if (!a) { showToast('Actividad no encontrada', 'error'); return; }
@@ -1971,14 +1888,12 @@ const ini = new Date(a.inicio);
 const fin = a.fin ? new Date(a.fin) : null;
 const duracion = calcularDuracion(a);
 const esExtra = esHorasExtra(a);
-
 let estadoBadge = '';
 if (a.estado === 'COMPLETADA') estadoBadge = '<span class="badge badge-success" style="font-size:14px; padding:6px 14px;">✅ COMPLETADA</span>';
-else if (a.estado === 'INCOMPLETA') estadoBadge = '<span class="badge badge-danger" style="font-size:14px; padding:6px 14px;">❌ INCOMPLETA</span>';
+else if (a.estado === 'INCOMPLETA') estadoBadge = '<span class="badge badge-danger" style="font-size:14px; padding:6px 14px;"> INCOMPLETA</span>';
 else if (a.estado === 'ACT-PENDIENTE') estadoBadge = '<span class="badge badge-pendiente" style="font-size:14px; padding:6px 14px;">⏳ ACT-PENDIENTE</span>';
 else if (a.estado === 'SUSPENDIDA') estadoBadge = '<span class="badge badge-suspendida" style="font-size:14px; padding:6px 14px;">🚫 SUSPENDIDA</span>';
 else if (a.estado === 'POSTERGADA') estadoBadge = '<span class="badge badge-postergada" style="font-size:14px; padding:6px 14px;">📅 POSTERGADA</span>';
-
 const contenido = `<div style="line-height:1.8;">
 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; padding-bottom:15px; border-bottom:2px solid var(--ln-orange-pale);">
 <h3 style="color:var(--ln-orange-dark); margin:0;">${escapeHtml(a.tipo) || 'Sin tipo'}</h3>
@@ -2029,7 +1944,6 @@ ${a.tipo_error ? `<div style="background:#ffebee; padding:15px; border-radius:8p
 ${a.detalle_error ? `<div style="font-size:13px; color:#555; white-space:pre-wrap;">${escapeHtml(a.detalle_error)}</div>` : ''}
 </div>` : ''}
 </div>`;
-
 const modalId = 'detallesModal';
 let modal = document.getElementById(modalId);
 if (!modal) {
@@ -2051,7 +1965,6 @@ document.body.appendChild(modal);
 document.getElementById('detallesContent').innerHTML = contenido;
 modal.classList.add('active');
 }
-
 function searchCompanyLogo() {
 const companyName = document.getElementById('eqCompanyName').value.trim();
 const logoImg = document.getElementById('companyLogoDisplay');
@@ -2059,17 +1972,59 @@ if (!companyName) {
 logoImg.src = 'https://via.placeholder.com/150x60?text=LOGO+CLIENTE';
 return;
 }
-const domainGuess = companyName.replace(/\s+/g, '').toLowerCase();
-logoImg.src = `https://www.google.com/s2/favicons?domain=${domainGuess}.com&sz=128`;
-logoImg.onerror = function() {
-this.src = `https://logo.clearbit.com/${domainGuess}.com`;
-this.onerror = function() {
+const variations = [
+companyName.replace(/\s+/g, '').toLowerCase(),
+companyName.replace(/\s+/g, '-').toLowerCase(),
+companyName.replace(/\s+/g, '+').toLowerCase(),
+companyName.toLowerCase()
+];
+const domains = ['.com', '.com.do', '.net', '.org', '.do', '.io', '.co'];
+const logoServices = [
+(domain) => `https://logo.clearbit.com/${domain}`,
+(domain) => `https://www.google.com/s2/favicons?domain=${domain}&sz=128`,
+(domain) => `https://icons.duckduckgo.com/ip3/${domain}.ico`,
+(domain) => `https://favicon.yandex.net/favicon/${domain}`,
+(domain) => `https://getlogo.io/api/logo?url=${domain}`
+];
+const possibleUrls = [];
+variations.forEach(variation => {
+domains.forEach(domain => {
+const fullDomain = variation + domain;
+logoServices.forEach(service => {
+possibleUrls.push(service(fullDomain));
+});
+});
+});
+possibleUrls.push(`https://logo.clearbit.com/${companyName.toLowerCase()}`);
+let currentIndex = 0;
+function tryNextLogo() {
+if (currentIndex >= possibleUrls.length) {
 const initials = companyName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-this.src = `https://via.placeholder.com/150x60/FF6B00/FFFFFF?text=${initials}`;
-};
-};
+logoImg.src = `https://via.placeholder.com/150x60/FF6B00/FFFFFF?text=${initials}`;
+return;
 }
-
+logoImg.src = possibleUrls[currentIndex];
+currentIndex++;
+}
+logoImg.onerror = tryNextLogo;
+logoImg.onload = function() {
+console.log('Logo encontrado en:', possibleUrls[currentIndex - 1]);
+};
+tryNextLogo();
+}
+function loadCustomLogo() {
+const url = document.getElementById('eqLogoUrl').value.trim();
+const logoImg = document.getElementById('companyLogoDisplay');
+if (url) {
+logoImg.src = url;
+logoImg.onerror = function() {
+showToast('No se pudo cargar el logo desde esa URL. Buscando automáticamente...', 'warning');
+searchCompanyLogo();
+};
+} else {
+searchCompanyLogo();
+}
+}
 function addEquipmentRow() {
 const tbody = document.getElementById('equipmentTableBody');
 const row = document.createElement('tr');
@@ -2085,7 +2040,6 @@ row.innerHTML = `
 </td>`;
 tbody.appendChild(row);
 }
-
 function removeEquipmentRow(btn) {
 const tbody = document.getElementById('equipmentTableBody');
 if (tbody.children.length > 1) {
@@ -2094,7 +2048,6 @@ btn.closest('tr').remove();
 showToast('Debe haber al menos una fila en el inventario', 'warning');
 }
 }
-
 function printDeliveryForm() {
 const companyName = document.getElementById('eqCompanyName').value.trim();
 if (!companyName) {
@@ -2103,7 +2056,6 @@ return;
 }
 window.print();
 }
-
 async function saveDeliveryPDF() {
 const companyName = document.getElementById('eqCompanyName').value.trim();
 if (!companyName) {
@@ -2113,12 +2065,10 @@ return;
 const printableArea = document.getElementById('printableArea');
 const fechaActual = new Date().toISOString().slice(0, 10);
 const fileName = `Entrega_Equipos_${companyName.replace(/\s+/g, '_')}_${fechaActual}`;
-
 const btn = document.querySelector('.btn-save-pdf');
 const originalHTML = btn.innerHTML;
 btn.innerHTML = '<span class="spinner"></span> Generando...';
 btn.disabled = true;
-
 try {
 const clone = printableArea.cloneNode(true);
 const originalInputs = printableArea.querySelectorAll('input, textarea');
@@ -2142,19 +2092,19 @@ clone.style.position = 'absolute';
 clone.style.left = '-9999px';
 clone.style.top = '0';
 document.body.appendChild(clone);
-
+// ✅ CAMBIO 1: Formato A4 con unidad mm
 const options = {
-margin: [0.2, 0.2, 0.2, 0.2],
+margin: [5, 5, 5, 5],
 filename: `${fileName}.pdf`,
 image: { type: 'jpeg', quality: 0.98 },
 html2canvas: { scale: 2, useCORS: true, letterRendering: true, logging: false, windowWidth: clone.scrollWidth, windowHeight: clone.scrollHeight },
-jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait', compress: true, putOnlyUsedFonts: true },
+jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true, putOnlyUsedFonts: true },
 pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
 };
 await html2pdf().set(options).from(clone).save();
 document.body.removeChild(clone);
+// ✅ CAMBIO 2: Ya NO se limpia el formulario al guardar PDF
 setTimeout(() => {
-clearDeliveryForm();
 showToast(`PDF guardado: ${fileName}.pdf`, 'success');
 }, 1000);
 } catch (error) {
@@ -2165,9 +2115,9 @@ btn.innerHTML = originalHTML;
 btn.disabled = false;
 }
 }
-
 function clearDeliveryForm() {
 document.getElementById('eqCompanyName').value = '';
+document.getElementById('eqLogoUrl').value = '';
 document.getElementById('eqTelephone').value = '';
 document.getElementById('eqTechContact').value = '';
 document.getElementById('eqEmail').value = '';
@@ -2183,8 +2133,8 @@ document.getElementById('companyLogoDisplay').src = 'https://via.placeholder.com
 const now = new Date();
 const localIso = new Date(now.getTime() - (now.getTimezoneOffset() * 60000)).toISOString();
 document.getElementById('eqDate').value = localIso.split('T')[0];
+showToast('Formulario limpiado correctamente', 'info');
 }
-
 function showSection(id, btn) {
 document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
 document.querySelectorAll('.tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
@@ -2212,7 +2162,6 @@ setTimeout(() => document.getElementById('adminUser').focus(), 100);
 }
 }
 }
-
 function clearFilters() {
 ['gIng','gTipo','gMes','gAnio','gHorario','gEstado'].forEach(id => {
 const el = document.getElementById(id);
@@ -2220,7 +2169,6 @@ if (el) el.value = '';
 });
 renderDashboard();
 }
-
 function getFilteredData() {
 const fIng = document.getElementById('gIng').value.trim();
 const fTipo = document.getElementById('gTipo').value.trim();
@@ -2228,7 +2176,6 @@ const fMes = document.getElementById('gMes').value.trim();
 const fAnio = document.getElementById('gAnio').value.trim();
 const fHorario = document.getElementById('gHorario').value.trim();
 const fEstado = document.getElementById('gEstado').value.trim();
-
 return AppState.todasActividades.filter(a => {
 if (!a.inicio) return false;
 const ini = new Date(a.inicio);
@@ -2242,14 +2189,12 @@ if (fEstado && fEstado !== "" && a.estado !== fEstado) return false;
 return true;
 });
 }
-
 function renderDashboard() {
 const filtradas = getFilteredData();
 const total = filtradas.length;
 const completadas = filtradas.filter(a => a.estado === 'COMPLETADA').length;
 const pendientes = filtradas.filter(a => a.estado === 'ACT-PENDIENTE').length;
 const otActs = filtradas.filter(esHorasExtra);
-
 document.getElementById('statTotal').textContent = total;
 document.getElementById('statComp').textContent = completadas;
 document.getElementById('statPend').textContent = pendientes;
@@ -2261,7 +2206,6 @@ document.getElementById('statTasa').textContent = tasa;
 document.getElementById('statErrores').textContent = filtradas.filter(a => a.tipo_error).length;
 const duraciones = filtradas.map(a => parseFloat(calcularDuracion(a))).filter(d => !isNaN(d));
 document.getElementById('statPromDur').textContent = duraciones.length > 0 ? (duraciones.reduce((a,b)=>a+b, 0) / duraciones.length).toFixed(2) + 'h' : '0h';
-
 const ingCounts = {};
 filtradas.forEach(a => { if(a.estado === 'COMPLETADA') ingCounts[a.ingeniero] = (ingCounts[a.ingeniero]||0) + 1; });
 let topIng = '-', maxCount = 0;
@@ -2269,7 +2213,6 @@ for (const [ing, count] of Object.entries(ingCounts)) {
 if (count > maxCount) { maxCount = count; topIng = ing; }
 }
 document.getElementById('statTopIng').textContent = topIng !== '-' ? `${escapeHtml(topIng)} (${maxCount})` : '-';
-
 const meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
 const dataMes = new Array(12).fill(0);
 filtradas.forEach(a => { if (a.inicio) dataMes[new Date(a.inicio).getMonth()]++; });
@@ -2279,7 +2222,6 @@ type: 'bar',
 data: { labels: meses, datasets: [{ label: 'Actividades', data: dataMes, backgroundColor: CHART_COLORS }] },
 options: { responsive: true, maintainAspectRatio: false, plugins: { tooltip: tooltipConPorcentaje } }
 });
-
 const tipos = {};
 filtradas.forEach(a => { tipos[a.tipo] = (tipos[a.tipo]||0) + 1; });
 if (chartTipo) chartTipo.destroy();
@@ -2288,7 +2230,6 @@ type: 'doughnut',
 data: { labels: Object.keys(tipos), datasets: [{ data: Object.values(tipos), backgroundColor: CHART_COLORS }] },
 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { font: { size: 11 } } }, datalabels: datalabelsPorcentaje, tooltip: tooltipConPorcentaje } }
 });
-
 const ingsObj = {};
 filtradas.forEach(a => { ingsObj[a.ingeniero] = (ingsObj[a.ingeniero]||0) + 1; });
 if (chartIng) chartIng.destroy();
@@ -2297,7 +2238,6 @@ type: 'bar',
 data: { labels: Object.keys(ingsObj), datasets: [{ label: 'Actividades', data: Object.values(ingsObj), backgroundColor: CHART_COLORS[0] }] },
 options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { tooltip: tooltipConPorcentaje } }
 });
-
 const otIng = {};
 filtradas.filter(esHorasExtra).forEach(a => { otIng[a.ingeniero] = (otIng[a.ingeniero]||0) + calcularHorasExtra(a); });
 if (chartOT) chartOT.destroy();
@@ -2306,7 +2246,6 @@ type: 'bar',
 data: { labels: Object.keys(otIng), datasets: [{ label: 'Horas Extra', data: Object.values(otIng).map(v => +v.toFixed(2)), backgroundColor: CHART_COLORS.slice(2, 6) }] },
 options: { responsive: true, maintainAspectRatio: false, plugins: { tooltip: tooltipConPorcentaje } }
 });
-
 const errs = {};
 filtradas.filter(a => a.tipo_error).forEach(a => { if (a.tipo_error) errs[a.tipo_error] = (errs[a.tipo_error]||0) + 1; });
 if (chartErrores) chartErrores.destroy();
@@ -2315,7 +2254,6 @@ type: 'polarArea',
 data: { labels: Object.keys(errs), datasets: [{ data: Object.values(errs), backgroundColor: CHART_COLORS.slice(0, 10) }] },
 options: { responsive: true, maintainAspectRatio: false, plugins: { datalabels: datalabelsPorcentaje, tooltip: tooltipConPorcentaje } }
 });
-
 const estados = { COMPLETADA: 0, INCOMPLETA: 0, 'ACT-PENDIENTE': 0, SUSPENDIDA: 0, POSTERGADA: 0 };
 filtradas.forEach(a => { if (estados[a.estado] !== undefined) estados[a.estado]++; });
 if (chartEstado) chartEstado.destroy();
@@ -2327,7 +2265,6 @@ datasets: [{ data: [estados.COMPLETADA, estados.INCOMPLETA, estados['ACT-PENDIEN
 },
 options: { responsive: true, maintainAspectRatio: false, plugins: { datalabels: datalabelsPorcentaje, tooltip: tooltipConPorcentaje } }
 });
-
 const aniosObj = {};
 filtradas.forEach(a => { if (a.inicio) { const anio = new Date(a.inicio).getFullYear(); aniosObj[anio] = (aniosObj[anio]||0) + 1; } });
 const aniosOrdenados = Object.keys(aniosObj).sort();
@@ -2338,7 +2275,6 @@ data: { labels: aniosOrdenados, datasets: [{ label: 'Actividades', data: aniosOr
 options: { responsive: true, maintainAspectRatio: false, plugins: { tooltip: tooltipConPorcentaje } }
 });
 }
-
 function esHorasExtra(act) {
 if (act.fuera_horario) return true;
 if (!act.inicio || !act.fin) return false;
@@ -2346,7 +2282,6 @@ const ini = new Date(act.inicio);
 const fin = new Date(act.fin);
 return ini.getHours() >= 17 || fin.getHours() >= 17 || (ini.getHours() < 17 && fin.getHours() >= 17);
 }
-
 function calcularHorasExtra(act) {
 if (!act.inicio || !act.fin) return 0;
 const ini = new Date(act.inicio);
@@ -2359,12 +2294,10 @@ horasExtra = (fin - limite) / (1000*60*60);
 }
 return Math.max(0, horasExtra);
 }
-
 function calcularDuracion(act) {
 if (!act.inicio || !act.fin) return '0.00';
 return ((new Date(act.fin) - new Date(act.inicio)) / (1000*60*60)).toFixed(2);
 }
-
 function exportarExcel() {
 const datos = getFilteredData();
 if (datos.length === 0) {
@@ -2392,7 +2325,6 @@ XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(datosExportar), "Activ
 XLSX.writeFile(wb, `Reporte_Actividades_${new Date().toISOString().slice(0,10)}.xlsx`);
 showToast(`Exportado exitosamente: ${datos.length} registros`, 'success');
 }
-
 function exportarExcelOT() {
 const fIng = document.getElementById('otIng').value;
 const fMes = document.getElementById('otMes').value;
@@ -2425,7 +2357,6 @@ XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(datosExportar), "Horas
 XLSX.writeFile(wb, `Reporte_Horas_Extras_${new Date().toISOString().slice(0,10)}.xlsx`);
 showToast(`Exportado: ${otActs.length} registros`, 'success');
 }
-
 function exportarExcelIngeniero() {
 const ing = document.getElementById('ingSelect').value;
 const mes = document.getElementById('ingMes').value;
@@ -2462,18 +2393,15 @@ XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(datosExportar), ing);
 XLSX.writeFile(wb, `Reporte_${ing.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0,10)}.xlsx`);
 showToast(`Exportado: ${filtradas.length} registros`, 'success');
 }
-
 function toggleDetalleError() {
 document.getElementById('detalleErrorGroup').style.display = document.getElementById('fTipoError').value ? 'block' : 'none';
 }
-
 async function guardarActividad(e) {
 e.preventDefault();
 const btn = document.getElementById('btnGuardarActividad');
 const originalHTML = btn.innerHTML;
 btn.innerHTML = '<span class="spinner"></span> Guardando...';
 btn.disabled = true;
-
 const nueva = {
 inicio: combineDateTime(document.getElementById('fInicioDate').value, document.getElementById('fInicioTime').value),
 fin: combineDateTime(document.getElementById('fFinDate').value, document.getElementById('fFinTime').value),
@@ -2490,7 +2418,6 @@ estado: document.getElementById('fEstado').value,
 tipo_error: document.getElementById('fTipoError').value,
 detalle_error: document.getElementById('fDetalleError').value
 };
-
 try {
 setStatus('Guardando...', 'connecting');
 const { data, error } = await supabaseClient.from('actividades').insert([nueva]).select();
@@ -2516,14 +2443,12 @@ btn.innerHTML = originalHTML;
 btn.disabled = false;
 }
 }
-
 async function guardarActividadAdmin(e) {
 e.preventDefault();
 const btn = document.getElementById('btnGuardarAdmin');
 const originalHTML = btn.innerHTML;
 btn.innerHTML = '<span class="spinner"></span> Guardando...';
 btn.disabled = true;
-
 const nueva = {
 inicio: combineDateTime(document.getElementById('afInicioDate').value, document.getElementById('afInicioTime').value),
 fin: combineDateTime(document.getElementById('afFinDate').value, document.getElementById('afFinTime').value),
@@ -2540,7 +2465,6 @@ estado: document.getElementById('afEstado').value,
 tipo_error: '',
 detalle_error: ''
 };
-
 try {
 setStatus('Guardando...', 'connecting');
 const { data, error } = await supabaseClient.from('actividades').insert([nueva]).select();
@@ -2566,7 +2490,6 @@ btn.innerHTML = originalHTML;
 btn.disabled = false;
 }
 }
-
 function abrirEditar(id) {
 const a = AppState.todasActividades.find(x => String(x.id) === String(id));
 if (!a) { showToast('Actividad no encontrada', 'error'); return; }
@@ -2589,14 +2512,12 @@ document.getElementById('editTipoError').value = a.tipo_error || '';
 document.getElementById('editDetalleError').value = a.detalle_error || '';
 document.getElementById('editModal').classList.add('active');
 }
-
 async function guardarEdicion(e) {
 e.preventDefault();
 const btn = document.getElementById('btnGuardarEdicion');
 const originalHTML = btn.innerHTML;
 btn.innerHTML = '<span class="spinner"></span> Guardando...';
 btn.disabled = true;
-
 const id = document.getElementById('editId').value;
 const editada = {
 inicio: combineDateTime(document.getElementById('editInicioDate').value, document.getElementById('editInicioTime').value),
@@ -2614,7 +2535,6 @@ estado: document.getElementById('editEstado').value,
 tipo_error: document.getElementById('editTipoError').value,
 detalle_error: document.getElementById('editDetalleError').value
 };
-
 try {
 const { error } = await supabaseClient.from('actividades').update(editada).eq('id', id).select();
 if (error) throw error;
@@ -2635,7 +2555,6 @@ btn.innerHTML = originalHTML;
 btn.disabled = false;
 }
 }
-
 async function eliminarActividad(id) {
 showConfirm('¿Eliminar esta actividad permanentemente? Esta acción no se puede deshacer.', async () => {
 try {
@@ -2654,7 +2573,6 @@ showToast('Error: ' + error.message, 'error');
 }
 }, { type: 'danger', title: 'Eliminar actividad', confirmText: 'Eliminar' });
 }
-
 // ============================================
 // RENDERIZADO DE TABLA CON PAGINACIÓN
 // ============================================
@@ -2666,7 +2584,6 @@ const fMes = document.getElementById('filterMes').value;
 const fAnio = document.getElementById('filterAnio').value;
 const fEstado = document.getElementById('filterEstado').value;
 const fOT = document.getElementById('filterOT').checked;
-
 let filtradas = AppState.todasActividades.filter(a => {
 if (!a.inicio) return false;
 const ini = new Date(a.inicio);
@@ -2679,24 +2596,19 @@ if (fEstado && a.estado !== fEstado) return false;
 if (fOT && !esHorasExtra(a)) return false;
 return true;
 });
-
 filtradas.sort((a,b) => new Date(b.inicio) - new Date(a.inicio));
-
 const tbody = document.getElementById('tbodyActividades');
 if (filtradas.length === 0) {
 tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:30px;color:#666;">No hay actividades que coincidan con los filtros.</td></tr>';
 document.getElementById('paginationActividades').innerHTML = '';
 return;
 }
-
 const totalPages = Math.ceil(filtradas.length / AppState.pageSize);
 if (AppState.currentPage > totalPages) AppState.currentPage = totalPages;
 if (AppState.currentPage < 1) AppState.currentPage = 1;
-
 const start = (AppState.currentPage - 1) * AppState.pageSize;
 const end = start + AppState.pageSize;
 const pageData = filtradas.slice(start, end);
-
 tbody.innerHTML = pageData.map(a => {
 const ot = esHorasExtra(a);
 const ini = new Date(a.inicio);
@@ -2708,7 +2620,6 @@ else if (a.estado === 'ACT-PENDIENTE') estadoBadge = '<span class="badge badge-p
 else if (a.estado === 'SUSPENDIDA') estadoBadge = '<span class="badge badge-suspendida">SUSPENDIDA</span>';
 else if (a.estado === 'POSTERGADA') estadoBadge = '<span class="badge badge-postergada">POSTERGADA</span>';
 else estadoBadge = `<span class="badge badge-warning">${escapeHtml(a.estado) || 'N/A'}</span>`;
-
 const safeId = escapeHtml(a.id).replace(/'/g, "\\'");
 return `<tr class="${ot ? 'horas-extras' : ''}">
 <td>${ini.toLocaleString('es-DO', {dateStyle:'short', timeStyle:'short'})}</td>
@@ -2729,59 +2640,47 @@ return `<tr class="${ot ? 'horas-extras' : ''}">
 </td>
 </tr>`;
 }).join('');
-
 renderPagination(filtradas.length, totalPages);
 }
-
 function renderPagination(total, totalPages) {
 const container = document.getElementById('paginationActividades');
 if (totalPages <= 1) {
 container.innerHTML = `<div class="pagination-info">Mostrando ${total} registro${total !== 1 ? 's' : ''}</div>`;
 return;
 }
-
 let html = `<button ${AppState.currentPage === 1 ? 'disabled' : ''} onclick="goToPage(${AppState.currentPage - 1})" aria-label="Página anterior">
 <i class="fas fa-chevron-left"></i>
 </button>`;
-
 const maxVisible = 5;
 let startPage = Math.max(1, AppState.currentPage - Math.floor(maxVisible / 2));
 let endPage = Math.min(totalPages, startPage + maxVisible - 1);
 if (endPage - startPage < maxVisible - 1) {
 startPage = Math.max(1, endPage - maxVisible + 1);
 }
-
 if (startPage > 1) {
 html += `<button onclick="goToPage(1)">1</button>`;
 if (startPage > 2) html += `<span class="pagination-info">...</span>`;
 }
-
 for (let i = startPage; i <= endPage; i++) {
 html += `<button class="${i === AppState.currentPage ? 'active' : ''}" onclick="goToPage(${i})" aria-label="Página ${i}" ${i === AppState.currentPage ? 'aria-current="page"' : ''}>${i}</button>`;
 }
-
 if (endPage < totalPages) {
 if (endPage < totalPages - 1) html += `<span class="pagination-info">...</span>`;
 html += `<button onclick="goToPage(${totalPages})">${totalPages}</button>`;
 }
-
 html += `<button ${AppState.currentPage === totalPages ? 'disabled' : ''} onclick="goToPage(${AppState.currentPage + 1})" aria-label="Página siguiente">
 <i class="fas fa-chevron-right"></i>
 </button>`;
-
 const start = (AppState.currentPage - 1) * AppState.pageSize + 1;
 const end = Math.min(AppState.currentPage * AppState.pageSize, total);
 html += `<div class="pagination-info">${start}-${end} de ${total}</div>`;
-
 container.innerHTML = html;
 }
-
 function goToPage(page) {
 AppState.currentPage = page;
 renderTabla();
 window.scrollTo({ top: document.getElementById('actividades').offsetTop, behavior: 'smooth' });
 }
-
 function renderOT() {
 const fIng = document.getElementById('otIng').value;
 const fMes = document.getElementById('otMes').value;
@@ -2794,11 +2693,9 @@ if (fMes !== '' && ini.getMonth() !== parseInt(fMes)) return false;
 if (fAnio && ini.getFullYear() !== parseInt(fAnio)) return false;
 return true;
 });
-
 document.getElementById('otTotal').textContent = otActs.length;
 document.getElementById('otHoras').textContent = otActs.reduce((s,a) => s + calcularHorasExtra(a), 0).toFixed(1) + 'h';
 document.getElementById('otIngs').textContent = new Set(otActs.map(a => a.ingeniero)).size;
-
 const tbody = document.getElementById('tbodyOT');
 if (otActs.length === 0) {
 tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:20px;color:#666;">No hay horas extras registradas</td></tr>';
@@ -2817,7 +2714,6 @@ return `<tr class="horas-extras">
 </tr>`;
 }).join('');
 }
-
 const otIng = {};
 otActs.forEach(a => {
 if (!otIng[a.ingeniero]) otIng[a.ingeniero] = { acts: 0, hrs: 0 };
@@ -2837,7 +2733,6 @@ datasets: [
 options: { responsive: true, maintainAspectRatio: false, plugins: { tooltip: tooltipConPorcentaje } }
 });
 }
-
 function cargarStatsIngeniero() {
 const ing = document.getElementById('ingSelect').value;
 const mes = document.getElementById('ingMes').value;
@@ -2858,7 +2753,6 @@ document.getElementById('ingPend').textContent = filtradas.filter(a => a.estado 
 const ot = filtradas.filter(esHorasExtra);
 document.getElementById('ingOT').textContent = ot.length;
 document.getElementById('ingOTHrs').textContent = ot.reduce((s,a) => s + calcularHorasExtra(a), 0).toFixed(1) + 'h';
-
 const tipos = {};
 filtradas.forEach(a => { tipos[a.tipo] = (tipos[a.tipo]||0) + 1; });
 if (chartIngTipo) chartIngTipo.destroy();
@@ -2867,7 +2761,6 @@ type: 'pie',
 data: { labels: Object.keys(tipos), datasets: [{ data: Object.values(tipos), backgroundColor: CHART_COLORS }] },
 options: { responsive: true, maintainAspectRatio: false, plugins: { datalabels: datalabelsPorcentaje, tooltip: tooltipConPorcentaje } }
 });
-
 const meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
 const dataMes = new Array(12).fill(0);
 filtradas.forEach(a => { if (a.inicio) dataMes[new Date(a.inicio).getMonth()]++; });
@@ -2878,7 +2771,6 @@ data: { labels: meses, datasets: [{ label: 'Actividades', data: dataMes, borderC
 options: { responsive: true, maintainAspectRatio: false, plugins: { tooltip: tooltipConPorcentaje } }
 });
 }
-
 function renderAdmin() {
 document.getElementById('listIngs').innerHTML = AppState.ingenieros.map((i, idx) => `
 <div class="admin-item">
@@ -2902,7 +2794,6 @@ document.getElementById('listErrors').innerHTML = AppState.tiposError.map((e, id
 </button>
 </div>`).join('');
 }
-
 async function addIngeniero() {
 const val = document.getElementById('newIng').value.trim();
 if (!val) { showToast('Ingrese un nombre', 'warning'); return; }
@@ -2919,7 +2810,6 @@ showToast('Ingeniero agregado', 'success');
 showToast('Error: ' + e.message, 'error');
 }
 }
-
 async function delIngeniero(idx) {
 const val = AppState.ingenieros[idx];
 showConfirm(`¿Eliminar al ingeniero "${val}"?`, async () => {
@@ -2936,7 +2826,6 @@ showToast('Error: ' + e.message, 'error');
 }
 }, { type: 'danger', title: 'Eliminar ingeniero' });
 }
-
 async function addTipo() {
 const val = document.getElementById('newTipo').value.trim();
 if (!val) { showToast('Ingrese un tipo', 'warning'); return; }
@@ -2951,7 +2840,6 @@ showToast('Tipo agregado', 'success');
 showToast('Error: ' + e.message, 'error');
 }
 }
-
 async function delTipo(idx) {
 const val = AppState.tiposActividad[idx];
 showConfirm(`¿Eliminar el tipo "${val}"?`, async () => {
@@ -2966,7 +2854,6 @@ showToast('Error: ' + e.message, 'error');
 }
 }, { type: 'danger', title: 'Eliminar tipo' });
 }
-
 async function addError() {
 const val = document.getElementById('newError').value.trim();
 if (!val) { showToast('Ingrese un error', 'warning'); return; }
@@ -2981,7 +2868,6 @@ showToast('Error agregado', 'success');
 showToast('Error: ' + e.message, 'error');
 }
 }
-
 async function delError(idx) {
 const val = AppState.tiposError[idx];
 showConfirm(`¿Eliminar el tipo de error "${val}"?`, async () => {
@@ -2996,7 +2882,6 @@ showToast('Error: ' + e.message, 'error');
 }
 }, { type: 'danger', title: 'Eliminar tipo de error' });
 }
-
 // ============================================
 // EVENTOS GLOBALES
 // ============================================
@@ -3007,8 +2892,6 @@ doAdminLogin();
 }
 }
 });
-
-// Cerrar modales con Escape
 document.addEventListener('keydown', e => {
 if (e.key === 'Escape') {
 document.querySelectorAll('.modal.active, .edit-modal.active, .about-modal.active').forEach(m => {
@@ -3020,7 +2903,6 @@ confirmModal.classList.remove('active');
 }
 }
 });
-
 window.addEventListener('load', initApp);
 </script>
 </body>
