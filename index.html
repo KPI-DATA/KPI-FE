@@ -151,8 +151,8 @@ input, textarea, select { border: none !important; background: transparent !impo
 .user-info { font-size: 14px; font-weight: 600; }
 .help-menu-text { color: white; font-size: 14px; font-weight: 700; cursor: pointer; padding: 8px 12px; border-radius: 5px; transition: all 0.3s; text-decoration: underline; text-underline-offset: 3px; background: none; border: none; }
 .help-menu-text:hover { background: rgba(255, 255, 255, 0.2); text-decoration: none; }
-.btn-logout, .btn-admin-login { background: white; color: var(--ln-orange); border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 13px; font-weight: 700; transition: background 0.3s; display: inline-flex; align-items: center; gap: 6px; }
-.btn-logout:hover, .btn-admin-login:hover { background: var(--ln-orange-pale); }
+.btn-logout { background: white; color: var(--ln-orange); border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 13px; font-weight: 700; transition: background 0.3s; display: inline-flex; align-items: center; gap: 6px; }
+.btn-logout:hover { background: var(--ln-orange-pale); }
 .about-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 2000; justify-content: center; align-items: center; }
 .about-modal.active { display: flex; }
 .about-content { background: white; border-radius: 8px; max-width: 700px; width: 90%; max-height: 90vh; overflow: hidden; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); }
@@ -277,15 +277,15 @@ tr.horas-extras { background: #fff8f8 !important; border-left: 3px solid #FF4757
 .admin-list { margin-top: 10px; max-height: 250px; overflow-y: auto; padding-right: 5px; }
 .admin-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: white; border-radius: 6px; margin-bottom: 6px; font-weight: 600; font-size: 13px; border: 1px solid #e0e0e0; transition: all 0.2s; }
 .admin-item:hover { border-color: var(--ln-orange); }
-.login-box-inline { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 30px 25px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #dee2e6; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-.login-box-inline .login-icon-header { text-align: center; margin-bottom: 20px; }
-.login-box-inline .login-icon-header i { font-size: 48px; color: var(--ln-orange); opacity: 0.8; }
-.login-box-inline .login-field { position: relative; margin-bottom: 12px; }
-.login-box-inline .login-field i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #adb5bd; font-size: 14px; pointer-events: none; }
-.login-box-inline input { width: 100%; padding: 12px 12px 12px 40px; border: 2px solid #dee2e6; border-radius: 8px; font-weight: 600; font-size: 14px; background: white; transition: all 0.3s; }
+.login-box-inline { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 18px 20px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #dee2e6; box-shadow: 0 2px 8px rgba(0,0,0,0.05); max-width: 380px; }
+.login-box-inline .login-icon-header { text-align: center; margin-bottom: 12px; }
+.login-box-inline .login-icon-header i { font-size: 28px; color: var(--ln-orange); opacity: 0.85; }
+.login-box-inline .login-field { position: relative; margin-bottom: 8px; }
+.login-box-inline .login-field i { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #adb5bd; font-size: 12px; pointer-events: none; }
+.login-box-inline input { width: 100%; padding: 9px 10px 9px 34px; border: 2px solid #dee2e6; border-radius: 6px; font-weight: 600; font-size: 13px; background: white; transition: all 0.3s; }
 .login-box-inline input:focus { border-color: var(--ln-orange); outline: none; box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.1); }
 .login-box-inline input::placeholder { color: #ced4da; font-weight: 400; }
-.login-error { color: #FF4757; margin-top: 10px; display: none; font-size: 13px; font-weight: 700; text-align: center; padding: 8px; background: #fff5f5; border-radius: 6px; }
+.login-error { color: #FF4757; margin-top: 8px; display: none; font-size: 12px; font-weight: 700; text-align: center; padding: 6px; background: #fff5f5; border-radius: 6px; }
 .table-scroll { overflow-x: auto; }
 .hidden { display: none !important; }
 .edit-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; }
@@ -388,9 +388,6 @@ input:focus, textarea:focus, select:focus { outline: none; border-color: var(--l
 <button class="help-menu-text" onclick="showAboutModal()" aria-label="Abrir información del sistema">
 <i class="fas fa-circle-info"></i> Help
 </button>
-<button class="btn-admin-login" id="btnAdminLogin" onclick="showAdminLogin()" aria-label="Acceso administrador">
-<i class="fas fa-user-shield"></i> Acceso Admin
-</button>
 <button class="btn-logout hidden" id="btnLogout" onclick="logoutAdmin()" aria-label="Cerrar sesión de administrador">
 <i class="fas fa-right-from-bracket"></i> Salir Admin
 </button>
@@ -404,7 +401,7 @@ input:focus, textarea:focus, select:focus { outline: none; border-color: var(--l
 </div>
 <div class="about-body">
 <div class="about-photo">
-<img src="pr.jpg" alt="Lenin Justiniano" onerror="this.src='https://via.placeholder.com/200x280/FF6B00/FFFFFF?text=Lenin+Justiniano'">
+<img src="images/pr.jpg" alt="Lenin Justiniano" onerror="this.src='https://via.placeholder.com/200x280/FF6B00/FFFFFF?text=Lenin+Justiniano'">
 </div>
 <div class="about-info">
 <h3>KPI Field Engineers - Liberty Networks</h3>
@@ -576,6 +573,7 @@ Lenin Justiniano @ Dominican Republic
 <i class="fas fa-arrow-left"></i> Volver a Ingenieros
 </button>
 <div id="feActivitiesList"></div>
+<div class="pagination" id="paginationFE"></div>
 </div>
 </div>
 </div>
@@ -942,7 +940,7 @@ Lenin Justiniano @ Dominican Republic
 <i class="fas fa-key"></i>
 <input type="password" id="adminPass" autocomplete="new-password" aria-label="Contraseña">
 </div>
-<button class="btn btn-primary" style="margin-top:15px;width:100%; justify-content: center;" onclick="doAdminLogin()">
+<button class="btn btn-primary" style="margin-top:10px;width:100%; justify-content: center; padding: 9px 15px; font-size: 13px;" onclick="doAdminLogin()">
 <i class="fas fa-right-to-bracket"></i> Acceder
 </button>
 <div class="login-error" id="adminError">
@@ -1154,7 +1152,7 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_
 // ============================================
 // ESTADO GLOBAL DE LA APLICACIÓN
 // ============================================
-const AppState = { todasActividades: [], ingenieros: [], tiposActividad: [], tiposError: [], isAdmin: false, currentPage: 1, pageSize: 20, cache: { dashboard: null, lastUpdate: null } };
+const AppState = { todasActividades: [], ingenieros: [], tiposActividad: [], tiposError: [], isAdmin: false, currentPage: 1, pageSize: 20, currentPageFE: 1, pageSizeFE: 10, currentFE: null, cache: { dashboard: null, lastUpdate: null } };
 let chartMes, chartTipo, chartIng, chartOT, chartErrores, chartEstado, chartAnual, chartOTDetail, chartIngTipo, chartIngMes;
 const CHART_COLORS = ['#3498db', '#2ecc71', '#f1c40f', '#e74c3c', '#9b59b6', '#1abc9c', '#34495e', '#e67e22', '#95a5a6', '#d35400', '#2980b9', '#27ae60', '#8e44ad', '#16a085', '#c0392b'];
 const DEFAULT_PASS_HASH = "a5e7f5e1d9c3b2a4f8e7d6c5b4a3f2e1d0c9b8a7f6e5d4c3b2a1f0e9d8c7b6a5";
@@ -1172,7 +1170,6 @@ AppState.isAdmin = true;
 localStorage.setItem('adminLogged', 'true');
 document.getElementById('adminLocked').classList.add('hidden');
 document.getElementById('adminPanel').classList.remove('hidden');
-document.getElementById('btnAdminLogin').classList.add('hidden');
 document.getElementById('btnLogout').classList.remove('hidden');
 showToast('Bienvenido, Administrador', 'success');
 renderAdmin();
@@ -1206,7 +1203,7 @@ document.getElementById('adminPanel').classList.add('hidden');
 setTimeout(() => document.getElementById('adminUser').focus(), 100);
 }
 function logoutAdmin() {
-showConfirm('¿Cerrar sesión de administrador?', () => { AppState.isAdmin = false; localStorage.removeItem('adminLogged'); document.getElementById('adminLocked').classList.remove('hidden'); document.getElementById('adminPanel').classList.add('hidden'); document.getElementById('btnAdminLogin').classList.remove('hidden'); document.getElementById('btnLogout').classList.add('hidden'); showSection('registro', document.querySelector('.tab')); showToast('Sesión cerrada', 'info'); }, { type: 'info', title: 'Cerrar sesión' });
+showConfirm('¿Cerrar sesión de administrador?', () => { AppState.isAdmin = false; localStorage.removeItem('adminLogged'); document.getElementById('adminLocked').classList.remove('hidden'); document.getElementById('adminPanel').classList.add('hidden'); document.getElementById('btnLogout').classList.add('hidden'); showSection('registro', document.querySelector('.tab')); showToast('Sesión cerrada', 'info'); }, { type: 'info', title: 'Cerrar sesión' });
 }
 function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 // ============================================
@@ -1736,7 +1733,7 @@ showToast(`PDF individual generado: ${fileName}`, 'success');
 const NotificationSystem = { enabled: true, soundEnabled: false, checkInterval: null, lastCheck: null, notifications: [], init() { this.loadSettings(); this.startChecking(); }, loadSettings() { this.enabled = localStorage.getItem('notificationsEnabled') !== 'false'; this.soundEnabled = localStorage.getItem('notificationsSound') === 'true'; }, saveSettings() { localStorage.setItem('notificationsEnabled', this.enabled); localStorage.setItem('notificationsSound', this.soundEnabled); }, startChecking() { if (this.checkInterval) clearInterval(this.checkInterval); this.checkForAlerts(); this.checkInterval = setInterval(() => this.checkForAlerts(), 60000); }, checkForAlerts() { if (!this.enabled) return; const now = new Date(); const alerts = []; const pendientesVencidas = AppState.todasActividades.filter(a => { if (a.estado !== 'ACT-PENDIENTE' || !a.inicio) return false; const inicio = new Date(a.inicio); const horasTranscurridas = (now - inicio) / (1000 * 60 * 60); return horasTranscurridas > 24; }); if (pendientesVencidas.length > 0) { alerts.push({ type: 'danger', icon: 'fa-exclamation-triangle', title: 'Actividades Vencidas', message: `${pendientesVencidas.length} actividad(es) pendiente(s) con más de 24 horas`, count: pendientesVencidas.length, data: pendientesVencidas }); } const actividadesHoy = AppState.todasActividades.filter(a => { if (!a.inicio) return false; const inicio = new Date(a.inicio); return inicio.toDateString() === now.toDateString() && a.estado !== 'COMPLETADA'; }); if (actividadesHoy.length > 0) { alerts.push({ type: 'warning', icon: 'fa-clock', title: 'Actividades de Hoy', message: `${actividadesHoy.length} actividad(es) pendiente(s) para hoy`, count: actividadesHoy.length, data: actividadesHoy }); } const workload = {}; AppState.todasActividades.forEach(a => { if (a.estado === 'ACT-PENDIENTE' && a.ingeniero) { workload[a.ingeniero] = (workload[a.ingeniero] || 0) + 1; } }); const sobrecargados = Object.entries(workload).filter(([_, count]) => count >= 5).map(([ing, count]) => ({ ingeniero: ing, count })); if (sobrecargados.length > 0) { alerts.push({ type: 'info', icon: 'fa-user-clock', title: 'Alta Carga de Trabajo', message: `${sobrecargados.length} ingeniero(s) con 5+ actividades pendientes`, count: sobrecargados.length, data: sobrecargados }); } this.updateBadge(alerts); if (alerts.length > 0 && this.shouldNotify(alerts)) { this.showAlertNotification(alerts[0]); } this.lastCheck = now; }, shouldNotify(alerts) { const lastNotification = localStorage.getItem('lastNotificationTime'); if (!lastNotification) return true; const lastTime = new Date(lastNotification); const now = new Date(); const hoursSinceLastNotification = (now - lastTime) / (1000 * 60 * 60); return hoursSinceLastNotification >= 2; }, updateBadge(alerts) { const badge = document.getElementById('notificationBadge'); if (!badge) return; const totalCount = alerts.reduce((sum, alert) => sum + alert.count, 0); if (totalCount > 0) { badge.textContent = totalCount; badge.classList.remove('hidden'); badge.style.background = alerts.some(a => a.type === 'danger') ? '#FF4757' : '#FF6B00'; } else { badge.classList.add('hidden'); } }, showAlertNotification(alert) { if (this.soundEnabled) { this.playNotificationSound(); } showToast(alert.message, alert.type, alert.title, 6000); localStorage.setItem('lastNotificationTime', new Date().toISOString()); }, playNotificationSound() { const audio = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU'); audio.volume = 0.3; audio.play().catch(() => {}); }, showNotificationsPanel() { const panel = document.createElement('div'); panel.id = 'notificationsPanel'; panel.className = 'modal active'; panel.innerHTML = `<div class="modal-content" style="max-width: 600px;"><button class="modal-close" onclick="closeModal('notificationsPanel')" aria-label="Cerrar">&times;</button><h3 style="color: var(--ln-orange-dark); margin-bottom: 20px;"><i class="fas fa-bell"></i> Centro de Notificaciones</h3><div style="margin-bottom: 20px; padding: 15px; background: #f9fafb; border-radius: 8px;"><label style="display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 10px;"><input type="checkbox" id="notifEnabled" ${this.enabled ? 'checked' : ''} style="width: 18px; height: 18px; cursor: pointer;"><span style="font-weight: 600;">Activar notificaciones</span></label><label style="display: flex; align-items: center; gap: 10px; cursor: pointer;"><input type="checkbox" id="notifSound" ${this.soundEnabled ? 'checked' : ''} style="width: 18px; height: 18px; cursor: pointer;"><span style="font-weight: 600;">Sonido de notificación</span></label></div><div id="notificationsList"></div><div style="margin-top: 20px; display: flex; gap: 10px; justify-content: flex-end;"><button class="btn btn-secondary" onclick="closeModal('notificationsPanel')"><i class="fas fa-xmark"></i> Cerrar</button><button class="btn btn-primary" onclick="NotificationSystem.savePanelSettings()"><i class="fas fa-save"></i> Guardar</button></div></div>`; document.body.appendChild(panel); this.renderNotificationsList(); }, renderNotificationsList() { const list = document.getElementById('notificationsList'); if (!list) return; const now = new Date(); const notifications = []; const pendientesVencidas = AppState.todasActividades.filter(a => { if (a.estado !== 'ACT-PENDIENTE' || !a.inicio) return false; const inicio = new Date(a.inicio); const horasTranscurridas = (now - inicio) / (1000 * 60 * 60); return horasTranscurridas > 24; }); if (pendientesVencidas.length > 0) { notifications.push({ type: 'danger', icon: 'fa-exclamation-triangle', title: 'Actividades Vencidas', message: `${pendientesVencidas.length} actividad(es) pendiente(s) con más de 24 horas`, items: pendientesVencidas.slice(0, 5).map(a => ({ text: `${a.ingeniero} - ${a.tipo}`, subtext: `Desde: ${new Date(a.inicio).toLocaleDateString('es-DO')}`, action: () => { closeModal('notificationsPanel'); showSection('actividades', document.querySelector('[onclick*="actividades"]')); } })) }); } const actividadesHoy = AppState.todasActividades.filter(a => { if (!a.inicio) return false; const inicio = new Date(a.inicio); return inicio.toDateString() === now.toDateString() && a.estado !== 'COMPLETADA'; }); if (actividadesHoy.length > 0) { notifications.push({ type: 'warning', icon: 'fa-clock', title: 'Actividades de Hoy', message: `${actividadesHoy.length} actividad(es) pendiente(s) para hoy`, items: actividadesHoy.slice(0, 5).map(a => ({ text: `${a.ingeniero} - ${a.tipo}`, subtext: `${new Date(a.inicio).toLocaleTimeString('es-DO', {hour:'2-digit', minute:'2-digit'})}`, action: () => { closeModal('notificationsPanel'); showSection('actividades', document.querySelector('[onclick*="actividades"]')); } })) }); } const workload = {}; AppState.todasActividades.forEach(a => { if (a.estado === 'ACT-PENDIENTE' && a.ingeniero) { workload[a.ingeniero] = (workload[a.ingeniero] || 0) + 1; } }); const sobrecargados = Object.entries(workload).filter(([_, count]) => count >= 5).map(([ing, count]) => ({ ingeniero: ing, count })); if (sobrecargados.length > 0) { notifications.push({ type: 'info', icon: 'fa-user-clock', title: 'Alta Carga de Trabajo', message: `${sobrecargados.length} ingeniero(s) con 5+ actividades pendientes`, items: sobrecargados.slice(0, 5).map(item => ({ text: item.ingeniero, subtext: `${item.count} actividades pendientes`, action: () => { closeModal('notificationsPanel'); showSection('admin', document.querySelector('[onclick*="admin"]')); } })) }); } if (notifications.length === 0) { list.innerHTML = `<div style="text-align: center; padding: 40px; color: #666;"><i class="fas fa-check-circle" style="font-size: 48px; color: #2ECC71; margin-bottom: 15px;"></i><p style="font-size: 16px; font-weight: 600;">¡Todo al día!</p><p style="font-size: 14px;">No hay notificaciones pendientes</p></div>`; return; } list.innerHTML = notifications.map((notif, notifIdx) => `<div style="background: white; border-left: 4px solid ${notif.type === 'danger' ? '#FF4757' : notif.type === 'warning' ? '#F9CA24' : '#4ECDC4'}; padding: 15px; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;"><i class="fas ${notif.icon}" style="font-size: 20px; color: ${notif.type === 'danger' ? '#FF4757' : notif.type === 'warning' ? '#F9CA24' : '#4ECDC4'};"></i><div style="flex: 1;"><div style="font-weight: 700; font-size: 14px; color: #333;">${notif.title}</div><div style="font-size: 12px; color: #666;">${notif.message}</div></div></div>${notif.items ? `<div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee;">${notif.items.map((item, itemIdx) => `<div style="padding: 8px; background: #f9fafb; border-radius: 6px; margin-bottom: 5px; cursor: pointer; transition: all 0.2s;" onclick="NotificationSystem.notifications[${notifIdx}].items[${itemIdx}].action()" onmouseover="this.style.background='#fff3e0'" onmouseout="this.style.background='#f9fafb'"><div style="font-weight: 600; font-size: 13px; color: #333;">${item.text}</div><div style="font-size: 11px; color: #666;">${item.subtext}</div></div>`).join('')}</div>` : ''}</div>`).join(''); this.notifications = notifications; }, savePanelSettings() { this.enabled = document.getElementById('notifEnabled').checked; this.soundEnabled = document.getElementById('notifSound').checked; this.saveSettings(); if (this.enabled) { this.startChecking(); showToast('Notificaciones activadas', 'success'); } else { if (this.checkInterval) clearInterval(this.checkInterval); showToast('Notificaciones desactivadas', 'info'); } closeModal('notificationsPanel'); } };
 async function initApp() {
 if (!localStorage.getItem('adminPassHash')) { localStorage.setItem('adminPassHash', await sha256('FE2026$KPI')); }
-if (localStorage.getItem('adminLogged') === 'true') { AppState.isAdmin = true; document.getElementById('btnAdminLogin').classList.add('hidden'); document.getElementById('btnLogout').classList.remove('hidden'); document.getElementById('adminLocked').classList.add('hidden'); document.getElementById('adminPanel').classList.remove('hidden'); }
+if (localStorage.getItem('adminLogged') === 'true') { AppState.isAdmin = true; document.getElementById('btnLogout').classList.remove('hidden'); document.getElementById('adminLocked').classList.add('hidden'); document.getElementById('adminPanel').classList.remove('hidden'); }
 await cargarDatosSupabase();
 cargarSelects();
 setFechaActual();
@@ -1780,14 +1777,21 @@ if (!AppState.ingenieros || AppState.ingenieros.length === 0) { container.innerH
 const ticketsHTML = AppState.ingenieros.map(ing => { const actividadesFE = AppState.todasActividades.filter(a => a.ingeniero === ing); const pendientes = actividadesFE.filter(a => a.estado === 'ACT-PENDIENTE').length; const completadas = actividadesFE.filter(a => a.estado === 'COMPLETADA').length; const total = actividadesFE.length; const iniciales = ing.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase(); const hasPending = pendientes > 0; return `<div class="fe-ticket-card ${hasPending ? 'has-pending' : ''}" onclick="selectFE('${escapeHtml(ing).replace(/'/g, "\\'")}')" tabindex="0" role="button" aria-label="Ver actividades de ${escapeHtml(ing)}">${hasPending ? `<div class="fe-ticket-badge">${pendientes}</div>` : ''}<div class="fe-ticket-header"><div class="fe-avatar">${escapeHtml(iniciales)}</div><div class="fe-ticket-name">${escapeHtml(ing)}</div></div><div class="fe-ticket-stats"><div class="fe-stat-box pending"><span class="stat-number">${pendientes}</span><span class="stat-label">Pendientes</span></div><div class="fe-stat-box completed"><span class="stat-number">${completadas}</span><span class="stat-label">Completadas</span></div><div class="fe-stat-box"><span class="stat-number">${total}</span><span class="stat-label">Total</span></div><div class="fe-stat-box"><span class="stat-number">${total > 0 ? ((completadas/total)*100).toFixed(0) : 0}%</span><span class="stat-label">Efectividad</span></div></div></div>`; }).join('');
 container.innerHTML = ticketsHTML;
 }
-function selectFE(feName) { document.getElementById('feTicketView').style.display = 'none'; document.getElementById('feActivitiesView').style.display = 'block'; renderFEActivities(feName); }
-function backToTickets() { document.getElementById('feTicketView').style.display = 'block'; document.getElementById('feActivitiesView').style.display = 'none'; renderFETickets(); }
+function selectFE(feName) { document.getElementById('feTicketView').style.display = 'none'; document.getElementById('feActivitiesView').style.display = 'block'; AppState.currentFE = feName; AppState.currentPageFE = 1; renderFEActivities(feName); }
+function backToTickets() { document.getElementById('feTicketView').style.display = 'block'; document.getElementById('feActivitiesView').style.display = 'none'; AppState.currentFE = null; AppState.currentPageFE = 1; renderFETickets(); }
 function renderFEActivities(feName) {
 const container = document.getElementById('feActivitiesList');
-if (!feName) { container.innerHTML = '<p style="text-align:center; padding: 30px; color: #666;">Seleccione un ingeniero para ver sus actividades.</p>'; return; }
+const pagContainer = document.getElementById('paginationFE');
+if (!feName) { container.innerHTML = '<p style="text-align:center; padding: 30px; color: #666;">Seleccione un ingeniero para ver sus actividades.</p>'; if (pagContainer) pagContainer.innerHTML = ''; return; }
 const actividadesFE = AppState.todasActividades.filter(a => a.ingeniero === feName).sort((a,b) => new Date(b.inicio) - new Date(a.inicio));
-if (actividadesFE.length === 0) { container.innerHTML = `<p style="text-align:center; padding: 30px; color: #666;">No hay actividades asignadas a <strong>${escapeHtml(feName)}</strong>.</p>`; return; }
-container.innerHTML = actividadesFE.map(a => {
+if (actividadesFE.length === 0) { container.innerHTML = `<p style="text-align:center; padding: 30px; color: #666;">No hay actividades asignadas a <strong>${escapeHtml(feName)}</strong>.</p>`; if (pagContainer) pagContainer.innerHTML = ''; return; }
+const totalPages = Math.ceil(actividadesFE.length / AppState.pageSizeFE);
+if (AppState.currentPageFE > totalPages) AppState.currentPageFE = totalPages;
+if (AppState.currentPageFE < 1) AppState.currentPageFE = 1;
+const start = (AppState.currentPageFE - 1) * AppState.pageSizeFE;
+const end = start + AppState.pageSizeFE;
+const pageData = actividadesFE.slice(start, end);
+container.innerHTML = pageData.map(a => {
 let estadoBadge = '';
 if (a.estado === 'COMPLETADA') estadoBadge = '<span class="badge badge-success">COMPLETADA</span>';
 else if (a.estado === 'INCOMPLETA') estadoBadge = '<span class="badge badge-danger">INCOMPLETA</span>';
@@ -1804,7 +1808,27 @@ const safeTipo = escapeHtml(a.tipo || 'Sin tipo');
 const safeEspecialista = a.especialista ? escapeHtml(a.especialista) : '';
 return `<div class="card" style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; margin-bottom: 15px; transition: all 0.3s;"><div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; flex-wrap:wrap; gap:10px;"><div style="flex:1; min-width:200px;"><div style="font-weight:700; font-size:1.05rem; color:#1f2937;">${safeTipo} - ${safePM}</div><div style="color:#6b7280; font-size:0.9rem; margin-top:4px;"><i class="fas fa-calendar"></i> ${ini.toLocaleDateString('es-DO')} | <i class="fas fa-clock"></i> ${ini.toLocaleTimeString('es-DO', {hour:'2-digit', minute:'2-digit'})}</div></div>${estadoBadge}</div><div style="margin: 10px 0; padding: 10px; background: white; border-radius: 6px; border-left: 3px solid var(--ln-orange);"><div style="font-size:11px; color:#666; font-weight:700; text-transform:uppercase; margin-bottom:5px;"><i class="fas fa-file-lines"></i> Descripción</div><div style="color: #374151; font-size: 0.95rem; line-height:1.5;">${descCorta}${(a.descripcion || '').length > 100 ? '...' : ''}</div></div>${safeEspecialista ? `<p style="margin: 5px 0; color: #374151; font-size: 0.95rem;"><strong><i class="fas fa-user-gear"></i> Especialista:</strong> ${safeEspecialista}</p>` : ''}${a.fuera_horario ? '<p style="color: #ef4444; font-weight: 600; margin-top: 8px; font-size: 0.9rem;"><i class="fas fa-triangle-exclamation"></i> Fuera de Horario</p>' : ''}<div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;"><button class="btn btn-primary" style="padding: 8px 16px; font-size: 13px; background: #2196f3;" onclick="verDetallesActividad('${safeId}')" aria-label="Ver detalles"><i class="fas fa-eye"></i> Ver Detalles</button>${a.estado !== 'COMPLETADA' ? `<button class="btn btn-success" style="padding: 8px 16px; font-size: 13px;" onclick="marcarFECompletada('${safeId}')" aria-label="Marcar como completada"><i class="fas fa-check"></i> Marcar como Completada</button>` : '<span style="color: #27ae60; font-weight: bold; padding: 8px 16px; font-size: 13px; background:#d4edda; border-radius:6px;"><i class="fas fa-check"></i> Ya Finalizada</span>'}<button class="btn btn-edit" style="padding: 8px 16px; font-size: 13px;" onclick="abrirEditar('${safeId}')" aria-label="Editar actividad"><i class="fas fa-pen"></i> Editar</button></div></div>`;
 }).join('');
+renderPaginationFE(actividadesFE.length, totalPages);
 }
+function renderPaginationFE(total, totalPages) {
+const container = document.getElementById('paginationFE');
+if (!container) return;
+if (totalPages <= 1) { container.innerHTML = `<div class="pagination-info">Mostrando ${total} registro${total !== 1 ? 's' : ''}</div>`; return; }
+let html = `<button ${AppState.currentPageFE === 1 ? 'disabled' : ''} onclick="goToPageFE(${AppState.currentPageFE - 1})" aria-label="Página anterior"><i class="fas fa-chevron-left"></i></button>`;
+const maxVisible = 5;
+let startPage = Math.max(1, AppState.currentPageFE - Math.floor(maxVisible / 2));
+let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+if (endPage - startPage < maxVisible - 1) { startPage = Math.max(1, endPage - maxVisible + 1); }
+if (startPage > 1) { html += `<button onclick="goToPageFE(1)">1</button>`; if (startPage > 2) html += `<span class="pagination-info">...</span>`; }
+for (let i = startPage; i <= endPage; i++) { html += `<button class="${i === AppState.currentPageFE ? 'active' : ''}" onclick="goToPageFE(${i})" aria-label="Página ${i}" ${i === AppState.currentPageFE ? 'aria-current="page"' : ''}>${i}</button>`; }
+if (endPage < totalPages) { if (endPage < totalPages - 1) html += `<span class="pagination-info">...</span>`; html += `<button onclick="goToPageFE(${totalPages})">${totalPages}</button>`; }
+html += `<button ${AppState.currentPageFE === totalPages ? 'disabled' : ''} onclick="goToPageFE(${AppState.currentPageFE + 1})" aria-label="Página siguiente"><i class="fas fa-chevron-right"></i></button>`;
+const start = (AppState.currentPageFE - 1) * AppState.pageSizeFE + 1;
+const end = Math.min(AppState.currentPageFE * AppState.pageSizeFE, total);
+html += `<div class="pagination-info">${start}-${end} de ${total}</div>`;
+container.innerHTML = html;
+}
+function goToPageFE(page) { AppState.currentPageFE = page; if (AppState.currentFE) renderFEActivities(AppState.currentFE); window.scrollTo({ top: document.getElementById('portalFE').offsetTop, behavior: 'smooth' }); }
 async function marcarFECompletada(id) {
 showConfirm('¿Confirmar que esta actividad fue COMPLETADA exitosamente?', async () => {
 try {
@@ -1813,7 +1837,7 @@ if (error) throw error;
 const idx = AppState.todasActividades.findIndex(a => String(a.id) === String(id));
 if (idx !== -1) AppState.todasActividades[idx].estado = 'COMPLETADA';
 showToast('Actividad marcada como completada', 'success');
-renderFEActivities();
+renderFEActivities(AppState.currentFE);
 renderWorkloadMarker();
 renderTabla();
 renderDashboard();
