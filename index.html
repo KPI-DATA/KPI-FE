@@ -1730,7 +1730,194 @@ showToast(`PDF individual generado: ${fileName}`, 'success');
 // ============================================
 // SISTEMA DE NOTIFICACIONES AVANZADO
 // ============================================
-const NotificationSystem = { enabled: true, soundEnabled: false, checkInterval: null, lastCheck: null, notifications: [], init() { this.loadSettings(); this.startChecking(); }, loadSettings() { this.enabled = localStorage.getItem('notificationsEnabled') !== 'false'; this.soundEnabled = localStorage.getItem('notificationsSound') === 'true'; }, saveSettings() { localStorage.setItem('notificationsEnabled', this.enabled); localStorage.setItem('notificationsSound', this.soundEnabled); }, startChecking() { if (this.checkInterval) clearInterval(this.checkInterval); this.checkForAlerts(); this.checkInterval = setInterval(() => this.checkForAlerts(), 60000); }, checkForAlerts() { if (!this.enabled) return; const now = new Date(); const alerts = []; const pendientesVencidas = AppState.todasActividades.filter(a => { if (a.estado !== 'ACT-PENDIENTE' || !a.inicio) return false; const inicio = new Date(a.inicio); const horasTranscurridas = (now - inicio) / (1000 * 60 * 60); return horasTranscurridas > 24; }); if (pendientesVencidas.length > 0) { alerts.push({ type: 'danger', icon: 'fa-exclamation-triangle', title: 'Actividades Vencidas', message: `${pendientesVencidas.length} actividad(es) pendiente(s) con más de 24 horas`, count: pendientesVencidas.length, data: pendientesVencidas }); } const actividadesHoy = AppState.todasActividades.filter(a => { if (!a.inicio) return false; const inicio = new Date(a.inicio); return inicio.toDateString() === now.toDateString() && a.estado !== 'COMPLETADA'; }); if (actividadesHoy.length > 0) { alerts.push({ type: 'warning', icon: 'fa-clock', title: 'Actividades de Hoy', message: `${actividadesHoy.length} actividad(es) pendiente(s) para hoy`, count: actividadesHoy.length, data: actividadesHoy }); } const workload = {}; AppState.todasActividades.forEach(a => { if (a.estado === 'ACT-PENDIENTE' && a.ingeniero) { workload[a.ingeniero] = (workload[a.ingeniero] || 0) + 1; } }); const sobrecargados = Object.entries(workload).filter(([_, count]) => count >= 5).map(([ing, count]) => ({ ingeniero: ing, count })); if (sobrecargados.length > 0) { alerts.push({ type: 'info', icon: 'fa-user-clock', title: 'Alta Carga de Trabajo', message: `${sobrecargados.length} ingeniero(s) con 5+ actividades pendientes`, count: sobrecargados.length, data: sobrecargados }); } this.updateBadge(alerts); if (alerts.length > 0 && this.shouldNotify(alerts)) { this.showAlertNotification(alerts[0]); } this.lastCheck = now; }, shouldNotify(alerts) { const lastNotification = localStorage.getItem('lastNotificationTime'); if (!lastNotification) return true; const lastTime = new Date(lastNotification); const now = new Date(); const hoursSinceLastNotification = (now - lastTime) / (1000 * 60 * 60); return hoursSinceLastNotification >= 2; }, updateBadge(alerts) { const badge = document.getElementById('notificationBadge'); if (!badge) return; const totalCount = alerts.reduce((sum, alert) => sum + alert.count, 0); if (totalCount > 0) { badge.textContent = totalCount; badge.classList.remove('hidden'); badge.style.background = alerts.some(a => a.type === 'danger') ? '#FF4757' : '#FF6B00'; } else { badge.classList.add('hidden'); } }, showAlertNotification(alert) { if (this.soundEnabled) { this.playNotificationSound(); } showToast(alert.message, alert.type, alert.title, 6000); localStorage.setItem('lastNotificationTime', new Date().toISOString()); }, playNotificationSound() { const audio = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU'); audio.volume = 0.3; audio.play().catch(() => {}); }, showNotificationsPanel() { const panel = document.createElement('div'); panel.id = 'notificationsPanel'; panel.className = 'modal active'; panel.innerHTML = `<div class="modal-content" style="max-width: 600px;"><button class="modal-close" onclick="closeModal('notificationsPanel')" aria-label="Cerrar">&times;</button><h3 style="color: var(--ln-orange-dark); margin-bottom: 20px;"><i class="fas fa-bell"></i> Centro de Notificaciones</h3><div style="margin-bottom: 20px; padding: 15px; background: #f9fafb; border-radius: 8px;"><label style="display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 10px;"><input type="checkbox" id="notifEnabled" ${this.enabled ? 'checked' : ''} style="width: 18px; height: 18px; cursor: pointer;"><span style="font-weight: 600;">Activar notificaciones</span></label><label style="display: flex; align-items: center; gap: 10px; cursor: pointer;"><input type="checkbox" id="notifSound" ${this.soundEnabled ? 'checked' : ''} style="width: 18px; height: 18px; cursor: pointer;"><span style="font-weight: 600;">Sonido de notificación</span></label></div><div id="notificationsList"></div><div style="margin-top: 20px; display: flex; gap: 10px; justify-content: flex-end;"><button class="btn btn-secondary" onclick="closeModal('notificationsPanel')"><i class="fas fa-xmark"></i> Cerrar</button><button class="btn btn-primary" onclick="NotificationSystem.savePanelSettings()"><i class="fas fa-save"></i> Guardar</button></div></div>`; document.body.appendChild(panel); this.renderNotificationsList(); }, renderNotificationsList() { const list = document.getElementById('notificationsList'); if (!list) return; const now = new Date(); const notifications = []; const pendientesVencidas = AppState.todasActividades.filter(a => { if (a.estado !== 'ACT-PENDIENTE' || !a.inicio) return false; const inicio = new Date(a.inicio); const horasTranscurridas = (now - inicio) / (1000 * 60 * 60); return horasTranscurridas > 24; }); if (pendientesVencidas.length > 0) { notifications.push({ type: 'danger', icon: 'fa-exclamation-triangle', title: 'Actividades Vencidas', message: `${pendientesVencidas.length} actividad(es) pendiente(s) con más de 24 horas`, items: pendientesVencidas.slice(0, 5).map(a => ({ text: `${a.ingeniero} - ${a.tipo}`, subtext: `Desde: ${new Date(a.inicio).toLocaleDateString('es-DO')}`, action: () => { closeModal('notificationsPanel'); showSection('actividades', document.querySelector('[onclick*="actividades"]')); } })) }); } const actividadesHoy = AppState.todasActividades.filter(a => { if (!a.inicio) return false; const inicio = new Date(a.inicio); return inicio.toDateString() === now.toDateString() && a.estado !== 'COMPLETADA'; }); if (actividadesHoy.length > 0) { notifications.push({ type: 'warning', icon: 'fa-clock', title: 'Actividades de Hoy', message: `${actividadesHoy.length} actividad(es) pendiente(s) para hoy`, items: actividadesHoy.slice(0, 5).map(a => ({ text: `${a.ingeniero} - ${a.tipo}`, subtext: `${new Date(a.inicio).toLocaleTimeString('es-DO', {hour:'2-digit', minute:'2-digit'})}`, action: () => { closeModal('notificationsPanel'); showSection('actividades', document.querySelector('[onclick*="actividades"]')); } })) }); } const workload = {}; AppState.todasActividades.forEach(a => { if (a.estado === 'ACT-PENDIENTE' && a.ingeniero) { workload[a.ingeniero] = (workload[a.ingeniero] || 0) + 1; } }); const sobrecargados = Object.entries(workload).filter(([_, count]) => count >= 5).map(([ing, count]) => ({ ingeniero: ing, count })); if (sobrecargados.length > 0) { notifications.push({ type: 'info', icon: 'fa-user-clock', title: 'Alta Carga de Trabajo', message: `${sobrecargados.length} ingeniero(s) con 5+ actividades pendientes`, items: sobrecargados.slice(0, 5).map(item => ({ text: item.ingeniero, subtext: `${item.count} actividades pendientes`, action: () => { closeModal('notificationsPanel'); showSection('admin', document.querySelector('[onclick*="admin"]')); } })) }); } if (notifications.length === 0) { list.innerHTML = `<div style="text-align: center; padding: 40px; color: #666;"><i class="fas fa-check-circle" style="font-size: 48px; color: #2ECC71; margin-bottom: 15px;"></i><p style="font-size: 16px; font-weight: 600;">¡Todo al día!</p><p style="font-size: 14px;">No hay notificaciones pendientes</p></div>`; return; } list.innerHTML = notifications.map((notif, notifIdx) => `<div style="background: white; border-left: 4px solid ${notif.type === 'danger' ? '#FF4757' : notif.type === 'warning' ? '#F9CA24' : '#4ECDC4'}; padding: 15px; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;"><i class="fas ${notif.icon}" style="font-size: 20px; color: ${notif.type === 'danger' ? '#FF4757' : notif.type === 'warning' ? '#F9CA24' : '#4ECDC4'};"></i><div style="flex: 1;"><div style="font-weight: 700; font-size: 14px; color: #333;">${notif.title}</div><div style="font-size: 12px; color: #666;">${notif.message}</div></div></div>${notif.items ? `<div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee;">${notif.items.map((item, itemIdx) => `<div style="padding: 8px; background: #f9fafb; border-radius: 6px; margin-bottom: 5px; cursor: pointer; transition: all 0.2s;" onclick="NotificationSystem.notifications[${notifIdx}].items[${itemIdx}].action()" onmouseover="this.style.background='#fff3e0'" onmouseout="this.style.background='#f9fafb'"><div style="font-weight: 600; font-size: 13px; color: #333;">${item.text}</div><div style="font-size: 11px; color: #666;">${item.subtext}</div></div>`).join('')}</div>` : ''}</div>`).join(''); this.notifications = notifications; }, savePanelSettings() { this.enabled = document.getElementById('notifEnabled').checked; this.soundEnabled = document.getElementById('notifSound').checked; this.saveSettings(); if (this.enabled) { this.startChecking(); showToast('Notificaciones activadas', 'success'); } else { if (this.checkInterval) clearInterval(this.checkInterval); showToast('Notificaciones desactivadas', 'info'); } closeModal('notificationsPanel'); } };
+const NotificationSystem = {
+enabled: true,
+soundEnabled: false,
+checkInterval: null,
+lastCheck: null,
+notifications: [],
+init() {
+this.loadSettings();
+this.startChecking();
+},
+loadSettings() {
+this.enabled = localStorage.getItem('notificationsEnabled') !== 'false';
+this.soundEnabled = localStorage.getItem('notificationsSound') === 'true';
+},
+saveSettings() {
+localStorage.setItem('notificationsEnabled', this.enabled);
+localStorage.setItem('notificationsSound', this.soundEnabled);
+},
+startChecking() {
+if (this.checkInterval) clearInterval(this.checkInterval);
+this.checkForAlerts();
+this.checkInterval = setInterval(() => this.checkForAlerts(), 60000);
+},
+checkForAlerts() {
+if (!this.enabled) return;
+const now = new Date();
+const alerts = [];
+const pendientesVencidas = AppState.todasActividades.filter(a => {
+if (a.estado !== 'ACT-PENDIENTE' || !a.inicio) return false;
+const inicio = new Date(a.inicio);
+const horasTranscurridas = (now - inicio) / (1000 * 60 * 60);
+return horasTranscurridas > 24;
+});
+if (pendientesVencidas.length > 0) {
+alerts.push({ type: 'danger', icon: 'fa-exclamation-triangle', title: 'Actividades Vencidas', message: `${pendientesVencidas.length} actividad(es) pendiente(s) con más de 24 horas`, count: pendientesVencidas.length, data: pendientesVencidas });
+}
+const actividadesHoy = AppState.todasActividades.filter(a => {
+if (!a.inicio) return false;
+const inicio = new Date(a.inicio);
+return inicio.toDateString() === now.toDateString() && a.estado !== 'COMPLETADA';
+});
+if (actividadesHoy.length > 0) {
+alerts.push({ type: 'warning', icon: 'fa-clock', title: 'Actividades de Hoy', message: `${actividadesHoy.length} actividad(es) pendiente(s) para hoy`, count: actividadesHoy.length, data: actividadesHoy });
+}
+const workload = {};
+AppState.todasActividades.forEach(a => {
+if (a.estado === 'ACT-PENDIENTE' && a.ingeniero) {
+workload[a.ingeniero] = (workload[a.ingeniero] || 0) + 1;
+}
+});
+const sobrecargados = Object.entries(workload).filter(([_, count]) => count >= 5).map(([ing, count]) => ({ ingeniero: ing, count }));
+if (sobrecargados.length > 0) {
+alerts.push({ type: 'info', icon: 'fa-user-clock', title: 'Alta Carga de Trabajo', message: `${sobrecargados.length} ingeniero(s) con 5+ actividades pendientes`, count: sobrecargados.length, data: sobrecargados });
+}
+this.updateBadge(alerts);
+if (alerts.length > 0 && this.shouldNotify(alerts)) {
+this.showAlertNotification(alerts[0]);
+}
+this.lastCheck = now;
+},
+shouldNotify(alerts) {
+const lastNotification = localStorage.getItem('lastNotificationTime');
+if (!lastNotification) return true;
+const lastTime = new Date(lastNotification);
+const now = new Date();
+const hoursSinceLastNotification = (now - lastTime) / (1000 * 60 * 60);
+return hoursSinceLastNotification >= 2;
+},
+updateBadge(alerts) {
+const badge = document.getElementById('notificationBadge');
+if (!badge) return;
+const totalCount = alerts.reduce((sum, alert) => sum + alert.count, 0);
+if (totalCount > 0) {
+badge.textContent = totalCount;
+badge.classList.remove('hidden');
+badge.style.background = alerts.some(a => a.type === 'danger') ? '#FF4757' : '#FF6B00';
+} else {
+badge.classList.add('hidden');
+}
+},
+showAlertNotification(alert) {
+if (this.soundEnabled) {
+this.playNotificationSound();
+}
+showToast(alert.message, alert.type, alert.title, 6000);
+localStorage.setItem('lastNotificationTime', new Date().toISOString());
+},
+playNotificationSound() {
+const audio = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU');
+audio.volume = 0.3;
+audio.play().catch(() => {});
+},
+// ✅ Función dedicada para cerrar el panel de forma segura y eliminar capas duplicadas
+closePanel() {
+const panel = document.getElementById('notificationsPanel');
+if (panel) {
+panel.classList.remove('active');
+setTimeout(() => { if (panel.parentNode) panel.remove(); }, 200);
+}
+},
+showNotificationsPanel() {
+// ✅ Eliminar cualquier panel existente antes de abrir uno nuevo
+const existingPanel = document.getElementById('notificationsPanel');
+if (existingPanel) existingPanel.remove();
+const panel = document.createElement('div');
+panel.id = 'notificationsPanel';
+panel.className = 'modal active';
+panel.innerHTML = `<div class="modal-content" style="max-width: 600px;"><button class="modal-close" onclick="NotificationSystem.closePanel()" aria-label="Cerrar">&times;</button><h3 style="color: var(--ln-orange-dark); margin-bottom: 20px;"><i class="fas fa-bell"></i> Centro de Notificaciones</h3><div style="margin-bottom: 20px; padding: 15px; background: #f9fafb; border-radius: 8px;"><label style="display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 10px;"><input type="checkbox" id="notifEnabled" ${this.enabled ? 'checked' : ''} style="width: 18px; height: 18px; cursor: pointer;"><span style="font-weight: 600;">Activar notificaciones</span></label><label style="display: flex; align-items: center; gap: 10px; cursor: pointer;"><input type="checkbox" id="notifSound" ${this.soundEnabled ? 'checked' : ''} style="width: 18px; height: 18px; cursor: pointer;"><span style="font-weight: 600;">Sonido de notificación</span></label></div><div id="notificationsList"></div><div style="margin-top: 20px; display: flex; gap: 10px; justify-content: flex-end;"><button class="btn btn-secondary" onclick="NotificationSystem.closePanel()"><i class="fas fa-xmark"></i> Cerrar</button><button class="btn btn-primary" onclick="NotificationSystem.savePanelSettings()"><i class="fas fa-save"></i> Guardar</button></div></div>`;
+document.body.appendChild(panel);
+this.renderNotificationsList();
+},
+renderNotificationsList() {
+const list = document.getElementById('notificationsList');
+if (!list) return;
+const now = new Date();
+const notifications = [];
+const pendientesVencidas = AppState.todasActividades.filter(a => {
+if (a.estado !== 'ACT-PENDIENTE' || !a.inicio) return false;
+const inicio = new Date(a.inicio);
+const horasTranscurridas = (now - inicio) / (1000 * 60 * 60);
+return horasTranscurridas > 24;
+});
+if (pendientesVencidas.length > 0) {
+notifications.push({
+type: 'danger', icon: 'fa-exclamation-triangle', title: 'Actividades Vencidas',
+message: `${pendientesVencidas.length} actividad(es) pendiente(s) con más de 24 horas`,
+items: pendientesVencidas.slice(0, 5).map(a => ({
+text: `${a.ingeniero} - ${a.tipo}`,
+subtext: `Desde: ${new Date(a.inicio).toLocaleDateString('es-DO')}`,
+action: () => { NotificationSystem.closePanel(); showSection('actividades', document.querySelector('[onclick*="actividades"]')); }
+}))
+});
+}
+const actividadesHoy = AppState.todasActividades.filter(a => {
+if (!a.inicio) return false;
+const inicio = new Date(a.inicio);
+return inicio.toDateString() === now.toDateString() && a.estado !== 'COMPLETADA';
+});
+if (actividadesHoy.length > 0) {
+notifications.push({
+type: 'warning', icon: 'fa-clock', title: 'Actividades de Hoy',
+message: `${actividadesHoy.length} actividad(es) pendiente(s) para hoy`,
+items: actividadesHoy.slice(0, 5).map(a => ({
+text: `${a.ingeniero} - ${a.tipo}`,
+subtext: `${new Date(a.inicio).toLocaleTimeString('es-DO', {hour:'2-digit', minute:'2-digit'})}`,
+action: () => { NotificationSystem.closePanel(); showSection('actividades', document.querySelector('[onclick*="actividades"]')); }
+}))
+});
+}
+const workload = {};
+AppState.todasActividades.forEach(a => {
+if (a.estado === 'ACT-PENDIENTE' && a.ingeniero) {
+workload[a.ingeniero] = (workload[a.ingeniero] || 0) + 1;
+}
+});
+const sobrecargados = Object.entries(workload).filter(([_, count]) => count >= 5).map(([ing, count]) => ({ ingeniero: ing, count }));
+if (sobrecargados.length > 0) {
+notifications.push({
+type: 'info', icon: 'fa-user-clock', title: 'Alta Carga de Trabajo',
+message: `${sobrecargados.length} ingeniero(s) con 5+ actividades pendientes`,
+items: sobrecargados.slice(0, 5).map(item => ({
+text: item.ingeniero,
+subtext: `${item.count} actividades pendientes`,
+action: () => { NotificationSystem.closePanel(); showSection('admin', document.querySelector('[onclick*="admin"]')); }
+}))
+});
+}
+if (notifications.length === 0) {
+list.innerHTML = `<div style="text-align: center; padding: 40px; color: #666;"><i class="fas fa-check-circle" style="font-size: 48px; color: #2ECC71; margin-bottom: 15px;"></i><p style="font-size: 16px; font-weight: 600;">¡Todo al día!</p><p style="font-size: 14px;">No hay notificaciones pendientes</p></div>`;
+return;
+}
+list.innerHTML = notifications.map((notif, notifIdx) => `<div style="background: white; border-left: 4px solid ${notif.type === 'danger' ? '#FF4757' : notif.type === 'warning' ? '#F9CA24' : '#4ECDC4'}; padding: 15px; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"><div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;"><i class="fas ${notif.icon}" style="font-size: 20px; color: ${notif.type === 'danger' ? '#FF4757' : notif.type === 'warning' ? '#F9CA24' : '#4ECDC4'};"></i><div style="flex: 1;"><div style="font-weight: 700; font-size: 14px; color: #333;">${notif.title}</div><div style="font-size: 12px; color: #666;">${notif.message}</div></div></div>${notif.items ? `<div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee;">${notif.items.map((item, itemIdx) => `<div style="padding: 8px; background: #f9fafb; border-radius: 6px; margin-bottom: 5px; cursor: pointer; transition: all 0.2s;" onclick="NotificationSystem.notifications[${notifIdx}].items[${itemIdx}].action()" onmouseover="this.style.background='#fff3e0'" onmouseout="this.style.background='#f9fafb'"><div style="font-weight: 600; font-size: 13px; color: #333;">${item.text}</div><div style="font-size: 11px; color: #666;">${item.subtext}</div></div>`).join('')}</div>` : ''}</div>`).join('');
+this.notifications = notifications;
+},
+savePanelSettings() {
+this.enabled = document.getElementById('notifEnabled').checked;
+this.soundEnabled = document.getElementById('notifSound').checked;
+this.saveSettings();
+if (this.enabled) {
+this.startChecking();
+showToast('Notificaciones activadas', 'success');
+} else {
+if (this.checkInterval) clearInterval(this.checkInterval);
+showToast('Notificaciones desactivadas', 'info');
+}
+this.closePanel();
+}
+};
 async function initApp() {
 if (!localStorage.getItem('adminPassHash')) { localStorage.setItem('adminPassHash', await sha256('FE2026$KPI')); }
 if (localStorage.getItem('adminLogged') === 'true') { AppState.isAdmin = true; document.getElementById('btnLogout').classList.remove('hidden'); document.getElementById('adminLocked').classList.add('hidden'); document.getElementById('adminPanel').classList.remove('hidden'); }
@@ -1891,8 +2078,8 @@ function showSection(id, btn) { document.querySelectorAll('.section').forEach(s 
 function clearFilters() { ['gIng','gTipo','gMes','gAnio','gHorario','gEstado'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; }); renderDashboard(); }
 function getFilteredData() { const fIng = document.getElementById('gIng').value.trim(); const fTipo = document.getElementById('gTipo').value.trim(); const fMes = document.getElementById('gMes').value.trim(); const fAnio = document.getElementById('gAnio').value.trim(); const fHorario = document.getElementById('gHorario').value.trim(); const fEstado = document.getElementById('gEstado').value.trim(); return AppState.todasActividades.filter(a => { if (!a.inicio) return false; const ini = new Date(a.inicio); if (fIng && a.ingeniero !== fIng) return false; if (fTipo && a.tipo !== fTipo) return false; if (fMes && fMes !== "" && ini.getMonth() !== parseInt(fMes)) return false; if (fAnio && fAnio !== "" && ini.getFullYear() !== parseInt(fAnio)) return false; if (fHorario === 'Extra' && !esHorasExtra(a)) return false; if (fHorario === 'Laboral' && esHorasExtra(a)) return false; if (fEstado && fEstado !== "" && a.estado !== fEstado) return false; return true; }); }
 function renderDashboard() { const filtradas = getFilteredData(); const total = filtradas.length; const completadas = filtradas.filter(a => a.estado === 'COMPLETADA').length; const pendientes = filtradas.filter(a => a.estado === 'ACT-PENDIENTE').length; const otActs = filtradas.filter(esHorasExtra); document.getElementById('statTotal').textContent = total; document.getElementById('statComp').textContent = completadas; document.getElementById('statPend').textContent = pendientes; document.getElementById('statOT').textContent = otActs.length; document.getElementById('statOTHrs').textContent = otActs.reduce((s, a) => s + calcularHorasExtra(a), 0).toFixed(1) + 'h'; document.getElementById('statIng').textContent = new Set(filtradas.map(a => a.ingeniero)).size; const tasa = total > 0 ? ((completadas / total) * 100).toFixed(1) + '%' : '0%'; document.getElementById('statTasa').textContent = tasa; document.getElementById('statErrores').textContent = filtradas.filter(a => a.tipo_error).length; const duraciones = filtradas.map(a => parseFloat(calcularDuracion(a))).filter(d => !isNaN(d)); document.getElementById('statPromDur').textContent = duraciones.length > 0 ? (duraciones.reduce((a,b)=>a+b, 0) / duraciones.length).toFixed(2) + 'h' : '0h'; const ingCounts = {}; filtradas.forEach(a => { if(a.estado === 'COMPLETADA') ingCounts[a.ingeniero] = (ingCounts[a.ingeniero]||0) + 1; }); let topIng = '-', maxCount = 0; for (const [ing, count] of Object.entries(ingCounts)) { if (count > maxCount) { maxCount = count; topIng = ing; } } document.getElementById('statTopIng').textContent = topIng !== '-' ? `${escapeHtml(topIng)} (${maxCount})` : '-'; const meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']; const dataMes = new Array(12).fill(0); filtradas.forEach(a => { if (a.inicio) dataMes[new Date(a.inicio).getMonth()]++; }); if (chartMes) chartMes.destroy(); chartMes = new Chart(document.getElementById('chartMes'), { type: 'bar', data: { labels: meses, datasets: [{ label: 'Actividades', data: dataMes, backgroundColor: CHART_COLORS }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { tooltip: tooltipConPorcentaje } } }); const tipos = {}; filtradas.forEach(a => { tipos[a.tipo] = (tipos[a.tipo]||0) + 1; }); if (chartTipo) chartTipo.destroy(); chartTipo = new Chart(document.getElementById('chartTipo'), { type: 'doughnut', data: { labels: Object.keys(tipos), datasets: [{ data: Object.values(tipos), backgroundColor: CHART_COLORS }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { font: { size: 11 } } }, datalabels: datalabelsPorcentaje, tooltip: tooltipConPorcentaje } } }); const ingsObj = {}; filtradas.forEach(a => { ingsObj[a.ingeniero] = (ingsObj[a.ingeniero]||0) + 1; }); if (chartIng) chartIng.destroy(); chartIng = new Chart(document.getElementById('chartIng'), { type: 'bar', data: { labels: Object.keys(ingsObj), datasets: [{ label: 'Actividades', data: Object.values(ingsObj), backgroundColor: CHART_COLORS[0] }] }, options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { tooltip: tooltipConPorcentaje } } }); const otIng = {}; filtradas.filter(esHorasExtra).forEach(a => { otIng[a.ingeniero] = (otIng[a.ingeniero]||0) + calcularHorasExtra(a); }); if (chartOT) chartOT.destroy(); chartOT = new Chart(document.getElementById('chartOT'), { type: 'bar', data: { labels: Object.keys(otIng), datasets: [{ label: 'Horas Extra', data: Object.values(otIng).map(v => +v.toFixed(2)), backgroundColor: CHART_COLORS.slice(2, 6) }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { tooltip: tooltipConPorcentaje } } }); const errs = {}; filtradas.filter(a => a.tipo_error).forEach(a => { if (a.tipo_error) errs[a.tipo_error] = (errs[a.tipo_error]||0) + 1; }); if (chartErrores) chartErrores.destroy(); chartErrores = new Chart(document.getElementById('chartErrores'), { type: 'polarArea', data: { labels: Object.keys(errs), datasets: [{ data: Object.values(errs), backgroundColor: CHART_COLORS.slice(0, 10) }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { datalabels: datalabelsPorcentaje, tooltip: tooltipConPorcentaje } } }); const estados = { COMPLETADA: 0, INCOMPLETA: 0, 'ACT-PENDIENTE': 0, SUSPENDIDA: 0, POSTERGADA: 0 }; filtradas.forEach(a => { if (estados[a.estado] !== undefined) estados[a.estado]++; }); if (chartEstado) chartEstado.destroy(); chartEstado = new Chart(document.getElementById('chartEstado'), { type: 'pie', data: { labels: ['Completadas','Incompletas','Pendientes','Suspendidas','Postergadas'], datasets: [{ data: [estados.COMPLETADA, estados.INCOMPLETA, estados['ACT-PENDIENTE'], estados.SUSPENDIDA, estados.POSTERGADA], backgroundColor: ['#2ecc71','#e74c3c','#f1c40f','#95a5a6','#9b59b6'] }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { datalabels: datalabelsPorcentaje, tooltip: tooltipConPorcentaje } } }); const aniosObj = {}; filtradas.forEach(a => { if (a.inicio) { const anio = new Date(a.inicio).getFullYear(); aniosObj[anio] = (aniosObj[anio]||0) + 1; } }); const aniosOrdenados = Object.keys(aniosObj).sort(); if (chartAnual) chartAnual.destroy(); chartAnual = new Chart(document.getElementById('chartAnual'), { type: 'line', data: { labels: aniosOrdenados, datasets: [{ label: 'Actividades', data: aniosOrdenados.map(a => aniosObj[a]), borderColor: CHART_COLORS[0], backgroundColor: 'rgba(52, 152, 219, 0.1)', fill: true, tension: 0.3 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { tooltip: tooltipConPorcentaje } } }); }
-function esHorasExtra(act) { if (act.fuera_horario) return true; if (!act.inicio || !act.fin) return false; const ini = new Date(act.inicio); const fin = new Date(act.fin); return ini.getHours() >= 17 || fin.getHours() >= 17 || (ini.getHours() < 17 && fin.getHours() >= 17); }
-function calcularHorasExtra(act) { if (!act.inicio || !act.fin) return 0; const ini = new Date(act.inicio); const fin = new Date(act.fin); let horasExtra = 0; if (ini.getHours() >= 17) { horasExtra = (fin - ini) / (1000*60*60); } else if (fin.getHours() >= 17 || fin.getDate() !== ini.getDate()) { const limite = new Date(ini); limite.setHours(17, 0, 0, 0); horasExtra = (fin - limite) / (1000*60*60); } return Math.max(0, horasExtra); }
+function esHorasExtra(act) { if (act.fuera_horario) return true; if (!act.inicio || !act.fin) return false; const ini = new Date(act.inicio); const fin = new Date(act.fin); const esFinDeSemana = ini.getDay() === 0 || ini.getDay() === 6; if (esFinDeSemana) return true; return ini.getHours() >= 17 || fin.getHours() >= 17 || (ini.getHours() < 17 && fin.getHours() >= 17); }
+function calcularHorasExtra(act) { if (!act.inicio || !act.fin) return 0; const ini = new Date(act.inicio); const fin = new Date(act.fin); const esFinDeSemana = ini.getDay() === 0 || ini.getDay() === 6; if (esFinDeSemana) { return Math.max(0, (fin - ini) / (1000 * 60 * 60)); } let horasExtra = 0; if (ini.getHours() >= 17) { horasExtra = (fin - ini) / (1000*60*60); } else if (fin.getHours() >= 17 || fin.getDate() !== ini.getDate()) { const limite = new Date(ini); limite.setHours(17, 0, 0, 0); horasExtra = (fin - limite) / (1000*60*60); } return Math.max(0, horasExtra); }
 function calcularDuracion(act) { if (!act.inicio || !act.fin) return '0.00'; return ((new Date(act.fin) - new Date(act.inicio)) / (1000*60*60)).toFixed(2); }
 function toggleDetalleError() { document.getElementById('detalleErrorGroup').style.display = document.getElementById('fTipoError').value ? 'block' : 'none'; }
 async function guardarActividad(e) { e.preventDefault(); const btn = document.getElementById('btnGuardarActividad'); const originalHTML = btn.innerHTML; btn.innerHTML = '<span class="spinner"></span> Guardando...'; btn.disabled = true; const nueva = { inicio: combineDateTime(document.getElementById('fInicioDate').value, document.getElementById('fInicioTime').value), fin: combineDateTime(document.getElementById('fFinDate').value, document.getElementById('fFinTime').value), ingeniero: document.getElementById('fIngeniero').value, tipo: document.getElementById('fTipo').value, pm: document.getElementById('fPM').value, especialista: document.getElementById('fEspecialista').value, fuera_horario: document.getElementById('fFueraHorario').checked, descripcion: document.getElementById('fDescripcion').value, responsable: document.getElementById('fPM').value, observaciones: document.getElementById('fObservaciones').value, horario: document.getElementById('fFueraHorario').checked ? 'Extra' : 'Laboral', estado: document.getElementById('fEstado').value, tipo_error: document.getElementById('fTipoError').value, detalle_error: document.getElementById('fDetalleError').value }; try { setStatus('Guardando...', 'connecting'); const { data, error } = await supabaseClient.from('actividades').insert([nueva]).select(); if (error) throw error; AppState.todasActividades.unshift(data[0]); setStatus('✅ Guardada', 'ok'); showToast('Actividad guardada exitosamente', 'success'); document.getElementById('formActividad').reset(); setFechaActual(); renderWorkloadMarker(); cargarSelects(); renderTabla(); renderDashboard(); renderOT(); renderFETickets(); if (document.getElementById('portalFE').classList.contains('active')) { backToTickets(); } } catch (error) { console.error('Error:', error); setStatus('Error: ' + error.message, 'error'); showToast('Error: ' + error.message, 'error'); } finally { btn.innerHTML = originalHTML; btn.disabled = false; } }
