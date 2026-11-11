@@ -1919,7 +1919,7 @@ this.closePanel();
 }
 };
 async function initApp() {
-if (!localStorage.getItem('adminPassHash')) { localStorage.setItem('adminPassHash', await sha256('FE2026$KPI')); }
+if (!localStorage.getItem('adminPassHash')) { localStorage.setItem('adminPassHash', await sha256('FE2026$KPIEEEEEEEES')); }
 if (localStorage.getItem('adminLogged') === 'true') { AppState.isAdmin = true; document.getElementById('btnLogout').classList.remove('hidden'); document.getElementById('adminLocked').classList.add('hidden'); document.getElementById('adminPanel').classList.remove('hidden'); }
 await cargarDatosSupabase();
 cargarSelects();
@@ -2102,6 +2102,123 @@ async function delError(idx) { const val = AppState.tiposError[idx]; showConfirm
 document.addEventListener('keypress', e => { if (e.key === 'Enter') { if (!document.getElementById('adminLocked').classList.contains('hidden')) { doAdminLogin(); } } });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { document.querySelectorAll('.modal.active, .edit-modal.active, .about-modal.active').forEach(m => { m.classList.remove('active'); }); const confirmModal = document.getElementById('confirmModal'); if (confirmModal.classList.contains('active')) { confirmModal.classList.remove('active'); } const notifPanel = document.getElementById('notificationsPanel'); if (notifPanel) { notifPanel.classList.remove('active'); } } });
 window.addEventListener('load', initApp);
+</script>
+
+<!-- ============================================================ -->
+<!-- 🛡️ CAPA DISUASORIA ANTI-INSPECCIÓN v1.0 (NUEVO)              -->
+<!-- ============================================================ -->
+<!-- ⚠️ IMPORTANTE: Esto es DISUASIÓN, no seguridad real.          -->
+<!-- El HTML siempre llega al navegador y un usuario técnico      -->
+<!-- puede evadirlo (curl, menú del navegador, JS desactivado).   -->
+<!-- La seguridad REAL debe vivir en Supabase (RLS + Auth).       -->
+<!-- ============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  // Evita doble inicialización si el bloque se incluyera dos veces
+  if (window.__lnAntiInspectActive) return;
+  window.__lnAntiInspectActive = true;
+
+  const UMBRAL = 180;      // px de diferencia que delata DevTools acopladas
+  const INTERVALO = 1200;  // ms entre comprobaciones
+  const baseDPR = window.devicePixelRatio || 1; // referencia para compensar el zoom
+
+  // Aviso con throttle: evita saturar de toasts si se repite la tecla
+  let ultimoAviso = 0;
+  const avisar = () => {
+    const ahora = Date.now();
+    if (ahora - ultimoAviso < 2000) return;
+    ultimoAviso = ahora;
+    if (typeof showToast === 'function') {
+      showToast('Inspección no permitida en este sistema', 'warning', 'Acceso restringido', 2500);
+    }
+  };
+
+  // --------------------------------------------
+  // 1) Bloqueo de teclas de DevTools / código fuente
+  //    F12 · Ctrl+Shift+I/J/C/K · Ctrl+U · Ctrl+S
+  //    Mac: Cmd+Alt+I/J/C/U
+  // --------------------------------------------
+  document.addEventListener('keydown', function (e) {
+    const k = (e.key || '').toUpperCase();
+    const bloquear =
+      k === 'F12' ||
+      (e.ctrlKey && e.shiftKey && ['I', 'J', 'C', 'K'].includes(k)) ||
+      (e.ctrlKey && ['U', 'S'].includes(k)) ||
+      (e.metaKey && e.altKey && ['I', 'J', 'C', 'U'].includes(k));
+    if (bloquear) {
+      e.preventDefault();
+      e.stopPropagation();
+      avisar();
+      return false;
+    }
+  }, true); // fase de captura: actúa antes que otros listeners
+
+  // --------------------------------------------
+  // 2) Bloqueo de clic derecho / menú contextual
+  // --------------------------------------------
+  document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+    avisar();
+  }, true);
+
+  // --------------------------------------------
+  // 3) Overlay si detecta DevTools acopladas
+  //    Compensa el zoom del navegador para reducir
+  //    falsos positivos. No detecta DevTools en
+  //    ventana separada (limitación conocida).
+  // --------------------------------------------
+  let overlay = null;
+
+  // Animación del candado con el estilo del sistema
+  const pulseStyle = document.createElement('style');
+  pulseStyle.textContent = '@keyframes lnLockPulse{0%,100%{box-shadow:0 0 25px rgba(255,107,0,.35);transform:scale(1)}50%{box-shadow:0 0 55px rgba(255,107,0,.65);transform:scale(1.05)}}';
+  document.head.appendChild(pulseStyle);
+
+  function devtoolsAbiertas() {
+    const zoom = (window.devicePixelRatio || 1) / baseDPR;
+    const diffW = window.outerWidth - (window.innerWidth * zoom);
+    const diffH = window.outerHeight - (window.innerHeight * zoom);
+    return diffW > UMBRAL || diffH > UMBRAL;
+  }
+
+  function mostrarOverlay() {
+    overlay = document.createElement('div');
+    overlay.id = 'lnAntiInspectOverlay';
+    overlay.setAttribute('role', 'alertdialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-label', 'Herramientas de desarrollo detectadas');
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:999999;background:radial-gradient(ellipse at center,#262626 0%,#121212 75%);display:flex;align-items:center;justify-content:center;font-family:"Segoe UI",Tahoma,sans-serif;padding:20px;text-align:center;';
+    overlay.innerHTML =
+      '<div style="max-width:480px;">' +
+        '<div style="width:92px;height:92px;margin:0 auto 22px;border-radius:50%;background:linear-gradient(135deg,#FF6B00 0%,#E55A00 100%);display:flex;align-items:center;justify-content:center;animation:lnLockPulse 2s ease-in-out infinite;">' +
+          '<i class="fas fa-lock" style="font-size:38px;color:#fff;" aria-hidden="true"></i>' +
+        '</div>' +
+        '<div style="display:inline-block;background:#fff;color:#FF6B00;font-weight:900;padding:3px 12px;border-radius:4px;font-size:13px;letter-spacing:2px;margin-bottom:16px;">LN</div>' +
+        '<h2 style="color:#FF6B00;font-size:22px;font-weight:800;margin-bottom:12px;">Herramientas de desarrollo detectadas</h2>' +
+        '<p style="color:#d4d4d4;font-size:14px;line-height:1.7;margin-bottom:8px;">Por política de seguridad, cierre las herramientas de desarrollo (DevTools) para continuar utilizando el sistema.</p>' +
+        '<p style="color:#7a7a7a;font-size:12px;font-weight:600;">KPI Field Engineers · Liberty Networks</p>' +
+      '</div>';
+    document.body.appendChild(overlay);
+    document.body.style.overflow = 'hidden';
+  }
+
+  function ocultarOverlay() {
+    if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+    overlay = null;
+    document.body.style.overflow = '';
+  }
+
+  function comprobar() {
+    if (document.hidden) return; // no actuar con la pestaña en segundo plano
+    if (devtoolsAbiertas()) { if (!overlay) mostrarOverlay(); }
+    else if (overlay) { ocultarOverlay(); }
+  }
+
+  setInterval(comprobar, INTERVALO);
+  window.addEventListener('resize', comprobar);
+})();
 </script>
 </body>
 </html>
